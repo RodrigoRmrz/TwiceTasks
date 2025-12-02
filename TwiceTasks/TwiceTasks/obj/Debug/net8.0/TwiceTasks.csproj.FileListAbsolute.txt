@@ -10,6 +10,11 @@ C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Humanizer.dll
+C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -25,6 +30,9 @@ C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
@@ -124,6 +132,7 @@ C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\obj\Debug\net8.
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\obj\Debug\net8.0\TwiceTasks.AssemblyInfoInputs.cache
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\obj\Debug\net8.0\TwiceTasks.AssemblyInfo.cs
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\obj\Debug\net8.0\TwiceTasks.csproj.CoreCompileInputs.cache
+C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\obj\Debug\net8.0\TwiceTasks.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\obj\Debug\net8.0\TwiceTasks.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\obj\Debug\net8.0\TwiceTasks.RazorAssemblyInfo.cache
 C:\Users\rodri\Documents\GitHub\TwiceTasks\TwiceTasks\TwiceTasks\obj\Debug\net8.0\TwiceTasks.RazorAssemblyInfo.cs
