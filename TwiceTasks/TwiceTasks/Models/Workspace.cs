@@ -1,17 +1,26 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace TwiceTasks.Models
 {
     public class Workspace
     {
-        // Id
-        public int WorkspaceId { get; set; }
-        // UserId
-        public int UserId { get; set; }
-        public User User { get; set; } = null!;
-        // Name
-        public string Name { get; set; } = string.Empty;
-        // Description
-        public string Description { get; set; } = string.Empty;
-        // CreatedAt
+        public int Id { get; set; }
+
+        [Required]
+        public string Name { get; set; } = "";
+
+        public string? Description { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        // Relación con usuario
+        [Required]
+        public string UserId { get; set; } = "";
+
+        public ApplicationUser? User { get; set; }
+
+        // Relación con páginas
+        public ICollection<Page>? Pages { get; set; }
     }
 }
