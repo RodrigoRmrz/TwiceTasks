@@ -22,5 +22,7 @@ namespace TwiceTasks.Models
 
         // Relación con páginas
         public ICollection<Page>? Pages { get; set; }
+        
+        public DateTime? UpdatedAt { get; set; } = null;
     }
 }

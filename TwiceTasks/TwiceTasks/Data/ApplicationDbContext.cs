@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TwiceTasks.Models;
 
@@ -13,6 +14,8 @@ namespace TwiceTasks.Data
 
         public DbSet<Workspace> Workspaces { get; set; }
         public DbSet<Page> Pages { get; set; }
+        
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
