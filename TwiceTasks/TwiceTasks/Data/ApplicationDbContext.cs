@@ -14,8 +14,10 @@ namespace TwiceTasks.Data
 
         public DbSet<Workspace> Workspaces { get; set; }
         public DbSet<Page> Pages { get; set; }
-        
-        
+        public DbSet<FileResource> FileResources { get; set; }
+
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -34,6 +36,12 @@ namespace TwiceTasks.Data
                 .WithMany(w => w.Pages)
                 .HasForeignKey(p => p.WorkspaceId)
                 .OnDelete(DeleteBehavior.Cascade);
+            // Relación FileResource -> User (N:1)
+            builder.Entity<FileResource>()
+                .HasOne(f => f.User)
+                .WithMany()
+                .HasForeignKey(f => f.UserId);
+
         }
     }
 }
