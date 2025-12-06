@@ -15,7 +15,7 @@ namespace TwiceTasks.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         // Relación con usuario
-        [Required]
+        
         public string UserId { get; set; } = "";
 
         public ApplicationUser? User { get; set; }

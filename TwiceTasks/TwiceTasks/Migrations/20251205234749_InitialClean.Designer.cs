@@ -9,11 +9,11 @@ using TwiceTasks.Data;
 
 #nullable disable
 
-namespace TwiceTasks.Data.Migrations
+namespace TwiceTasks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251205230453_Initial")]
-    partial class Initial
+    [Migration("20251205234749_InitialClean")]
+    partial class InitialClean
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

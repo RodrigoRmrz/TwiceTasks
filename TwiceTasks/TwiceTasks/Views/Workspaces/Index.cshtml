@@ -14,21 +14,29 @@
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Creado</th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model)
 {
-    <tr>
-        <td>@item.Name</td>
-        <td>@item.Description</td>
-        <td>@item.CreatedAt.ToLocalTime().ToShortDateString()</td>
-        <td>
-            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-        </td>
-    </tr>
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.CreatedAt.ToLocalTime().ToShortDateString()</td>
+            <td>
+                <a asp-controller="Pages"
+                   asp-action="Index"
+                   asp-route-workspaceId="@item.Id"
+                   class="btn btn-sm btn-outline-primary">
+                    Ver páginas
+                </a>
+                |
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
 }
     </tbody>
 </table>
