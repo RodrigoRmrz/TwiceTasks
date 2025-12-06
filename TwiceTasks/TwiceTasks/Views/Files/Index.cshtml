@@ -16,7 +16,7 @@
             <div class="card p-2">
                 <strong>@file.FileName</strong>
                 <small>@(file.FileSize / 1024) KB</small>
-                <a href="@file.FilePath" target="_blank">Ver</a> |
+                <a href="@file.FilePath" target="_blank">Ver</a>
                 <a asp-action="Delete" asp-route-id="@file.Id" class="text-danger">Eliminar</a>
             </div>
         </div>
