@@ -10,16 +10,17 @@
 </a>
 
 <ul class="list-group">
-@foreach (var page in Model)
-{
-    <li class="list-group-item">
-        <a asp-action="Edit" asp-route-id="@(page.Id)"
-           class="text-decoration-none fw-semibold">
-            📄 @(page.Title)
+    @foreach (var page in Model)
+    {
+        <li class="list-group-item">
+            <a asp-action="Edit" asp-route-id="@(page.Id)" class="text-decoration-none fw-semibold">
+                📄 @(page.Title)
+            </a>
+             <a asp-action="Delete" asp-route-id="@(page.Id)" class="text-danger text-decoration-none">
+            🗑
         </a>
-    </li>
-}
+        </li>
+    }
 </ul>
-
 
 <a asp-controller="Workspaces" asp-action="Index" class="btn btn-secondary mt-3">Volver</a>

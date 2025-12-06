@@ -1,18 +1,36 @@
-<div id="editorjs"></div>
+@model TwiceTasks.Models.Page
 
-<input type="hidden" name="Content" id="Content" value='@(Model.Content ?? "{}")' />
+@{
+    ViewData["Title"] = Model.Title;
+}
 
-<button class="btn btn-primary mt-3">Guardar</button>
+<form asp-action="Edit" method="post">
+    <div class="container mt-4">
+
+        <input asp-for="Id" type="hidden" />
+
+        <input asp-for="Title"
+               class="form-control form-control-lg mb-3 border-0 fw-bold"
+               style="font-size: 2rem" />
+
+        <div id="editorjs"></div>
+
+        <input type="hidden" name="Content" id="Content" value='@(Model.Content ?? "{}")' />
+
+        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+
+    </div>
+</form>
 
 @section Scripts {
-<script>
-const editor = new EditorJS({
-    holder: 'editorjs',
-    data: @Html.Raw(Model.Content ?? "{}"),
-    onChange: async () => {
-        const content = await editor.save();
-        document.getElementById("Content").value = JSON.stringify(content);
-    }
-});
-</script>
+    <script>
+        const editor = new EditorJS({
+            holder: 'editorjs',
+            data: @Html.Raw(Model.Content ?? "{}"),
+            onChange: async () => {
+                const content = await editor.save();
+                document.getElementById("Content").value = JSON.stringify(content);
+            }
+        });
+    </script>
 }

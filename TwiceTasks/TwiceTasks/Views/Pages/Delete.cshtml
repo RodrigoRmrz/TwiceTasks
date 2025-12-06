@@ -1,0 +1,21 @@
+@model TwiceTasks.Models.Page
+
+@{
+    ViewData["Title"] = "Eliminar página";
+}
+
+<h2>Eliminar página</h2>
+
+<p>
+    ¿Seguro que quieres eliminar la página
+    <strong>@Model.Title</strong>?
+</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-controller="Pages" asp-action="Index" asp-route-workspaceId="@Model.WorkspaceId" class="btn btn-secondary">
+        Cancelar
+    </a>
+</form>

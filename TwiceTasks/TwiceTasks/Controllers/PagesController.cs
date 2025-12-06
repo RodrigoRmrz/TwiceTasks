@@ -91,5 +91,38 @@ namespace TwiceTasks.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index), new { workspaceId = existing.WorkspaceId });
         }
+        // GET: Pages/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            var page = await _context.Pages
+                .Include(p => p.Workspace)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (page == null || page.Workspace!.UserId != _userManager.GetUserId(User))
+                return Unauthorized();
+
+            return View(page);
+        }
+
+        // POST: Pages/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var page = await _context.Pages
+                .Include(p => p.Workspace)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (page == null || page.Workspace!.UserId != _userManager.GetUserId(User))
+                return Unauthorized();
+
+            var workspaceId = page.WorkspaceId;
+
+            _context.Pages.Remove(page);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index), new { workspaceId });
+        }
+
     }
 }
