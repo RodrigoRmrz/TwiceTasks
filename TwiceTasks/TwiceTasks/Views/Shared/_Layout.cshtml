@@ -39,6 +39,10 @@
                                 </a>
                             </li>
                         }
+                        <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary ms-3" type="button">
+                            🌙
+                        </button>
+
 
                     </ul>
                     <partial name="_LoginPartial" />
@@ -62,6 +66,29 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/@@editorjs/editorjs@2.30.0"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        const toggleBtn = document.getElementById("darkModeToggle");
+        const body = document.body;
+
+        // Cargar preferencia
+        if (localStorage.getItem("darkMode") === "enabled") {
+            body.classList.add("dark-mode");
+            toggleBtn.innerText = "☀️";
+        }
+
+        toggleBtn.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+
+            if (body.classList.contains("dark-mode")) {
+                localStorage.setItem("darkMode", "enabled");
+                toggleBtn.innerText = "☀️";
+            } else {
+                localStorage.setItem("darkMode", "disabled");
+                toggleBtn.innerText = "🌙";
+            }
+        });
+    </script>
+
 </body>
 
 </html>
