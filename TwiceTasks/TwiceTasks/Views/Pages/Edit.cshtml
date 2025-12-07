@@ -4,23 +4,67 @@
     ViewData["Title"] = Model.Title;
 }
 
-<form asp-action="Edit" method="post">
-    <div class="container mt-4">
+<div class="page-editor-container">
 
-        <input asp-for="Id" type="hidden" />
+    <!-- FORM EDIT PAGE -->
+    <form asp-action="Edit" method="post">
 
-        <input asp-for="Title"
-               class="form-control form-control-lg mb-3 border-0 fw-bold"
-               style="font-size: 2rem" />
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <input type="text"
+               name="Title"
+               value="@Model.Title"
+               class="page-title-input"
+               placeholder="Sin título..." />
 
         <div id="editorjs"></div>
 
-        <input type="hidden" name="Content" id="Content" value='@(Model.Content ?? "{}")' />
+        <input type="hidden" name="Content" id="Content"
+               value='@(Model.Content ?? "{}")' />
 
-        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+        <button type="submit" class="btn btn-primary mt-4">
+            Guardar
+        </button>
+    </form>
 
+    <!-- ATTACHMENTS -->
+    <div class="attachments-panel mt-5">
+        <h6 class="attachments-title">📎 Archivos adjuntos</h6>
+
+        <form asp-controller="Files"
+              asp-action="UploadToPage"
+              method="post"
+              enctype="multipart/form-data"
+              class="attachments-upload">
+
+            <input type="hidden" name="pageId" value="@Model.Id" />
+
+            <input type="file" name="file" class="form-control mb-2" />
+
+            <button class="btn btn-sm btn-outline-primary">
+                Adjuntar archivo
+            </button>
+        </form>
+
+        <div class="attachments-list mt-3">
+            @foreach (var file in (IEnumerable<TwiceTasks.Models.FileResource>)ViewBag.Files)
+            {
+                <div class="attachment-item">
+                    <a href="@file.FilePath" target="_blank">
+                        📄 @file.FileName
+                    </a>
+                    <a asp-controller="Files"
+                       asp-action="Delete"
+                       asp-route-id="@file.Id"
+                       class="delete-attachment">
+                        🗑
+                    </a>
+                </div>
+            }
+        </div>
     </div>
-</form>
+
+</div>
 
 @section Scripts {
     <script>

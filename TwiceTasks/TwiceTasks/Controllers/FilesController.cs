@@ -83,5 +83,45 @@ namespace TwiceTasks.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadToPage(IFormFile file, int pageId)
+        {
+            if (file == null || file.Length == 0)
+                return RedirectToAction("Edit", "Pages", new { id = pageId });
+
+            var page = await _context.Pages
+                .Include(p => p.Workspace)
+                .FirstOrDefaultAsync(p => p.Id == pageId);
+
+            if (page == null || page.Workspace!.UserId != _userManager.GetUserId(User))
+                return Unauthorized();
+
+            var userId = _userManager.GetUserId(User);
+
+            var folder = Path.Combine(_env.WebRootPath, "uploads", userId, "pages", pageId.ToString());
+            Directory.CreateDirectory(folder);
+
+            var filePath = Path.Combine(folder, file.FileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            var dbFile = new FileResource
+            {
+                FileName = file.FileName,
+                FilePath = $"/uploads/{userId}/pages/{pageId}/{file.FileName}",
+                FileSize = file.Length,
+                UserId = userId,
+                PageId = pageId
+            };
+
+            _context.FileResources.Add(dbFile);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Edit", "Pages", new { id = pageId });
+        }
+
     }
 }

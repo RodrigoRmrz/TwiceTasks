@@ -67,8 +67,13 @@ namespace TwiceTasks.Controllers
             if (page == null || page.Workspace!.UserId != _userManager.GetUserId(User))
                 return Unauthorized();
 
+            ViewBag.Files = await _context.FileResources
+                .Where(f => f.PageId == id)
+                .ToListAsync();
+
             return View(page);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
