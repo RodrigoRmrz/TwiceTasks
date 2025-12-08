@@ -226,5 +226,44 @@ body.dark-mode .table a:hover {
 body.dark-mode .table td {
     background-color: transparent !important;
 }
+/* ===== FILE UPLOAD MODERNO ===== */
+
+.attachment-upload-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+/* Botón/label tipo Notion */
+.file-picker {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 6px;
+    background-color: #f1f3f5;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.file-picker:hover {
+    background-color: #e9ecef;
+}
+
+/* Dark mode */
+body.dark-mode .file-picker {
+    background-color: #14161c;
+    border-color: #333;
+    color: #e6e6e6;
+}
+
+body.dark-mode .file-picker:hover {
+    background-color: #1b1f2a;
+}
+
 
 
