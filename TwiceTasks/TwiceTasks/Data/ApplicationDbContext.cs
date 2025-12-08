@@ -15,6 +15,8 @@ namespace TwiceTasks.Data
         public DbSet<Workspace> Workspaces { get; set; }
         public DbSet<Page> Pages { get; set; }
         public DbSet<FileResource> FileResources { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<PageTag> PageTags { get; set; }
 
 
 
@@ -41,6 +43,18 @@ namespace TwiceTasks.Data
                 .HasOne(f => f.User)
                 .WithMany()
                 .HasForeignKey(f => f.UserId);
+            builder.Entity<PageTag>()
+                .HasKey(pt => new { pt.PageId, pt.TagId });
+
+            builder.Entity<PageTag>()
+                .HasOne(pt => pt.Page)
+                .WithMany(p => p.PageTags)
+                .HasForeignKey(pt => pt.PageId);
+
+            builder.Entity<PageTag>()
+                .HasOne(pt => pt.Tag)
+                .WithMany(t => t.PageTags)
+                .HasForeignKey(pt => pt.TagId);
 
         }
     }

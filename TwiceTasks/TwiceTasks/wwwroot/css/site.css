@@ -264,6 +264,72 @@ body.dark-mode .file-picker {
 body.dark-mode .file-picker:hover {
     background-color: #1b1f2a;
 }
+/* ===== TAGS ===== */
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: #e9ecef;
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.85rem;
+    border: none;
+}
+
+.tag-chip span {
+    font-weight: 500;
+}
+
+.tag-chip button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.tag-chip button:hover {
+    color: #dc3545;
+}
+
+.tag-input-form {
+    display: inline-block;
+}
+
+.tag-input {
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+    padding: 0.2rem;
+    min-width: 60px;
+}
+
+/* Dark mode */
+body.dark-mode .tag-chip {
+    background-color: #1b1f2a;
+    color: #e6e6e6;
+}
+
+body.dark-mode .tag-chip button {
+    color: #aaa;
+}
+
+body.dark-mode .tag-input {
+    background-color: transparent;
+    color: #e6e6e6;
+}
+#editorjs {
+    min-height: 300px;
+    cursor: text;
+}
+
 
 
 

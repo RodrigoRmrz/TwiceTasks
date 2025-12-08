@@ -21,5 +21,7 @@ namespace TwiceTasks.Models
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         public bool IsArchived { get; set; } = false;
+        public ICollection<PageTag> PageTags { get; set; } = new List<PageTag>();
+
     }
 }

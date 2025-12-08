@@ -70,6 +70,7 @@ namespace TwiceTasks.Controllers
             ViewBag.Files = await _context.FileResources
                 .Where(f => f.PageId == id)
                 .ToListAsync();
+            ViewBag.Tags = page.PageTags.Select(pt => pt.Tag).ToList();
 
             return View(page);
         }
@@ -96,6 +97,66 @@ namespace TwiceTasks.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index), new { workspaceId = existing.WorkspaceId });
         }
+        [HttpPost]
+        public async Task<IActionResult> AddTag(int pageId, string tagName)
+        {
+            if (string.IsNullOrWhiteSpace(tagName))
+                return RedirectToAction("Edit", new { id = pageId });
+
+            tagName = tagName.Trim().ToLower();
+
+            var page = await _context.Pages
+                .Include(p => p.PageTags)
+                .ThenInclude(pt => pt.Tag)
+                .Include(p => p.Workspace)
+                .FirstOrDefaultAsync(p => p.Id == pageId);
+
+            if (page == null || page.Workspace!.UserId != _userManager.GetUserId(User))
+                return Unauthorized();
+
+            var tag = await _context.Tags
+                .FirstOrDefaultAsync(t => t.Name == tagName);
+
+            if (tag == null)
+            {
+                tag = new Tag { Name = tagName };
+                _context.Tags.Add(tag);
+                await _context.SaveChangesAsync();
+            }
+
+            if (!page.PageTags.Any(pt => pt.TagId == tag.Id))
+            {
+                page.PageTags.Add(new PageTag
+                {
+                    PageId = pageId,
+                    TagId = tag.Id
+                });
+
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Edit", new { id = pageId });
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveTag(int pageId, int tagId)
+        {
+            var pageTag = await _context.PageTags
+                .Include(pt => pt.Page)
+                .ThenInclude(p => p.Workspace)
+                .FirstOrDefaultAsync(pt =>
+                    pt.PageId == pageId && pt.TagId == tagId);
+
+            if (pageTag == null ||
+                pageTag.Page.Workspace!.UserId != _userManager.GetUserId(User))
+                return Unauthorized();
+
+            _context.PageTags.Remove(pageTag);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Edit", new { id = pageId });
+        }
+
+
         // GET: Pages/Delete/5
         public async Task<IActionResult> Delete(int id)
         {

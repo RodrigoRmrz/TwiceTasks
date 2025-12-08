@@ -42,6 +42,13 @@
                         <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary ms-3" type="button">
                             🌙
                         </button>
+                        <form asp-controller="Search" asp-action="Index" method="get" class="d-flex mx-3"
+                            style="max-width: 300px;">
+
+                            <input type="text" name="q" class="form-control form-control-sm"
+                                placeholder="🔍 Buscar..." />
+                        </form>
+
 
 
                     </ul>
