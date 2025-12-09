@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TwiceTasks.Data;
-using TwiceTasks.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
