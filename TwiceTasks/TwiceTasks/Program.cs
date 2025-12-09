@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TwiceTasks.Data;
+using TwiceTasks.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DB
+// =============================
+// DATABASE
+// =============================
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -13,17 +16,33 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-// ✅ IDENTITY CORRECTO
+// =============================
+// IDENTITY
+// =============================
+
+// ✅ Usamos ApplicationUser (IMPORTANTE)
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
 
+// =============================
+// MVC + RAZOR
+// =============================
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+// =============================
+// BUILD APP
+// =============================
 var app = builder.Build();
 
-// PIPELINE
+// =============================
+// MIDDLEWARE
+// =============================
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -39,9 +58,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// ✅ ESTO ES CLAVE
+// 🔐 AUTH
 app.UseAuthentication();
 app.UseAuthorization();
+
+// =============================
+// ROUTING
+// =============================
 
 app.MapControllerRoute(
     name: "default",
@@ -49,4 +72,7 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
+// =============================
+// RUN
+// =============================
 app.Run();
