@@ -1,0 +1,26 @@
+@model IEnumerable<TwiceTasks.Models.Page>
+@{
+    var workspace = ViewBag.Workspace as TwiceTasks.Models.Workspace;
+}
+
+<h2>@workspace!.Name</h2>
+
+<a asp-action="Create" asp-route-workspaceId="@workspace.Id" class="btn btn-primary mb-3">
+    Nueva página
+</a>
+
+<ul class="list-group">
+    @foreach (var page in Model)
+    {
+        <li class="list-group-item">
+            <a asp-action="Edit" asp-route-id="@(page.Id)" class="text-decoration-none fw-semibold">
+                📄 @(page.Title)
+            </a>
+             <a asp-action="Delete" asp-route-id="@(page.Id)" class="text-danger text-decoration-none">
+            🗑
+        </a>
+        </li>
+    }
+</ul>
+
+<a asp-controller="Workspaces" asp-action="Index" class="btn btn-secondary mt-3">Volver</a>

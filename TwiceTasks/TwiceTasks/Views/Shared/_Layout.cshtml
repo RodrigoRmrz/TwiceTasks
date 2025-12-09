@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,13 +9,14 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TwiceTasks.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TwiceTasks</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -23,14 +25,38 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Workspace" asp-action="Index">Workspaces</a>
+                            <a class="nav-link text-dark" asp-controller="Workspaces" asp-action="Index">Workspaces</a>
                         </li>
+                        @if (User.Identity!.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Files" asp-action="Index">
+                                    📁 Archivos
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Page" asp-action="Index">Page</a>
+                            <a class="nav-link" asp-controller="Calendar" asp-action="Index">
+                                📅 Calendario
+                            </a>
                         </li>
+
+                        <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary ms-3" type="button">
+                            🌙
+                        </button>
+                        <form asp-controller="Search" asp-action="Index" method="get" class="d-flex mx-3"
+                            style="max-width: 300px;">
+
+                            <input type="text" name="q" class="form-control form-control-sm"
+                                placeholder="🔍 Buscar..." />
+                        </form>
+
+
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -51,6 +77,31 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@editorjs/editorjs@2.30.0"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        const toggleBtn = document.getElementById("darkModeToggle");
+        const body = document.body;
+
+        // Cargar preferencia
+        if (localStorage.getItem("darkMode") === "enabled") {
+            body.classList.add("dark-mode");
+            toggleBtn.innerText = "☀️";
+        }
+
+        toggleBtn.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+
+            if (body.classList.contains("dark-mode")) {
+                localStorage.setItem("darkMode", "enabled");
+                toggleBtn.innerText = "☀️";
+            } else {
+                localStorage.setItem("darkMode", "disabled");
+                toggleBtn.innerText = "🌙";
+            }
+        });
+    </script>
+
 </body>
+
 </html>

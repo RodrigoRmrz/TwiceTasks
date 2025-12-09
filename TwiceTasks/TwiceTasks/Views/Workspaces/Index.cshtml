@@ -1,0 +1,42 @@
+@model IEnumerable<TwiceTasks.Models.Workspace>
+
+@{
+    ViewData["Title"] = "Mis Workspaces";
+}
+
+<h2>Mis Workspaces</h2>
+
+<a class="btn btn-primary my-3" asp-action="Create">Crear Workspace</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Creado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.CreatedAt.ToLocalTime().ToShortDateString()</td>
+            <td>
+                <a asp-controller="Pages"
+                   asp-action="Index"
+                   asp-route-workspaceId="@item.Id"
+                   class="btn btn-sm btn-outline-primary">
+                    Ver páginas
+                </a>
+                |
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
