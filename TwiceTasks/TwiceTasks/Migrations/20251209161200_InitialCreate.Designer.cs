@@ -12,8 +12,8 @@ using TwiceTasks.Data;
 namespace TwiceTasks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251206204321_AddFileResources")]
-    partial class AddFileResources
+    [Migration("20251209161200_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -233,6 +233,37 @@ namespace TwiceTasks.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("TwiceTasks.Models.CalendarEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CalendarEvents");
+                });
+
             modelBuilder.Entity("TwiceTasks.Models.FileResource", b =>
                 {
                     b.Property<int>("Id")
@@ -308,6 +339,38 @@ namespace TwiceTasks.Migrations
                     b.HasIndex("WorkspaceId");
 
                     b.ToTable("Pages");
+                });
+
+            modelBuilder.Entity("TwiceTasks.Models.PageTag", b =>
+                {
+                    b.Property<int>("PageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PageId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("PageTags");
+                });
+
+            modelBuilder.Entity("TwiceTasks.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("TwiceTasks.Models.Workspace", b =>
@@ -393,6 +456,23 @@ namespace TwiceTasks.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TwiceTasks.Models.CalendarEvent", b =>
+                {
+                    b.HasOne("TwiceTasks.Models.Page", "Page")
+                        .WithMany()
+                        .HasForeignKey("PageId");
+
+                    b.HasOne("TwiceTasks.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Page");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TwiceTasks.Models.FileResource", b =>
                 {
                     b.HasOne("TwiceTasks.Models.Page", "Page")
@@ -427,6 +507,25 @@ namespace TwiceTasks.Migrations
                     b.Navigation("Workspace");
                 });
 
+            modelBuilder.Entity("TwiceTasks.Models.PageTag", b =>
+                {
+                    b.HasOne("TwiceTasks.Models.Page", "Page")
+                        .WithMany("PageTags")
+                        .HasForeignKey("PageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TwiceTasks.Models.Tag", "Tag")
+                        .WithMany("PageTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Page");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("TwiceTasks.Models.Workspace", b =>
                 {
                     b.HasOne("TwiceTasks.Models.ApplicationUser", "User")
@@ -441,6 +540,16 @@ namespace TwiceTasks.Migrations
             modelBuilder.Entity("TwiceTasks.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Workspaces");
+                });
+
+            modelBuilder.Entity("TwiceTasks.Models.Page", b =>
+                {
+                    b.Navigation("PageTags");
+                });
+
+            modelBuilder.Entity("TwiceTasks.Models.Tag", b =>
+                {
+                    b.Navigation("PageTags");
                 });
 
             modelBuilder.Entity("TwiceTasks.Models.Workspace", b =>
