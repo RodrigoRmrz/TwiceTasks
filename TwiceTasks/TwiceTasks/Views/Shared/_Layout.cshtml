@@ -1,107 +1,202 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="light">
+   <!-- 👈 Empezamos en modo claro -->
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TwiceTasks</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TwiceTasks.styles.css" asp-append-version="true" />
+
+    <style>
+        /* =====================================================
+                               VARIABLES GENERALES
+                   (usa las variables del tema light / dark del HTML)
+                ====================================================== */
+
+        html.light {
+            --bg: #f4f5f7;
+            --text: #1c1c1e;
+            --nav: #ffffff;
+            --card: #ffffff;
+            --border: rgba(0,0,0,0.12);
+            --link: #0077ff;
+            --toggler-invert: 0;
+        }
+
+        html.dark {
+            --bg: #12141a;
+            --text: #e6e6e6;
+            --nav: #1a1c23;
+            --card: #1d1f27;
+            --border: rgba(255,255,255,0.18);
+            --link: #4da8ff;
+            --toggler-invert: 1;
+        }
+
+        /* =====================================================
+                                    ESTILOS BASE
+                ====================================================== */
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+        }
+
+        .custom-navbar {
+            background: var(--nav) !important;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+        }
+
+            .custom-navbar a,
+            .custom-navbar .navbar-brand {
+                color: var(--text) !important;
+            }
+
+            .custom-navbar input {
+                background: var(--card) !important;
+                color: var(--text) !important;
+                border: 1px solid var(--border);
+            }
+
+        /* Hamburger icon in dark */
+        .navbar-toggler-icon {
+            filter: invert(var(--toggler-invert));
+        }
+
+        .grid-main {
+            padding: 30px;
+        }
+
+        .grid-footer {
+            background: var(--nav);
+            border-top: 1px solid var(--border);
+            padding: 15px;
+            text-align: center;
+            color: var(--text);
+        }
+
+        a {
+            color: var(--link) !important;
+        }
+
+        /* Botón modo oscuro */
+        #darkModeToggle {
+            border-radius: 8px;
+        }
+    </style>
+
 </head>
 
 <body>
+
+    <!-- ================= NAVBAR ================= -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm custom-navbar mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TwiceTasks</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">TwiceTasks</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-grow-1">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-controller="Workspaces" asp-action="Index">Workspaces</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Workspaces" asp-action="Index">Workspaces</a>
-                        </li>
+
                         @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Files" asp-action="Index">
-                                    📁 Archivos
-                                </a>
+                                <a class="nav-link" asp-controller="Files" asp-action="Index">📁 Archivos</a>
                             </li>
                         }
+
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Calendar" asp-action="Index">
-                                📅 Calendario
-                            </a>
+                            <a class="nav-link" asp-controller="Calendar" asp-action="Index">📅 Calendario</a>
                         </li>
 
-                        <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary ms-3" type="button">
-                            🌙
-                        </button>
-                        <form asp-controller="Search" asp-action="Index" method="get" class="d-flex mx-3"
-                            style="max-width: 300px;">
+                        <!-- BOTÓN MODO OSCURO -->
+                        <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary ms-3">🌙</button>
 
-                            <input type="text" name="q" class="form-control form-control-sm"
-                                placeholder="🔍 Buscar..." />
+                        <form asp-controller="Search" asp-action="Index" method="get"
+                              class="d-flex mx-3" style="max-width:280px;">
+                            <input type="text" name="q" class="form-control form-control-sm" placeholder="🔍 Buscar..." />
                         </form>
 
-
-
                     </ul>
+
                     <partial name="_LoginPartial" />
+
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - TwiceTasks - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <!-- ================= MAIN ================= -->
+    <main class="grid-main">
+        @RenderBody()
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="grid-footer">
+        © 2025 - TwiceTasks ·
+        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
     </footer>
+
+
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@@editorjs/editorjs@2.30.0"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <script>
-        const toggleBtn = document.getElementById("darkModeToggle");
-        const body = document.body;
 
-        // Cargar preferencia
-        if (localStorage.getItem("darkMode") === "enabled") {
-            body.classList.add("dark-mode");
-            toggleBtn.innerText = "☀️";
+
+    <!-- ======================================
+                 SCRIPT DEL MODO OSCURO
+        ====================================== -->
+    <script>
+        const html = document.documentElement;
+        const toggleBtn = document.getElementById("darkModeToggle");
+
+        // Si no hay tema almacenado → light
+        if (!localStorage.getItem("theme")) {
+            localStorage.setItem("theme", "light");
         }
 
-        toggleBtn.addEventListener("click", () => {
-            body.classList.toggle("dark-mode");
+        // Aplicar tema guardado
+        html.classList.remove("light", "dark");
+        html.classList.add(localStorage.getItem("theme"));
 
-            if (body.classList.contains("dark-mode")) {
-                localStorage.setItem("darkMode", "enabled");
-                toggleBtn.innerText = "☀️";
+        // Icono del botón
+        toggleBtn.textContent =
+            html.classList.contains("dark") ? "☀️" : "🌙";
+
+        // Alternar tema
+        toggleBtn.addEventListener("click", () => {
+            if (html.classList.contains("dark")) {
+                html.classList.replace("dark", "light");
+                localStorage.setItem("theme", "light");
+                toggleBtn.textContent = "🌙";
             } else {
-                localStorage.setItem("darkMode", "disabled");
-                toggleBtn.innerText = "🌙";
+                html.classList.replace("light", "dark");
+                localStorage.setItem("theme", "dark");
+                toggleBtn.textContent = "☀️";
             }
         });
     </script>
 
 </body>
-
 </html>
