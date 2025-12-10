@@ -1,6 +1,8 @@
-﻿<!DOCTYPE html>
-<html lang="en" class="light">
-   <!-- 👈 Empezamos en modo claro -->
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<TwiceTasks.Models.ApplicationUser> SignInManager
+@inject UserManager<TwiceTasks.Models.ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,13 +11,23 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TwiceTasks.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Inicializa el tema (evita flash) -->
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem('theme') || 'light';
+                document.documentElement.classList.remove('light','dark');
+                document.documentElement.classList.add(theme);
+            } catch(e) { /* noop */ }
+        })();
+    </script>
 
     <style>
-        /* =====================================================
-                               VARIABLES GENERALES
-                   (usa las variables del tema light / dark del HTML)
-                ====================================================== */
-
+        /* ==============================
+                     Variables (light / dark se aplican sobre el elemento html)
+                   =============================== */
         html.light {
             --bg: #f4f5f7;
             --text: #1c1c1e;
@@ -36,167 +48,224 @@
             --toggler-invert: 1;
         }
 
-        /* =====================================================
-                                    ESTILOS BASE
-                ====================================================== */
-
+        /* ==============================
+                   Base layout styles
+                   =============================== */
         body {
             background: var(--bg);
             color: var(--text);
             font-family: "Segoe UI", Roboto, sans-serif;
             margin: 0;
+            padding: 0;
         }
 
-        .custom-navbar {
-            background: var(--nav) !important;
+        /* ========== TOPBAR (mini) ========== */
+        .topbar {
+            height: 60px;
+            background: var(--nav);
             border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 60;
         }
 
-            .custom-navbar a,
-            .custom-navbar .navbar-brand {
-                color: var(--text) !important;
-            }
+        .topbar-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+        }
 
-            .custom-navbar input {
-                background: var(--card) !important;
-                color: var(--text) !important;
-                border: 1px solid var(--border);
-            }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        /* Hamburger icon in dark */
+        /* hamburger icon invert for dark */
         .navbar-toggler-icon {
             filter: invert(var(--toggler-invert));
         }
 
-        .grid-main {
-            padding: 30px;
+        /* ========== SIDEBAR (collapsed icons -> expand to show text) ========== */
+        .sidebar {
+            background-color: var(--card);
+            color: var(--text);
+            border-right: 1px solid var(--border);
+            width: 65px; /* collapsed width */
+            height: calc(100vh - 60px);
+            position: fixed;
+            top: 60px;
+            left: 0;
+            padding: 18px 8px;
+            overflow: hidden;
+            transition: width 0.22s ease;
+            z-index: 50;
         }
 
-        .grid-footer {
-            background: var(--nav);
-            border-top: 1px solid var(--border);
-            padding: 15px;
+            .sidebar:hover {
+                width: 240px;
+            }
+
+            .sidebar h2 {
+                font-size: 1.05rem;
+                margin: 6px 0 14px 6px;
+                opacity: 0;
+                white-space: nowrap;
+                transition: opacity .18s;
+            }
+
+            .sidebar:hover h2 {
+                opacity: 1;
+            }
+
+            .sidebar a {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 10px;
+                color: var(--text) !important;
+                text-decoration: none;
+                border-radius: 8px;
+                transition: background .15s, color .15s;
+                white-space: nowrap;
+            }
+
+                .sidebar a i {
+                    font-size: 1.12rem;
+                    width: 24px;
+                    text-align: center;
+                }
+                /* texto (span) oculto cuando collapsed */
+                .sidebar a span {
+                    opacity: 0;
+                    transition: opacity .18s;
+                    transform: translateX(-6px);
+                    display: inline-block;
+                }
+
+            .sidebar:hover a span {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            .sidebar a:hover {
+                background: var(--border);
+            }
+
+        /* When sidebar hidden (not rendered) ensure main content margin */
+        .main-wrapper {
+            margin-left: 80px;
+            margin-top: 80px;
+            padding: 24px;
+            transition: margin-left .22s;
+        }
+        /* when sidebar present and expanded push content */
+        .sidebar:hover ~ .main-wrapper {
+            margin-left: 260px;
+        }
+
+        /* If no sidebar in DOM (user not logged) reduce left margin */
+        body.no-sidebar .main-wrapper {
+            margin-left: 24px;
+        }
+
+        /* ========== Footer ========== */
+        footer {
             text-align: center;
+            padding: 18px;
             color: var(--text);
         }
 
-        a {
-            color: var(--link) !important;
-        }
-
-        /* Botón modo oscuro */
-        #darkModeToggle {
-            border-radius: 8px;
+        /* small helpers */
+        .btn-create {
+            margin-top: 8px;
         }
     </style>
-
 </head>
-
 <body>
+    <!-- TOPBAR -->
+    <div class="topbar" role="banner">
+        <div class="topbar-title">TwiceTasks</div>
+        <div class="topbar-right">
+            <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary" aria-label="Toggle theme">🌙</button>
+            <!-- LoginPartial (si usa Identity) -->
+            <partial name="_LoginPartial" />
+        </div>
+    </div>
 
-    <!-- ================= NAVBAR ================= -->
-    <header>
-        <nav class="navbar navbar-expand-sm custom-navbar mb-3">
-            <div class="container-fluid">
+    @* Sidebar only for authenticated users *@
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        <div class="sidebar" role="navigation" aria-label="Dashboard">
+            <h2>Mi Dashboard</h2>
+            <a asp-controller="Home" asp-action="Index" title="Inicio">
+                <i class="bi bi-house-door"></i><span>Inicio</span>
+            </a>
+            <a asp-controller="Workspaces" asp-action="Index" title="Workspaces">
+                <i class="bi bi-kanban"></i><span>Workspaces</span>
+            </a>
+            <a asp-controller="Notes" asp-action="Index" title="Notas">
+                <i class="bi bi-journal-text"></i><span>Notas</span>
+            </a>
+            <a asp-controller="Files" asp-action="Index" title="Archivos">
+                <i class="bi bi-folder"></i><span>Archivos</span>
+            </a>
+        </div>
+    }
+    else
+    {
+        @* Add helper class so main has smaller left margin when sidebar not rendered *@
+        <script>document.documentElement.classList.add('no-sidebar');</script>
+    }
 
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">TwiceTasks</a>
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        @* Optional carousel section for homepage only. Views can define section "HomeCarousel" *@
+        @RenderSection("HomeCarousel", required: false)
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav flex-grow-1">
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Workspaces" asp-action="Index">Workspaces</a>
-                        </li>
-
-                        @if (User.Identity!.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Files" asp-action="Index">📁 Archivos</a>
-                            </li>
-                        }
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Calendar" asp-action="Index">📅 Calendario</a>
-                        </li>
-
-                        <!-- BOTÓN MODO OSCURO -->
-                        <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary ms-3">🌙</button>
-
-                        <form asp-controller="Search" asp-action="Index" method="get"
-                              class="d-flex mx-3" style="max-width:280px;">
-                            <input type="text" name="q" class="form-control form-control-sm" placeholder="🔍 Buscar..." />
-                        </form>
-
-                    </ul>
-
-                    <partial name="_LoginPartial" />
-
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- ================= MAIN ================= -->
-    <main class="grid-main">
         @RenderBody()
-    </main>
+    </div>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="grid-footer">
-        © 2025 - TwiceTasks ·
-        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer>
+        © 2025 — TwiceTasks
     </footer>
 
-
-    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 
-
-    <!-- ======================================
-                 SCRIPT DEL MODO OSCURO
-        ====================================== -->
+    <!-- THEME TOGGLE (uses <html> classes 'light' / 'dark' to control CSS variables) -->
     <script>
-        const html = document.documentElement;
-        const toggleBtn = document.getElementById("darkModeToggle");
+        (function(){
+            const html = document.documentElement;
+            const btn = document.getElementById('darkModeToggle');
 
-        // Si no hay tema almacenado → light
-        if (!localStorage.getItem("theme")) {
-            localStorage.setItem("theme", "light");
-        }
+            // Ensure there is a theme stored
+            if (!localStorage.getItem('theme')) localStorage.setItem('theme','light');
 
-        // Aplicar tema guardado
-        html.classList.remove("light", "dark");
-        html.classList.add(localStorage.getItem("theme"));
+            // Apply current theme (script in head already set, but keep this to sync button text)
+            const current = localStorage.getItem('theme') || 'light';
+            html.classList.remove('light','dark');
+            html.classList.add(current);
+            if (btn) btn.textContent = html.classList.contains('dark') ? '☀️' : '🌙';
 
-        // Icono del botón
-        toggleBtn.textContent =
-            html.classList.contains("dark") ? "☀️" : "🌙";
-
-        // Alternar tema
-        toggleBtn.addEventListener("click", () => {
-            if (html.classList.contains("dark")) {
-                html.classList.replace("dark", "light");
-                localStorage.setItem("theme", "light");
-                toggleBtn.textContent = "🌙";
-            } else {
-                html.classList.replace("light", "dark");
-                localStorage.setItem("theme", "dark");
-                toggleBtn.textContent = "☀️";
+            if (btn) {
+                btn.addEventListener('click', function(){
+                    const now = html.classList.contains('dark') ? 'light' : 'dark';
+                    html.classList.remove('light','dark');
+                    html.classList.add(now);
+                    localStorage.setItem('theme', now);
+                    btn.textContent = now === 'dark' ? '☀️' : '🌙';
+                });
             }
-        });
+        })();
     </script>
 
+    @* RenderScripts section placed at the very end to avoid "section not rendered" error. Views may define the Scripts section. *@
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

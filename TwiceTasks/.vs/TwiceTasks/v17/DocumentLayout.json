@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\workspaces\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\workspaces\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\workspaces\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\workspaces\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -44,11 +52,37 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAP0BAAAAAAAAAAAQwBICAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-09T22:53:34.272Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Views\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Views\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-09T22:27:47.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Workspaces\\Index.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Views\\Workspaces\\Index.cshtml",
               "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Workspaces\\Index.cshtml",
               "RelativeToolTip": "TwiceTasks\\Views\\Workspaces\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACABAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-12-09T17:08:56.184Z",
               "EditorCaption": ""
@@ -61,7 +95,7 @@
               "RelativeDocumentMoniker": "TwiceTasks\\Views\\Shared\\_Layout.cshtml",
               "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "TwiceTasks\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAgwMoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAOEAAAAAAAAAAAAiwA8BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-12-09T16:44:56.72Z",
               "EditorCaption": ""

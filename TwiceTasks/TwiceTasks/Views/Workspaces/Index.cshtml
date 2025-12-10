@@ -2,11 +2,10 @@
 @{
     ViewData["Title"] = "Mis Workspaces";
 }
-
 <style>
     /* ============================================
-           VARIABLES DE TEMA (MISMAS QUE EN _Layout.cshtml)
-        ============================================ */
+               VARIABLES DE TEMA (MISMAS QUE EN _Layout.cshtml)
+            ============================================ */
     :root.light {
         --bg: #f5f5f7;
         --card-bg: #ffffff;
@@ -15,19 +14,10 @@
         --border: #e0e0e0;
         --btn-bg: #0d6efd;
         --btn-bg-hover: #0b5ed7;
-        --nav-bg: #ffffff;
-        --nav-search-bg: #e9ecef;
-        --btn-outline-primary-border: #0d6efd;
-        --btn-outline-primary-text: #0d6efd;
-        --btn-outline-primary-hover-bg: rgba(13,110,253,0.15);
-        --btn-outline-secondary-border: #6c757d;
-        --btn-outline-secondary-text: #6c757d;
-        --btn-outline-secondary-hover-bg: rgba(108,117,125,0.15);
-        --btn-outline-danger-border: #dc3545;
-        --btn-outline-danger-text: #dc3545;
-        --btn-outline-danger-hover-bg: rgba(220,53,69,0.15);
         --shadow: rgba(0,0,0,0.08);
         --shadow-hover: rgba(0,0,0,0.12);
+        --carousel-bg: #ffffff;
+        --carousel-text: #222;
     }
 
     :root.dark {
@@ -38,22 +28,12 @@
         --border: #444;
         --btn-bg: #4477ff;
         --btn-bg-hover: #3a68e0;
-        --nav-bg: #2a2b2e;
-        --nav-search-bg: #1e1f22;
-        --btn-outline-primary-border: #90b4ff;
-        --btn-outline-primary-text: #cddbff;
-        --btn-outline-primary-hover-bg: rgba(144,180,255,0.2);
-        --btn-outline-secondary-border: #8c96a0;
-        --btn-outline-secondary-text: #c8ced4;
-        --btn-outline-secondary-hover-bg: rgba(140,150,160,0.2);
-        --btn-outline-danger-border: #ff7a86;
-        --btn-outline-danger-text: #ffc9cd;
-        --btn-outline-danger-hover-bg: rgba(255,122,134,0.2);
         --shadow: rgba(0,0,0,0.5);
         --shadow-hover: rgba(0,0,0,0.7);
+        --carousel-bg: #2a2b2e;
+        --carousel-text: #f5f5f5;
     }
 
-    /* ===== GENERAL ===== */
     body {
         background: var(--bg);
         color: var(--text-main);
@@ -61,89 +41,45 @@
     }
 
     /* ============================================
-               SIDEBAR DESPLEGABLE (ICONOS → TEXTO)
-        ============================================ */
-    .sidebar {
-        background-color: var(--card-bg);
-        color: var(--text-main);
-        border-right: 1px solid var(--border);
-        width: 65px;
-        height: calc(100vh - 60px);
-        top: 60px;
-        left: 0;
-        position: fixed;
-        padding: 20px 10px;
+                             CAROUSEL
+            ============================================ */
+    .welcome-carousel {
+        width: 100%;
+        height: 260px;
+        border-radius: 16px;
         overflow: hidden;
-        transition: width 0.25s ease-in-out;
-        z-index: 10;
+        box-shadow: 0 4px 10px var(--shadow);
+        margin-bottom: 30px;
+        background: var(--carousel-bg);
+        position: relative;
     }
 
-        .sidebar:hover {
-            width: 240px;
+        .welcome-carousel img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            filter: brightness(0.75);
         }
 
-        .sidebar h2 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            opacity: 0;
-            white-space: nowrap;
-            transition: opacity 0.25s;
-            padding-left: 5px;
-        }
+    .carousel-caption-custom {
+        position: absolute;
+        bottom: 20px;
+        left: 40px;
+        color: var(--carousel-text);
+    }
 
-        .sidebar:hover h2 {
-            opacity: 1;
-        }
-
-        .sidebar a {
-            padding: 10px 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-main) !important;
-            border-radius: 6px;
-            text-decoration: none;
-            white-space: nowrap;
-            transition: 0.25s;
-        }
-
-            .sidebar a span {
-                opacity: 0;
-                transition: opacity 0.25s;
-            }
-
-        .sidebar:hover a span {
-            opacity: 1;
-        }
-
-        .sidebar a:hover {
-            background: var(--border);
+        .carousel-caption-custom h2 {
+            font-weight: 700;
+            margin-bottom: 5px;
         }
 
     /* ============================================
-                    MAIN CONTENT
-        ============================================ */
-    .main-content {
-        margin-left: 80px;
-        margin-top: 70px;
-        padding: 30px 40px;
-        color: var(--text-main);
-        transition: margin-left 0.25s;
-    }
-
-    .sidebar:hover ~ .main-content {
-        margin-left: 260px;
-    }
-
-    /* ============================================
-                     WORKSPACE CARDS
-        ============================================ */
+                         WORKSPACE GRID
+            ============================================ */
     .workspace-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 15px;
-        margin-top: 20px;
     }
 
     .workspace-card {
@@ -151,7 +87,7 @@
         border-radius: 12px;
         padding: 18px;
         box-shadow: 0 4px 10px var(--shadow);
-        transition: 0.2s;
+        transition: 0.25s;
     }
 
         .workspace-card:hover {
@@ -159,55 +95,15 @@
             box-shadow: 0 8px 18px var(--shadow-hover);
         }
 
-        .workspace-card h5 {
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-
-        .workspace-card p {
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-
-    /* ============================================
-                         BOTONES
-        ============================================ */
     .workspace-actions a {
-        font-size: .85rem;
+        font-size: 0.85rem;
         padding: 6px 10px;
         border-radius: 6px;
-        transition: 0.25s;
+        margin-right: 5px;
     }
-
-    .btn-outline-primary {
-        border-color: var(--btn-outline-primary-border);
-        color: var(--btn-outline-primary-text);
-    }
-
-        .btn-outline-primary:hover {
-            background: var(--btn-outline-primary-hover-bg);
-        }
-
-    .btn-outline-secondary {
-        border-color: var(--btn-outline-secondary-border);
-        color: var(--btn-outline-secondary-text);
-    }
-
-        .btn-outline-secondary:hover {
-            background: var(--btn-outline-secondary-hover-bg);
-        }
-
-    .btn-outline-danger {
-        border-color: var(--btn-outline-danger-border);
-        color: var(--btn-outline-danger-text);
-    }
-
-        .btn-outline-danger:hover {
-            background: var(--btn-outline-danger-hover-bg);
-        }
 
     .btn-create {
-        margin-top: 10px;
+        margin-bottom: 20px;
         background: var(--btn-bg) !important;
         border: 2px solid var(--btn-bg) !important;
         color: white !important;
@@ -220,68 +116,38 @@
         }
 </style>
 
+<!-- ======================================================
+                        LISTA DE WORKSPACES
+====================================================== -->
+<h2>Mis Workspaces</h2>
 
-<!-- ============ SIDEBAR ============ -->
-<div class="sidebar">
-    <h2>Mi Dashboard</h2>
+<a class="btn btn-create" asp-action="Create">
+    <i class="bi bi-plus-circle"></i> Crear Workspace
+</a>
 
-    <a asp-controller="Home" asp-action="Index">
-        <i class="bi bi-house-door"></i><span>Inicio</span>
-    </a>
+<div class="workspace-grid">
+    @foreach (var item in Model)
+    {
+        <div class="workspace-card">
+            <h5>@item.Name</h5>
+            <p>@item.Description</p>
+            <small>Creado: @item.CreatedAt.ToLocalTime().ToShortDateString()</small>
+            <div class="workspace-actions">
+                <a class="btn btn-sm btn-outline-primary"
+                   asp-controller="Pages"
+                   asp-action="Index"
+                   asp-route-workspaceId="@item.Id">Ver páginas</a>
 
-    <a asp-controller="Workspaces" asp-action="Index">
-        <i class="bi bi-kanban"></i><span>Workspaces</span>
-    </a>
+                <a class="btn btn-sm btn-outline-secondary"
+                   asp-action="Edit"
+                   asp-route-id="@item.Id">Editar</a>
 
-    <a asp-controller="Notes" asp-action="Index">
-        <i class="bi bi-journal-text"></i><span>Notas</span>
-    </a>
-
-    <a asp-controller="Files" asp-action="Index">
-        <i class="bi bi-folder"></i><span>Archivos</span>
-    </a>
-</div>
-
-
-<!-- ============ CONTENIDO ============ -->
-<div class="main-content">
-    <h2>Mis Workspaces</h2>
-
-    <a class="btn btn-create" asp-action="Create">
-        <i class="bi bi-plus-circle"></i> Crear Workspace
-    </a>
-
-    <div class="workspace-grid">
-        @foreach (var item in Model)
-        {
-            <div class="workspace-card">
-                <h5>@item.Name</h5>
-                <p>@item.Description</p>
-                <small>Creado: @item.CreatedAt.ToLocalTime().ToShortDateString()</small>
-
-                <div class="workspace-actions">
-                    <a class="btn btn-sm btn-outline-primary"
-                       asp-controller="Pages"
-                       asp-action="Index"
-                       asp-route-workspaceId="@item.Id">
-                        Ver páginas
-                    </a>
-
-                    <a class="btn btn-sm btn-outline-secondary"
-                       asp-action="Edit"
-                       asp-route-id="@item.Id">
-                        Editar
-                    </a>
-
-                    <a class="btn btn-sm btn-outline-danger"
-                       asp-action="Delete"
-                       asp-route-id="@item.Id">
-                        Eliminar
-                    </a>
-                </div>
+                <a class="btn btn-sm btn-outline-danger"
+                   asp-action="Delete"
+                   asp-route-id="@item.Id">Eliminar</a>
             </div>
-        }
-    </div>
+        </div>
+    }
 </div>
 
 <link rel="stylesheet"
