@@ -9,5 +9,8 @@ namespace TwiceTasks.Models
 
         // Relación con Workspaces
         public ICollection<Workspace>? Workspaces { get; set; }
+        public ICollection<FileResource>? Files { get; set; }
+        public ICollection<Collection>? Collections { get; set; }
+
     }
 }

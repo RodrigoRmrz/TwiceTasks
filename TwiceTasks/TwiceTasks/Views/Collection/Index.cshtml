@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TwiceTasks.Models.Collection>
+
+<div class="max-w-4xl mx-auto mt-10">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">Tus Colecciones</h1>
+
+        <a href="/Collection/Create"
+           class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+            + Nueva colección
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        @foreach (var c in Model)
+        {
+            <a href="/Files?collectionId=@c.Id"
+               class="p-5 rounded-xl border border-gray-300 hover:bg-gray-100 shadow transition">
+                <h2 class="text-xl font-semibold">@c.Name</h2>
+                <p class="text-gray-600 text-sm">@c.Description</p>
+
+                <div class="mt-3 text-sm text-gray-500">
+                    @c.Files?.Count archivos
+                </div>
+            </a>
+        }
+    </div>
+</div>

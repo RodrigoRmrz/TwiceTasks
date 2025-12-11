@@ -60,4 +60,5 @@ wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\uploads\804abc52-55ec-4d63-a264-72290a2557f4\pages\2\POO en JAVA.pdf
 wwwroot\uploads\804abc52-55ec-4d63-a264-72290a2557f4\POO en JAVA.pdf
+wwwroot\uploads\ec2b3815-953d-485b-bb77-78379661ca86\PRACTICA OBLIGATORIA 1.docx
 wwwroot\Videos\VideoImagen.mp4

@@ -1,24 +1,137 @@
-@model IEnumerable<TwiceTasks.Models.FileResource>
+﻿@model TwiceTasks.ViewModels.FilesIndexViewModel
 
-<h2>Mis Archivos</h2>
+<!-- HEADER -->
+<div class="files-header">
+    <h1>📁 Mis Archivos</h1>
+    <p class="subtitle">Organiza tus archivos por colecciones personalizadas.</p>
+</div>
 
-<form method="post" enctype="multipart/form-data" asp-action="Upload">
-    <input type="file" name="file" />
-    <button class="btn btn-primary">Subir</button>
-</form>
+<!-- COLLECTIONS BAR -->
+<div class="collections-bar">
+    <div class="collections-left">
+        <label for="collectionFilter">Colección:</label>
+        <select id="collectionFilter" class="collection-select" onchange="filterCollection()">
+            <option value="0" selected="@(Model.SelectedCollectionId == 0)">
+                Todas las colecciones
+            </option>
 
-<hr />
+            @foreach (var col in Model.Collections)
+            {
+                <option value="@col.Id" selected="@(Model.SelectedCollectionId == col.Id)">
+                    @col.Name
+                </option>
+            }
+        </select>
 
-<div class="row">
-    @foreach (var file in Model)
+    </div>
+
+    <!-- Botón crear colección -->
+    <a asp-controller="Collections" asp-action="Create" class="create-collection-btn">
+        <i class="bi bi-folder-plus"></i> Nueva colección
+    </a>
+</div>
+
+<!-- UPLOAD BOX -->
+<div class="upload-box">
+    <form method="post" enctype="multipart/form-data" asp-action="Upload" class="upload-form">
+        <input type="hidden"
+               name="collectionId"
+               value="@Model.SelectedCollectionId" />
+
+        <label class="upload-area">
+            <i class="bi bi-cloud-arrow-up"></i>
+            <span>Subir archivo</span>
+            <input type="file" name="file" hidden onchange="this.form.submit()" />
+        </label>
+    </form>
+</div>
+
+<!-- GRID DE ARCHIVOS -->
+<div class="files-grid">
+    @if (!Model.Files.Any())
     {
-        <div class="col-md-3 mb-3">
-            <div class="card p-2">
-                <strong>@file.FileName</strong>
-                <small>@(file.FileSize / 1024) KB</small>
-                <a href="@file.FilePath" target="_blank">Ver</a>
-                <a asp-action="Delete" asp-route-id="@file.Id" class="text-danger">Eliminar</a>
+        <p class="empty-text">No hay archivos en esta colección.</p>
+    }
+    else
+    {
+        foreach (var file in Model.Files)
+        {
+            <div class="file-card">
+                <div class="file-icon">
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
+
+                <div class="file-info">
+                    <span class="file-name">@file.FileName</span>
+                    <span class="file-size">@((file.FileSize / 1024)) KB</span>
+                </div>
+
+                <div class="file-actions">
+                    <a href="@file.FilePath" target="_blank" class="view-btn">
+                        <i class="bi bi-eye"></i>
+                    </a>
+
+                    <a asp-action="Delete" asp-route-id="@file.Id" class="delete-btn">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </div>
             </div>
-        </div>
+        }
     }
 </div>
+
+<style>
+/* ---- NUEVO ESTILO PARA COLECCIONES ---- */
+.collections-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.collections-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.collection-select {
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.create-collection-btn {
+    background: var(--accent);
+    color: white;
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.create-collection-btn:hover {
+    opacity: 0.85;
+}
+
+/* EMPTY STATE */
+.empty-text {
+    color: var(--text-muted);
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 40px 0;
+}
+</style>
+
+<script>
+function filterCollection() {
+    const col = document.getElementById("collectionFilter").value;
+    window.location.href = "/Files?collectionId=" + col;
+}
+</script>

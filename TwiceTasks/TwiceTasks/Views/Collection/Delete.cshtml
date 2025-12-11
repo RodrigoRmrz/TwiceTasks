@@ -1,0 +1,17 @@
+﻿@model TwiceTasks.Models.Collection;
+
+<div class="max-w-xl mx-auto mt-10">
+    <h1 class="text-2xl font-bold text-red-600 mb-4">Eliminar colección</h1>
+
+    <p class="mb-4 text-gray-700">
+        ¿Seguro que quieres eliminar <b>@Model.Name</b>?
+    </p>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+            Eliminar
+        </button>
+    </form>
+</div>

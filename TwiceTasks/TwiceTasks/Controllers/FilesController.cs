@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TwiceTasks.Data;
 using TwiceTasks.Models;
+using TwiceTasks.ViewModels;
 
 namespace TwiceTasks.Controllers
 {
@@ -30,10 +31,22 @@ namespace TwiceTasks.Controllers
 
             var files = await _context.FileResources
                 .Where(f => f.UserId == userId)
+                .Include(f => f.Collection)
                 .OrderByDescending(f => f.UploadedAt)
                 .ToListAsync();
 
-            return View(files);
+            var collections = await _context.Collections
+                .Where(c => c.UserId == userId)
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+
+            var vm = new FilesIndexViewModel
+            {
+                Files = files,
+                Collections = collections
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
@@ -122,6 +135,26 @@ namespace TwiceTasks.Controllers
 
             return RedirectToAction("Edit", "Pages", new { id = pageId });
         }
+        [HttpPost]
+        public async Task<IActionResult> MoveToCollection(int fileId, int? collectionId)
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var file = await _context.FileResources
+                .Where(f => f.UserId == userId && f.Id == fileId)
+                .FirstOrDefaultAsync();
+
+            if (file == null)
+                return Unauthorized();
+
+            // Cambiar colección
+            file.CollectionId = collectionId;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
     }
 }

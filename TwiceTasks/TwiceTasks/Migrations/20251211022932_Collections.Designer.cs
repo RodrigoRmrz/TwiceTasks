@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TwiceTasks.Data;
 
@@ -11,9 +12,11 @@ using TwiceTasks.Data;
 namespace TwiceTasks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251211022932_Collections")]
+    partial class Collections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -518,7 +521,7 @@ namespace TwiceTasks.Migrations
             modelBuilder.Entity("TwiceTasks.Models.Collection", b =>
                 {
                     b.HasOne("TwiceTasks.Models.ApplicationUser", "User")
-                        .WithMany("Collections")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -532,7 +535,7 @@ namespace TwiceTasks.Migrations
                         .WithMany("Files")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("TwiceTasks.Models.Collection", "Collection")
+                    b.HasOne("TwiceTasks.Models.Collection", null)
                         .WithMany("Files")
                         .HasForeignKey("CollectionId");
 
@@ -549,8 +552,6 @@ namespace TwiceTasks.Migrations
                     b.HasOne("TwiceTasks.Models.Workspace", "Workspace")
                         .WithMany("Files")
                         .HasForeignKey("WorkspaceId");
-
-                    b.Navigation("Collection");
 
                     b.Navigation("Page");
 
@@ -602,8 +603,6 @@ namespace TwiceTasks.Migrations
 
             modelBuilder.Entity("TwiceTasks.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Collections");
-
                     b.Navigation("Files");
 
                     b.Navigation("Workspaces");
