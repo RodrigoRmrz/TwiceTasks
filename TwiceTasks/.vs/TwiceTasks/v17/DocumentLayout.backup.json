@@ -7,48 +7,44 @@
       "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\files\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\collection\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\collection\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\controllers\\filescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\controllers\\filescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\viewmodels\\filesindexviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\viewmodels\\filesindexviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\controllers\\filescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\controllers\\filescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\collection\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\collection\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\collection\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\collection\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\collection\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\collection\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\controllers\\collectioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\controllers\\collectioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20251211025806_NuevoCollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TwiceTasks\\Migrations\\20251211025806_NuevoCollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\models\\fileresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\models\\fileresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\collection\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\collection\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\models\\collection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\models\\collection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\collection\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\collection\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\collection\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\collection\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\views\\collection\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\collection\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\models\\workspace.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -65,6 +61,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\34608\\onedrive - tajamar (1)\\documentos\\github\\twicetasks\\twicetasks\\twicetasks\\migrations\\20251211025806_nuevocollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\migrations\\20251211025806_nuevocollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -94,59 +94,67 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAALsAAAAAAAAAAAAAANgAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T11:33:54.428Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "FilesIndexViewModel.cs",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\ViewModels\\FilesIndexViewModel.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\ViewModels\\FilesIndexViewModel.cs",
               "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\ViewModels\\FilesIndexViewModel.cs",
               "RelativeToolTip": "TwiceTasks\\ViewModels\\FilesIndexViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T03:09:42.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T03:09:42.486Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Collection\\Delete.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Views\\Collection\\Delete.cshtml",
               "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Collection\\Delete.cshtml",
               "RelativeToolTip": "TwiceTasks\\Views\\Collection\\Delete.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-11T03:03:37.111Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T03:03:37.111Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Collection\\Edit.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Views\\Collection\\Edit.cshtml",
               "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Collection\\Edit.cshtml",
               "RelativeToolTip": "TwiceTasks\\Views\\Collection\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAIwDsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-11T03:03:22.586Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T03:03:22.586Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Collection\\Create.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Views\\Collection\\Create.cshtml",
               "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Collection\\Create.cshtml",
               "RelativeToolTip": "TwiceTasks\\Views\\Collection\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAB4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-11T03:03:05.894Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T03:03:05.894Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 15,
               "Title": "20251211025806_NuevoCollection.cs",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20251211025806_NuevoCollection.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Migrations\\20251211025806_NuevoCollection.cs",
@@ -154,47 +162,31 @@
               "RelativeToolTip": "TwiceTasks\\Migrations\\20251211025806_NuevoCollection.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:58:07.07Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T02:58:07.07Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "FilesController.cs",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Controllers\\FilesController.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Controllers\\FilesController.cs",
               "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Controllers\\FilesController.cs",
               "RelativeToolTip": "TwiceTasks\\Controllers\\FilesController.cs",
-              "ViewState": "AgIAAHsAAAAAAAAAAAAQwIsAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAiwC8AAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:41:52.143Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T02:41:52.143Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Collection\\Index.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Views\\Collection\\Index.cshtml",
               "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Collection\\Index.cshtml",
               "RelativeToolTip": "TwiceTasks\\Views\\Collection\\Index.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-11T02:41:24.956Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CollectionController.cs",
-              "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Controllers\\CollectionController.cs",
-              "RelativeDocumentMoniker": "TwiceTasks\\Controllers\\CollectionController.cs",
-              "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Controllers\\CollectionController.cs",
-              "RelativeToolTip": "TwiceTasks\\Controllers\\CollectionController.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAswDAAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:39:44.272Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T02:41:24.956Z"
             },
             {
               "$type": "Document",
@@ -204,7 +196,7 @@
               "RelativeDocumentMoniker": "TwiceTasks\\Views\\Files\\Index.cshtml",
               "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Files\\Index.cshtml",
               "RelativeToolTip": "TwiceTasks\\Views\\Files\\Index.cshtml",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAUwBgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAK4AAAAAAAAAAAAgwLgAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-12-11T01:54:32.995Z",
               "EditorCaption": ""
@@ -214,8 +206,36 @@
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 3,
+              "Title": "CollectionController.cs",
+              "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Controllers\\CollectionController.cs",
+              "RelativeDocumentMoniker": "TwiceTasks\\Controllers\\CollectionController.cs",
+              "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Controllers\\CollectionController.cs",
+              "RelativeToolTip": "TwiceTasks\\Controllers\\CollectionController.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAYwIYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T02:39:44.272Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FileResource.cs",
+              "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\FileResource.cs",
+              "RelativeDocumentMoniker": "TwiceTasks\\Models\\FileResource.cs",
+              "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\FileResource.cs",
+              "RelativeToolTip": "TwiceTasks\\Models\\FileResource.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwAoAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T02:10:12.962Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Data\\ApplicationDbContext.cs",
@@ -223,12 +243,11 @@
               "RelativeToolTip": "TwiceTasks\\Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:21:39.272Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T02:21:39.272Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "ApplicationDbContextModelSnapshot.cs",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\ApplicationDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Migrations\\ApplicationDbContextModelSnapshot.cs",
@@ -236,12 +255,11 @@
               "RelativeToolTip": "TwiceTasks\\Migrations\\ApplicationDbContextModelSnapshot.cs",
               "ViewState": "AgIAAIsAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:21:20.995Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T02:21:20.995Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "Page.cs",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\Page.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Models\\Page.cs",
@@ -249,12 +267,11 @@
               "RelativeToolTip": "TwiceTasks\\Models\\Page.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:13:44.018Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T02:13:44.018Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "Workspace.cs",
               "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\Workspace.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Models\\Workspace.cs",
@@ -262,21 +279,7 @@
               "RelativeToolTip": "TwiceTasks\\Models\\Workspace.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:13:24.995Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "FileResource.cs",
-              "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\FileResource.cs",
-              "RelativeDocumentMoniker": "TwiceTasks\\Models\\FileResource.cs",
-              "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\FileResource.cs",
-              "RelativeToolTip": "TwiceTasks\\Models\\FileResource.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:10:12.962Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T02:13:24.995Z"
             },
             {
               "$type": "Document",
@@ -288,21 +291,7 @@
               "RelativeToolTip": "TwiceTasks\\Models\\ApplicationUser.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:10:44.193Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Collection.cs",
-              "DocumentMoniker": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\Collection.cs",
-              "RelativeDocumentMoniker": "TwiceTasks\\Models\\Collection.cs",
-              "ToolTip": "C:\\Users\\34608\\OneDrive - Tajamar (1)\\Documentos\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\Collection.cs",
-              "RelativeToolTip": "TwiceTasks\\Models\\Collection.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T02:05:29.839Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T02:10:44.193Z"
             }
           ]
         }

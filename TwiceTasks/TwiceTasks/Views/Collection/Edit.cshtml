@@ -1,24 +1,59 @@
-﻿@model TwiceTasks.Models.Collection;
+﻿@model TwiceTasks.Models.Collection
 
-<div class="max-w-xl mx-auto mt-10">
-    <h1 class="text-2xl font-bold mb-4">Editar colección</h1>
-
-    <form asp-action="Edit" method="post" class="space-y-4">
-
-        <input type="hidden" asp-for="Id" />
-
-        <div>
-            <label class="block font-semibold">Nombre</label>
-            <input asp-for="Name" class="w-full border rounded p-2" />
-        </div>
-
-        <div>
-            <label class="block font-semibold">Descripción</label>
-            <textarea asp-for="Description" class="w-full border rounded p-2"></textarea>
-        </div>
-
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            Guardar cambios
-        </button>
-    </form>
+<div class="page-header">
+    <h1>✏️ Editar colección</h1>
 </div>
+
+<form method="post" asp-action="Edit">
+    <div class="form-box">
+        <label>Nombre</label>
+        <input asp-for="Name" class="input" />
+
+        <label>Descripción (opcional)</label>
+        <textarea asp-for="Description" class="input"></textarea>
+
+        <button type="submit" class="btn-primary">Guardar cambios</button>
+        <a asp-action="Index" class="btn-cancel">Cancelar</a>
+    </div>
+</form>
+
+<style>
+    .page-header h1 {
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .form-box {
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        box-shadow: 0 6px 18px var(--shadow);
+    }
+
+    .input {
+        padding: 10px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--bg-soft);
+    }
+
+    .btn-primary {
+        background: var(--accent);
+        color: white;
+        padding: 10px 16px;
+        border-radius: var(--radius);
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .btn-cancel {
+        margin-top: 5px;
+        display: inline-block;
+        text-decoration: none;
+        color: var(--text-muted);
+    }
+</style>

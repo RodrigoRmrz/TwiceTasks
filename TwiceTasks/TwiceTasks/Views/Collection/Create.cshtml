@@ -1,22 +1,82 @@
-﻿@model TwiceTasks.Models.Collection;
+﻿@model TwiceTasks.Models.Collection
 
-<div class="max-w-xl mx-auto mt-10">
-    <h1 class="text-2xl font-bold mb-4">Nueva colección</h1>
+<div class="create-wrapper">
+    <div class="create-card">
+        <h2>Nueva colección</h2>
 
-    <form asp-action="Create" method="post" class="space-y-4">
+        <form asp-action="Create" asp-controller="Collection" method="post">
+            @Html.AntiForgeryToken()
 
-        <div>
-            <label class="block font-semibold">Nombre</label>
-            <input asp-for="Name" class="w-full border rounded p-2" />
-        </div>
+            <div class="form-group">
+                <label>Nombre</label>
+                <input asp-for="Name" class="form-control" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
 
-        <div>
-            <label class="block font-semibold">Descripción</label>
-            <textarea asp-for="Description" class="w-full border rounded p-2"></textarea>
-        </div>
+            <div class="form-group">
+                <label>Descripción (opcional)</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
 
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            Crear
-        </button>
-    </form>
+            <div class="buttons">
+                <a asp-controller="Files" asp-action="Index"class="btn-save">Crear Coleccion</a>
+                <a asp-action="Index" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
 </div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+<style>
+    .create-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 60px;
+    }
+
+    .create-card {
+        background: var(--card-bg);
+        padding: 35px;
+        width: 450px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        box-shadow: 0 6px 24px var(--shadow);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn-save {
+        background: var(--accent);
+        color: white;
+        padding: 10px 22px;
+        border-radius: var(--radius);
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .btn-cancel {
+        background: var(--border);
+        color: var(--text);
+        padding: 10px 22px;
+        border-radius: var(--radius);
+        text-decoration: none;
+        font-weight: 600;
+    }
+</style>

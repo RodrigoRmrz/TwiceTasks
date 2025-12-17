@@ -33,31 +33,33 @@ namespace TwiceTasks.Controllers
             return View(collections);
         }
 
-        // GET: Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Collection model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
             model.UserId = _userManager.GetUserId(User);
+            model.CreatedAt = DateTime.UtcNow;
 
             _context.Collections.Add(model);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Files");
         }
+
 
         // GET: Edit
         public async Task<IActionResult> Edit(int id)
         {
             var collection = await _context.Collections.FindAsync(id);
+
             if (collection == null)
                 return NotFound();
 
@@ -69,14 +71,16 @@ namespace TwiceTasks.Controllers
 
         // POST: Edit
         [HttpPost]
-        public async Task<IActionResult> Edit(Collection updated)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Id,Name,Description")] Collection updated)
         {
             if (!ModelState.IsValid)
                 return View(updated);
 
             var userId = _userManager.GetUserId(User);
+            var original = await _context.Collections.FirstOrDefaultAsync(c =>
+                c.Id == updated.Id && c.UserId == userId);
 
-            var original = await _context.Collections.FirstOrDefaultAsync(c => c.Id == updated.Id && c.UserId == userId);
             if (original == null)
                 return Unauthorized();
 
@@ -93,6 +97,7 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var userId = _userManager.GetUserId(User);
+
             var collection = await _context.Collections
                 .Include(c => c.Files)
                 .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
@@ -105,6 +110,7 @@ namespace TwiceTasks.Controllers
 
         // POST: Delete
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userId = _userManager.GetUserId(User);
@@ -116,7 +122,7 @@ namespace TwiceTasks.Controllers
             if (collection == null)
                 return Unauthorized();
 
-            // Opcional: desasociar archivos en lugar de borrarlos
+            // Desasociar archivos en lugar de eliminarlos
             foreach (var file in collection.Files)
                 file.CollectionId = null;
 
@@ -127,3 +133,4 @@ namespace TwiceTasks.Controllers
         }
     }
 }
+

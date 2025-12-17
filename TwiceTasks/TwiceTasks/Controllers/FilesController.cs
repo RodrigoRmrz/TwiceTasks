@@ -25,30 +25,31 @@ namespace TwiceTasks.Controllers
             _env = env;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? collectionId)
         {
             var userId = _userManager.GetUserId(User);
-
-            var files = await _context.FileResources
-                .Where(f => f.UserId == userId)
-                .Include(f => f.Collection)
-                .OrderByDescending(f => f.UploadedAt)
-                .ToListAsync();
 
             var collections = await _context.Collections
                 .Where(c => c.UserId == userId)
                 .OrderBy(c => c.Name)
                 .ToListAsync();
 
-            var vm = new FilesIndexViewModel
+            var filesQuery = _context.FileResources
+                .Where(f => f.UserId == userId);
+
+            if (collectionId.HasValue && collectionId.Value != 0)
+                filesQuery = filesQuery.Where(f => f.CollectionId == collectionId.Value);
+
+            var model = new FilesIndexViewModel
             {
-                Files = files,
-                Collections = collections
+                Collections = collections,
+                Files = await filesQuery.ToListAsync(),
+                SelectedCollectionId = collectionId ?? 0
             };
 
-            return View(vm);
+            return View(model);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
