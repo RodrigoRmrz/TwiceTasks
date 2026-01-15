@@ -19,7 +19,7 @@ namespace TwiceTasks.Controllers
             _userManager = userManager;
         }
 
-        // GET: Collections
+        // GET: Collections (Opcional, por si quieres mantener la vista de rejilla)
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);
@@ -42,8 +42,9 @@ namespace TwiceTasks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Collection model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
+            ModelState.Remove("UserId");
+
+            if (!ModelState.IsValid) return View(model);
 
             model.UserId = _userManager.GetUserId(User);
             model.CreatedAt = DateTime.UtcNow;
@@ -51,20 +52,18 @@ namespace TwiceTasks.Controllers
             _context.Collections.Add(model);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Files");
+            // Redirigir al gestor de archivos con la nueva colección seleccionada
+            return RedirectToAction("Index", "Files", new { collectionId = model.Id });
         }
 
 
         // GET: Edit
         public async Task<IActionResult> Edit(int id)
         {
-            var collection = await _context.Collections.FindAsync(id);
+            var userId = _userManager.GetUserId(User);
+            var collection = await _context.Collections.FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
 
-            if (collection == null)
-                return NotFound();
-
-            if (collection.UserId != _userManager.GetUserId(User))
-                return Unauthorized();
+            if (collection == null) return NotFound();
 
             return View(collection);
         }
@@ -74,15 +73,13 @@ namespace TwiceTasks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("Id,Name,Description")] Collection updated)
         {
-            if (!ModelState.IsValid)
-                return View(updated);
+            if (!ModelState.IsValid) return View(updated);
 
             var userId = _userManager.GetUserId(User);
             var original = await _context.Collections.FirstOrDefaultAsync(c =>
                 c.Id == updated.Id && c.UserId == userId);
 
-            if (original == null)
-                return Unauthorized();
+            if (original == null) return Unauthorized();
 
             original.Name = updated.Name;
             original.Description = updated.Description;
@@ -90,7 +87,8 @@ namespace TwiceTasks.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            // Redirección Pro: Volver a la vista de archivos dentro de esa carpeta
+            return RedirectToAction("Index", "Files", new { collectionId = original.Id });
         }
 
         // GET: Delete
@@ -102,14 +100,13 @@ namespace TwiceTasks.Controllers
                 .Include(c => c.Files)
                 .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
 
-            if (collection == null)
-                return Unauthorized();
+            if (collection == null) return Unauthorized();
 
             return View(collection);
         }
 
         // POST: Delete
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -119,18 +116,20 @@ namespace TwiceTasks.Controllers
                 .Include(c => c.Files)
                 .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
 
-            if (collection == null)
-                return Unauthorized();
+            if (collection == null) return Unauthorized();
 
-            // Desasociar archivos en lugar de eliminarlos
-            foreach (var file in collection.Files)
-                file.CollectionId = null;
+            // Desasociar archivos para que no se borren (se quedan en "Todas")
+            if (collection.Files != null)
+            {
+                foreach (var file in collection.Files)
+                    file.CollectionId = null;
+            }
 
             _context.Collections.Remove(collection);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            // Al eliminar, volvemos a la vista general de archivos
+            return RedirectToAction("Index", "Files");
         }
     }
 }
-

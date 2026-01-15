@@ -12,8 +12,8 @@ using TwiceTasks.Data;
 namespace TwiceTasks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251209161200_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260115161325_MigracionArreglo")]
+    partial class MigracionArreglo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -264,6 +264,40 @@ namespace TwiceTasks.Migrations
                     b.ToTable("CalendarEvents");
                 });
 
+            modelBuilder.Entity("TwiceTasks.Models.Collection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Collections");
+                });
+
             modelBuilder.Entity("TwiceTasks.Models.FileResource", b =>
                 {
                     b.Property<int>("Id")
@@ -272,9 +306,16 @@ namespace TwiceTasks.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("CollectionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
@@ -297,6 +338,10 @@ namespace TwiceTasks.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CollectionId");
 
                     b.HasIndex("PageId");
 
@@ -326,15 +371,22 @@ namespace TwiceTasks.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("WorkspaceId")
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("WorkspaceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("WorkspaceId");
 
@@ -473,10 +525,29 @@ namespace TwiceTasks.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TwiceTasks.Models.Collection", b =>
+                {
+                    b.HasOne("TwiceTasks.Models.ApplicationUser", "User")
+                        .WithMany("Collections")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TwiceTasks.Models.FileResource", b =>
                 {
+                    b.HasOne("TwiceTasks.Models.ApplicationUser", null)
+                        .WithMany("Files")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("TwiceTasks.Models.Collection", "Collection")
+                        .WithMany("Files")
+                        .HasForeignKey("CollectionId");
+
                     b.HasOne("TwiceTasks.Models.Page", "Page")
-                        .WithMany()
+                        .WithMany("Files")
                         .HasForeignKey("PageId");
 
                     b.HasOne("TwiceTasks.Models.ApplicationUser", "User")
@@ -486,8 +557,10 @@ namespace TwiceTasks.Migrations
                         .IsRequired();
 
                     b.HasOne("TwiceTasks.Models.Workspace", "Workspace")
-                        .WithMany()
+                        .WithMany("Files")
                         .HasForeignKey("WorkspaceId");
+
+                    b.Navigation("Collection");
 
                     b.Navigation("Page");
 
@@ -498,11 +571,18 @@ namespace TwiceTasks.Migrations
 
             modelBuilder.Entity("TwiceTasks.Models.Page", b =>
                 {
+                    b.HasOne("TwiceTasks.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("TwiceTasks.Models.Workspace", "Workspace")
                         .WithMany("Pages")
                         .HasForeignKey("WorkspaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("User");
 
                     b.Navigation("Workspace");
                 });
@@ -539,11 +619,22 @@ namespace TwiceTasks.Migrations
 
             modelBuilder.Entity("TwiceTasks.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Collections");
+
+                    b.Navigation("Files");
+
                     b.Navigation("Workspaces");
+                });
+
+            modelBuilder.Entity("TwiceTasks.Models.Collection", b =>
+                {
+                    b.Navigation("Files");
                 });
 
             modelBuilder.Entity("TwiceTasks.Models.Page", b =>
                 {
+                    b.Navigation("Files");
+
                     b.Navigation("PageTags");
                 });
 
@@ -554,6 +645,8 @@ namespace TwiceTasks.Migrations
 
             modelBuilder.Entity("TwiceTasks.Models.Workspace", b =>
                 {
+                    b.Navigation("Files");
+
                     b.Navigation("Pages");
                 });
 #pragma warning restore 612, 618

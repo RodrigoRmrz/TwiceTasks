@@ -1,15 +1,54 @@
 @model TwiceTasks.Models.Page
 
-<h2>Nueva PÃ¡gina</h2>
+@{
+    var workspaces = ViewBag.Workspaces as List<TwiceTasks.Models.Workspace> ?? new();
+    ViewData["Title"] = "Nueva nota";
+}
 
-<form asp-action="Create" method="post">
-    <input type="hidden" asp-for="WorkspaceId" />
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h4 class="mb-3">
+                <i class="bi bi-journal-plus me-2"></i>Nueva nota
+            </h4>
 
-    <div class="mb-3">
-        <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label class="form-label">Título</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Workspace (opcional)</label>
+                    <select asp-for="WorkspaceId" class="form-select">
+                        <option value="">— Sin workspace —</option>
+                        @foreach (var ws in workspaces)
+                        {
+                            <option value="@ws.Id">@ws.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Contenido</label>
+                    <textarea asp-for="Content" class="form-control" rows="8"></textarea>
+                </div>
+
+                <button class="btn btn-primary">
+                    <i class="bi bi-check2-circle me-2"></i>Crear
+                </button>
+
+                <a asp-action="Index" class="btn btn-outline-secondary ms-2">
+                    <i class="bi bi-arrow-left me-2"></i>Volver
+                </a>
+            </form>
+        </div>
     </div>
+</div>
 
-    <button class="btn btn-success">Crear</button>
-</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

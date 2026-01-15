@@ -398,13 +398,22 @@ else
             align-items: center;
             gap: 12px;
             cursor: pointer;
-            transition: .2s;
+            transition: all 0.25s ease;
             color: var(--text);
+            text-decoration: none;
+            box-shadow: 0 2px 4px var(--shadow);
         }
 
             .qa-btn:hover {
-                background: var(--bg);
-                opacity: 0.85;
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px var(--shadow);
+                background: var(--card-bg); 
+                color: var(--text);
+                opacity: 1; 
+            }
+
+            .qa-btn:visited {
+                color: var(--text);
             }
 
         /* FAVORITOS */
@@ -454,22 +463,28 @@ else
             box-shadow: 0 4px 16px var(--shadow);
             transition: .22s;
             cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
         }
 
             .grid-card:hover {
                 transform: translateY(-4px);
                 box-shadow: 0 10px 26px var(--shadow);
+                color: inherit;
             }
 
             .grid-card h3 {
                 margin-bottom: 8px;
                 font-weight: 600;
                 color: var(--text);
+                text-decoration: none;
             }
 
             .grid-card p {
                 opacity: .65;
                 color: var(--text-muted);
+                text-decoration: none;
             }
     </style>
 
@@ -482,18 +497,21 @@ else
         </div>
 
         <div class="quick-actions">
-            <div class="qa-btn" onclick="location.href='/Workspaces/Create'">
+            <a class="qa-btn" asp-controller="Workspaces" asp-action="Create">
                 <i class="bi bi-kanban"></i> Nuevo Workspace
-            </div>
-            <div class="qa-btn" onclick="location.href='/Notes/Create'">
+            </a>
+
+            <a class="qa-btn" asp-controller="Pages" asp-action="Create">
                 <i class="bi bi-journal-plus"></i> Nueva Nota
-            </div>
-            <div class="qa-btn" onclick="location.href='/Files/Upload'">
+            </a>
+
+            <a class="qa-btn" asp-controller="Files" asp-action="Index">
                 <i class="bi bi-cloud-upload"></i> Subir Archivo
-            </div>
-            <div class="qa-btn" onclick="location.href='/Calendar'">
+            </a>
+
+            <a class="qa-btn" asp-controller="Calendar" asp-action="Index">
                 <i class="bi bi-calendar-event"></i> Calendario
-            </div>
+            </a>
         </div>
 
         <div class="favorites-box">
@@ -513,18 +531,20 @@ else
         </div>
 
         <div class="grid-notion">
-            <div class="grid-card" onclick="location.href='/Workspaces'">
+            <a class="grid-card" asp-controller="Workspaces" asp-action="Index">
                 <h3>Workspaces</h3>
                 <p>Tus proyectos organizados.</p>
-            </div>
-            <div class="grid-card" onclick="location.href='/Notes'">
+            </a>
+
+            <a class="grid-card" asp-controller="Pages" asp-action="Index">
                 <h3>Notas</h3>
                 <p>Ideas y apuntes rápidos.</p>
-            </div>
-            <div class="grid-card" onclick="location.href='/Files'">
+            </a>
+
+            <a class="grid-card" asp-controller="Files" asp-action="Index">
                 <h3>Archivos</h3>
                 <p>Todos tus documentos.</p>
-            </div>
+            </a>
         </div>
 
     </div>

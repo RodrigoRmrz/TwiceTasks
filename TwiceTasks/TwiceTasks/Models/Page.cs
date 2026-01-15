@@ -1,30 +1,33 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace TwiceTasks.Models
 {
-        public class Page
-        {
-            public int Id { get; set; }
+    public class Page
+    {
+        public int Id { get; set; }
 
-            [Required]
-            public int WorkspaceId { get; set; }
-            public Workspace? Workspace { get; set; }
+        [Required]
+        public string UserId { get; set; } = string.Empty;
+        public ApplicationUser User { get; set; } = null!;
 
-            [Required]
-            public string Title { get; set; } = "";
+        public int? WorkspaceId { get; set; }
+        public Workspace? Workspace { get; set; }
 
-            public string? Content { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string Title { get; set; } = "";
 
-            public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-            public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public string? Content { get; set; }
 
-            public bool IsArchived { get; set; } = false;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-            public ICollection<PageTag> PageTags { get; set; } = new List<PageTag>();
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-            public ICollection<FileResource>? Files { get; set; }
-        }
+        public bool IsArchived { get; set; } = false;
 
+        public ICollection<PageTag> PageTags { get; set; } = new List<PageTag>();
 
+        public ICollection<FileResource>? Files { get; set; }
+    }
 }
-

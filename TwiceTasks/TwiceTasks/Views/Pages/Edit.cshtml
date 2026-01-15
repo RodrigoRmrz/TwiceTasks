@@ -1,140 +1,63 @@
 @model TwiceTasks.Models.Page
 
 @{
-    ViewData["Title"] = Model.Title;
+    var workspaces = ViewBag.Workspaces as List<TwiceTasks.Models.Workspace> ?? new();
+    ViewData["Title"] = "Editar nota";
 }
 
-<div class="page-editor-container">
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                <h4 class="mb-0">
+                    <i class="bi bi-pencil-square me-2"></i>Editar nota
+                </h4>
 
-    <!-- TAGS (FUERA DEL FORM EDIT, SIN ANIDAR) -->
-    <div class="tags-container mb-3">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-2"></i>Volver
+                </a>
+            </div>
 
-        @foreach (var tag in (IEnumerable<TwiceTasks.Models.Tag>)ViewBag.Tags)
-        {
-            <form asp-action="RemoveTag"
-                  method="post"
-                  class="tag-chip">
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
 
-                <input type="hidden" name="pageId" value="@Model.Id" />
-                <input type="hidden" name="tagId" value="@tag.Id" />
-
-                <span>#@tag.Name</span>
-
-                <button type="submit">✕</button>
-            </form>
-        }
-
-        <form asp-action="AddTag"
-              method="post"
-              class="tag-input-form">
-
-            <input type="hidden" name="pageId" value="@Model.Id" />
-
-            <input type="text"
-                   name="tagName"
-                   class="tag-input"
-                   placeholder="+ tag"
-                   autocomplete="off" />
-
-            <button type="submit"
-                    class="btn btn-sm btn-outline-secondary ms-1">
-                Añadir
-            </button>
-        </form>
-    </div>
-
-    <!-- FORM EDIT PAGE (SOLO UNO) -->
-    <form asp-action="Edit" method="post">
-
-        <input type="hidden" name="Id" value="@Model.Id" />
-
-        <!-- TITLE editable (solo uno) -->
-        <input type="text"
-               name="Title"
-               value="@Model.Title"
-               class="page-title-input"
-               placeholder="Sin título..." />
-
-        <!-- EDITORJS -->
-        <div id="editorjs"></div>
-
-        <input type="hidden"
-               name="Content"
-               id="Content"
-               value='@(Model.Content ?? "{}")' />
-
-        <button type="submit" class="btn btn-primary mt-4">
-            Guardar
-        </button>
-    </form>
-
-    <!-- ATTACHMENTS -->
-    <div class="attachments-panel mt-5">
-
-        <form asp-controller="Files"
-              asp-action="UploadToPage"
-              method="post"
-              enctype="multipart/form-data"
-              class="attachment-upload-row">
-
-            <input type="hidden" name="pageId" value="@Model.Id" />
-
-            <input type="file" name="file" id="fileInput" hidden />
-
-            <label for="fileInput" class="file-picker">
-                📎 <span id="fileName">Ningún archivo seleccionado</span>
-            </label>
-
-            <button class="btn btn-sm btn-primary">
-                Subir
-            </button>
-        </form>
-
-        <div class="attachments-list mt-3">
-            @foreach (var file in (IEnumerable<TwiceTasks.Models.FileResource>)ViewBag.Files)
-            {
-                <div class="attachment-item">
-                    <a href="@file.FilePath" target="_blank">
-                        📄 @file.FileName
-                    </a>
-                    <a asp-controller="Files"
-                       asp-action="Delete"
-                       asp-route-id="@file.Id"
-                       class="delete-attachment">
-                        🗑
-                    </a>
+                <div class="mb-3">
+                    <label class="form-label">Título</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
-            }
-        </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Workspace</label>
+                    <select asp-for="WorkspaceId" class="form-select">
+                        <option value="">— Sin workspace —</option>
+                        @foreach (var ws in workspaces)
+                        {
+                            <option value="@ws.Id">@ws.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Contenido</label>
+                    <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+                </div>
+
+                <a asp-action="Index" class="btn btn-primary">
+                    <i class="bi bi-check2-circle me-2"></i>Guardar cambios
+                </a>
+
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger ms-2">
+                    <i class="bi bi-trash me-2"></i>Eliminar
+                </a>
+            </form>
+
+            @* Si ya tienes sección de Tags/Files aquí, mantenla debajo *@
+        </div>
     </div>
 </div>
 
 @section Scripts {
-<script>
-    // EditorJS
-    const editor = new EditorJS({
-        holder: 'editorjs',
-        placeholder: 'Empieza a escribir…',
-        data: @Html.Raw(Model.Content ?? "{}"),
-        onChange: async () => {
-            const content = await editor.save();
-            document.getElementById("Content").value =
-                JSON.stringify(content);
-        }
-    });
-
-    // File picker UX
-    const fileInput = document.getElementById("fileInput");
-    const fileNameSpan = document.getElementById("fileName");
-
-    if (fileInput) {
-        fileInput.addEventListener("change", () => {
-            fileNameSpan.textContent =
-                fileInput.files.length > 0
-                    ? fileInput.files[0].name
-                    : "Ningún archivo seleccionado";
-        });
-    }
-</script>
+    <partial name="_ValidationScriptsPartial" />
 }

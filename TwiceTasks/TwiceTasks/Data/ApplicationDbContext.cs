@@ -32,10 +32,16 @@ namespace TwiceTasks.Data
 
             // Relación Workspace -> Pages (1:N)
             builder.Entity<Page>()
-                .HasOne(p => p.Workspace)
-                .WithMany(w => w.Pages)
-                .HasForeignKey(p => p.WorkspaceId)
-                .OnDelete(DeleteBehavior.Cascade);
+                 .HasOne(p => p.Workspace)
+                 .WithMany(w => w.Pages)
+                 .HasForeignKey(p => p.WorkspaceId)
+                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<Page>()
+                .HasOne(p => p.User)
+                .WithMany()
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
             // Relación FileResource -> User (N:1)
             builder.Entity<FileResource>()
                 .HasOne(f => f.User)
