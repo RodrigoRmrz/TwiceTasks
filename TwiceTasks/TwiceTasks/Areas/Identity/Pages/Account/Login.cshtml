@@ -5,90 +5,142 @@
 }
 
 <style>
-    /* ===== Auth pages polish (ties into your light/dark CSS variables) ===== */
-    /* Make the card feel like a "hero" instead of a small widget */
+    /* ===== Auth pages (bigger, uses screen) ===== */
     .auth-wrap{
         min-height: 100vh;
         display: flex;
         align-items: center;
-        padding: 56px 0;
+        padding: 48px 0;
     }
 
     .auth-card{
         background: var(--card);
         color: var(--text);
         border: 1px solid var(--border);
-        border-radius: 24px;
-        box-shadow: 0 24px 60px rgba(0,0,0,.18);
+        border-radius: 28px;
+        box-shadow: 0 28px 70px rgba(0,0,0,.18);
         overflow: hidden;
+        font-size: 1.08rem;
     }
 
-    /* Slightly larger controls so the form fills more screen */
-    .auth-card .form-floating > .form-control{
-        height: 3.85rem;
-        padding: 1.15rem .95rem;
-    }
-    .auth-card .form-floating > label{
-        padding: 1.05rem .95rem;
+    @@media (min-width: 992px){
+        .auth-card{
+            font-size: 1.14rem;
+        }
     }
 
-    /* Ensure links are always clickable even if something is layered above */
-    .auth-card a{ position: relative; z-index: 3; }
+    .auth-grid{
+        display: grid;
+    }
+    @@media (min-width: 992px){
+        .auth-grid{
+            grid-template-columns: 1.15fr 1fr;
+            min-height: 640px;
+        }
+    }
 
-    .auth-topbar{
+    .auth-left{
         background: linear-gradient(135deg,
             color-mix(in srgb, var(--link) 38%, transparent),
             color-mix(in srgb, var(--link) 12%, transparent)
         );
         border-bottom: 1px solid var(--border);
+        padding: 26px 22px;
+    }
+    @@media (min-width: 992px){
+        .auth-left{
+            border-bottom: 0;
+            border-right: 1px solid var(--border);
+            padding: 40px 36px;
+        }
     }
 
+    .auth-brand{
+        font-weight: 900;
+        letter-spacing: -.02em;
+        font-size: clamp(2.0rem, 1.3rem + 1.4vw, 3.0rem);
+        margin: 0;
+    }
+
+    .auth-tag{
+        color: color-mix(in srgb, var(--text) 70%, transparent);
+        margin-top: 6px;
+        max-width: 34ch;
+    }
+
+    .auth-feature{
+        margin-top: 22px;
+        display: grid;
+        gap: 10px;
+        color: color-mix(in srgb, var(--text) 80%, transparent);
+    }
+    .auth-feature i{ color: var(--link); }
+
     .auth-badge{
-        width: 56px;
-        height: 56px;
+        width: 58px;
+        height: 58px;
         border-radius: 18px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.55rem;
+        font-size: 1.6rem;
         background: color-mix(in srgb, var(--card) 82%, transparent);
         border: 1px solid var(--border);
         box-shadow: 0 14px 28px rgba(0,0,0,.14);
+        margin-bottom: 14px;
     }
 
-    .auth-muted{
-        color: color-mix(in srgb, var(--text) 65%, transparent) !important;
+    .auth-right{
+        padding: 22px;
+    }
+    @@media (min-width: 992px){
+        .auth-right{
+            padding: 40px 42px;
+        }
     }
 
+    .auth-title{
+        font-size: clamp(1.6rem, 1.2rem + .8vw, 2.2rem);
+        font-weight: 900;
+        letter-spacing: -.02em;
+        margin: 0 0 6px;
+    }
+
+    .auth-muted{ color: color-mix(in srgb, var(--text) 65%, transparent) !important; }
+
+    /* Bigger controls */
     .auth-card .form-control{
         background: color-mix(in srgb, var(--card) 92%, transparent);
         color: var(--text);
         border: 1px solid var(--border);
-        border-radius: 14px;
+        border-radius: 16px;
+        padding: 1.0rem 1.05rem;
+        font-size: 1.05rem;
     }
 
-    .auth-card .form-floating > label{
-        color: color-mix(in srgb, var(--text) 70%, transparent);
+    @@media (min-width: 992px){
+        .auth-card .form-control{
+            padding: 1.05rem 1.1rem;
+            font-size: 1.12rem;
+        }
     }
 
     .auth-card .form-control:focus{
         border-color: color-mix(in srgb, var(--link) 60%, var(--border));
-        box-shadow: 0 0 0 .25rem color-mix(in srgb, var(--link) 20%, transparent);
+        box-shadow: 0 0 0 .28rem color-mix(in srgb, var(--link) 20%, transparent);
     }
 
     .auth-card .btn-primary{
-        border-radius: 14px;
+        border-radius: 16px;
         padding: 14px 16px;
-        font-weight: 700;
+        font-weight: 800;
+        font-size: 1.1rem;
     }
-
-    /* In case any decorative layer overlaps, make links always clickable */
-    .auth-actions{ position: relative; z-index: 2; }
 
     .auth-link{
         color: var(--link);
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 700;
     }
     .auth-link:hover{ text-decoration: underline; }
 
@@ -107,11 +159,11 @@
     }
 
     .validation-summary-errors{
-        border-radius: 14px;
+        border-radius: 16px;
         border: 1px solid color-mix(in srgb, #dc3545 35%, var(--border));
         background: color-mix(in srgb, #dc3545 8%, var(--card));
-        padding: 10px 12px;
-        margin-bottom: 14px;
+        padding: 12px 14px;
+        margin-bottom: 16px;
     }
     .validation-summary-errors ul{ margin: 0; padding-left: 18px; }
 
@@ -123,8 +175,8 @@
         border: 0;
         background: transparent;
         color: color-mix(in srgb, var(--text) 70%, transparent);
-        padding: 8px;
-        border-radius: 10px;
+        padding: 10px;
+        border-radius: 12px;
     }
     .pw-toggle:hover{
         background: color-mix(in srgb, var(--border) 35%, transparent);
@@ -132,81 +184,88 @@
     }
 </style>
 
-<div class="container auth-wrap">
+<div class="container-xxl auth-wrap">
     <div class="row justify-content-center w-100">
-        <!-- Wider card so it feels "full page" on desktop -->
-        <div class="col-12 col-sm-11 col-md-10 col-lg-8 col-xl-7">
+        <div class="col-12 col-md-11 col-lg-10 col-xl-9">
+            <div class="auth-card">
+                <div class="auth-grid">
 
-            <div class="card auth-card">
-                <div class="auth-topbar p-4 p-md-4 text-center">
-                    <div class="auth-badge mb-3" aria-hidden="true">🔐</div>
-                    <h1 class="h2 fw-bold mb-1">Iniciar sesión</h1>
-                    <p class="auth-muted mb-0 fs-6">Bienvenido de vuelta. Continúa donde lo dejaste.</p>
-                </div>
+                    <div class="auth-left">
+                        <div class="auth-badge" aria-hidden="true">🔐</div>
+                        <h1 class="auth-brand">TwiceTasks</h1>
+                        <p class="auth-tag">Entra y continúa organizando tareas, notas y adjuntos en un solo lugar.</p>
 
-                <div class="card-body p-4 p-md-5 p-lg-5">
-                    <form id="account" method="post" asp-route-returnUrl="@Model.ReturnUrl" novalidate>
-                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="nombre@ejemplo.com" />
-                            <label asp-for="Input.Email">Email</label>
-                            <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                        <div class="auth-feature">
+                            <div class="d-flex align-items-center gap-2"><i class="bi bi-check2-circle"></i><span>Workspaces, páginas y etiquetas</span></div>
+                            <div class="d-flex align-items-center gap-2"><i class="bi bi-check2-circle"></i><span>Archivos y colecciones</span></div>
+                            <div class="d-flex align-items-center gap-2"><i class="bi bi-check2-circle"></i><span>Modo claro / oscuro</span></div>
                         </div>
+                    </div>
 
-                        <div class="form-floating mb-3 position-relative">
-                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" placeholder="Contraseña" id="pw" />
-                            <label asp-for="Input.Password">Contraseña</label>
-                            <button type="button" class="pw-toggle" aria-label="Mostrar u ocultar contraseña" title="Mostrar/Ocultar" data-tt-toggle="pw">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                            <span asp-validation-for="Input.Password" class="text-danger small"></span>
-                        </div>
+                    <div class="auth-right">
+                        <h2 class="auth-title">Iniciar sesión</h2>
+                        <p class="auth-muted mb-4">Bienvenido de vuelta. Continúa donde lo dejaste.</p>
 
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" asp-for="Input.RememberMe" />
-                                <label class="form-check-label" asp-for="Input.RememberMe">Recordarme</label>
+                        <form id="account" method="post" asp-route-returnUrl="@Model.ReturnUrl" novalidate>
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                            <div class="mb-3">
+                                <label asp-for="Input.Email" class="form-label fw-semibold">Email</label>
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="nombre@ejemplo.com" />
+                                <span asp-validation-for="Input.Email" class="text-danger small"></span>
                             </div>
-                            <a class="auth-link small" asp-page="./ForgotPassword">¿Olvidaste la contraseña?</a>
+
+                            <div class="mb-3 position-relative">
+                                <label asp-for="Input.Password" class="form-label fw-semibold">Contraseña</label>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" placeholder="Contraseña" id="pw" />
+                                <button type="button" class="pw-toggle" aria-label="Mostrar u ocultar contraseña" title="Mostrar/Ocultar" data-tt-toggle="pw">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                                    <label class="form-check-label" asp-for="Input.RememberMe">Recordarme</label>
+                                </div>
+                                <a class="auth-link" asp-page="./ForgotPassword">¿Olvidaste la contraseña?</a>
+                            </div>
+
+                            <button id="login-submit" type="submit" class="btn btn-primary w-100 btn-lg">
+                                Entrar
+                            </button>
+                        </form>
+
+                        <div class="auth-divider auth-muted small"><span>o</span></div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+                            <a class="auth-link" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Model.ReturnUrl">¿No tienes cuenta? Regístrate</a>
+                            <a class="auth-link" asp-area="" asp-controller="Home" asp-action="Index">Volver al inicio</a>
                         </div>
 
-                        <button id="login-submit" type="submit" class="btn btn-primary w-100 btn-lg">
-                            Entrar
-                        </button>
-                    </form>
+                        @if (Model.ExternalLogins?.Count > 0)
+                        {
+                            <div class="mt-4">
+                                <div class="auth-divider auth-muted small"><span>Acceso rápido</span></div>
+                                <form method="post" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" class="d-grid gap-2 mt-3">
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                        <button type="submit" class="btn btn-outline-secondary btn-lg" name="provider" value="@provider.Name">
+                                            Continuar con @provider.DisplayName
+                                        </button>
+                                    }
+                                </form>
+                            </div>
+                        }
 
-                    <!-- Keep links OUTSIDE the form so they always navigate (no validation / submit interference) -->
-                    <div class="auth-divider auth-muted small">
-                        <span>o</span>
+                        <p class="auth-muted small mt-4 mb-0">
+                            Al iniciar sesión, aceptas usar TwiceTasks de forma responsable.
+                        </p>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
-                        <a class="auth-link" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Model.ReturnUrl">¿No tienes cuenta? Regístrate</a>
-                        <a class="auth-link" asp-area="" asp-controller="Home" asp-action="Index">Volver al inicio</a>
-                    </div>
-
-                    @if (Model.ExternalLogins?.Count > 0)
-                    {
-                        <div class="mt-4">
-                            <div class="auth-divider auth-muted small"><span>Acceso rápido</span></div>
-                            <form method="post" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" class="d-grid gap-2 mt-3">
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-outline-secondary" name="provider" value="@provider.Name">
-                                        Continuar con @provider.DisplayName
-                                    </button>
-                                }
-                            </form>
-                        </div>
-                    }
-
-                    <p class="auth-muted small mt-4 mb-0">
-                        Al iniciar sesión, aceptas usar TwiceTasks de forma responsable.
-                    </p>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

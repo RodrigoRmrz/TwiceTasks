@@ -3,6 +3,54 @@
   "WorkspaceRootPath": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260125030845_M2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TwiceTasks\\Migrations\\20260125030845_M2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\manage\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\manage\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\twofactorauthentication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\manage\\twofactorauthentication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\personaldata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\manage\\personaldata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\manage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\email.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\manage\\email.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\downloadpersonaldata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\manage\\downloadpersonaldata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\deletepersonaldata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\manage\\deletepersonaldata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\managenavpages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\areas\\identity\\pages\\account\\manage\\managenavpages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -99,6 +147,152 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "20260125030845_M2.cs",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260125030845_M2.cs",
+              "RelativeDocumentMoniker": "TwiceTasks\\Migrations\\20260125030845_M2.cs",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260125030845_M2.cs",
+              "RelativeToolTip": "TwiceTasks\\Migrations\\20260125030845_M2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T03:08:45.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ViewState": "AgIAAAoAAAAAAAAAAADwvxkAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:57:35.346Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAswH4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:56:21.554Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "ViewState": "AgIAABIBAAAAAAAAAADwv3gAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:52:00.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TwoFactorAuthentication.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\TwoFactorAuthentication.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\TwoFactorAuthentication.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\TwoFactorAuthentication.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\TwoFactorAuthentication.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:51:55.15Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PersonalData.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:51:48.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Index.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Index.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Index.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:51:42.007Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Email.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:51:34.978Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DownloadPersonalData.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DownloadPersonalData.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DownloadPersonalData.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DownloadPersonalData.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DownloadPersonalData.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:51:27.16Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DeletePersonalData.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DeletePersonalData.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DeletePersonalData.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DeletePersonalData.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DeletePersonalData.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:51:20.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ChangePassword.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T02:51:03.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ManageNavPages.cs",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
+              "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
+              "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T02:50:46.459Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Data\\ApplicationDbContext.cs",
@@ -106,12 +300,11 @@
               "RelativeToolTip": "TwiceTasks\\Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAACsAAAAAAAAAAAAqwDsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-09T16:11:18.068Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-09T16:11:18.068Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 13,
               "Title": "Workspace.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\Workspace.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Models\\Workspace.cs",
@@ -123,7 +316,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 14,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\appsettings.json",
               "RelativeDocumentMoniker": "TwiceTasks\\appsettings.json",

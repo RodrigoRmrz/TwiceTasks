@@ -12,7 +12,7 @@ using TwiceTasks.Data;
 namespace TwiceTasks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260125010404_M2")]
+    [Migration("20260125030845_M2")]
     partial class M2
     {
         /// <inheritdoc />
