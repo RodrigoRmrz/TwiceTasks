@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\migrations\\20260125010404_m2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\migrations\\20260125010404_m2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -103,19 +99,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20260125010404_M2.cs",
-              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260125010404_M2.cs",
-              "RelativeDocumentMoniker": "TwiceTasks\\Migrations\\20260125010404_M2.cs",
-              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260125010404_M2.cs",
-              "RelativeToolTip": "TwiceTasks\\Migrations\\20260125010404_M2.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T01:04:04.983Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Data\\ApplicationDbContext.cs",
@@ -123,11 +106,12 @@
               "RelativeToolTip": "TwiceTasks\\Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAACsAAAAAAAAAAAAqwDsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-09T16:11:18.068Z"
+              "WhenOpened": "2025-12-09T16:11:18.068Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Workspace.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\Workspace.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Models\\Workspace.cs",
@@ -139,7 +123,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\appsettings.json",
               "RelativeDocumentMoniker": "TwiceTasks\\appsettings.json",
