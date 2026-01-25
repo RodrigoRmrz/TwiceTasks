@@ -67,17 +67,8 @@ app.UseAuthorization();
 // =============================
 // ROUTING
 // =============================
-// ✅ Alias duro para /Notes
-// A veces los enlaces apuntan a /Notes aunque el controlador real sea Pages.
-// Esto evita 404 incluso si cambian rutas convencionales.
-app.MapGet("/Notes", () => Results.Redirect("/Pages"));
-app.MapGet("/Notes/{**rest}", () => Results.Redirect("/Pages"));
-
-// Alias convencional adicional: /Notes/... -> PagesController
-app.MapControllerRoute(
-    name: "notes",
-    pattern: "Notes/{action=Index}/{id?}",
-    defaults: new { controller = "Pages" });
+// Notas viven en /Notes (NotesController)
+// y las operaciones CRUD siguen en PagesController.
 
 
 app.MapControllerRoute(
