@@ -80,10 +80,20 @@
             max-width: 520px;
             height: 340px;
             border-radius: var(--radius);
-            overflow: hidden;
+            /* Deja el overflow visible para que el panel/mockup (demo) pueda “salir” del marco */
+            overflow: visible;
             position: relative;
-            background: #000;
             box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        /* Marco interno: aquí sí recortamos el vídeo y el gradiente */
+        .hero-media-frame {
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #000;
+            z-index: 1;
         }
 
         /* === VIDEO === */
@@ -122,6 +132,7 @@
             transform: translateX(120%);
             opacity: 0;
             transition: .7s cubic-bezier(.2,.9,.2,1);
+            z-index: 2;
         }
 
         .mockup.open {
@@ -229,49 +240,55 @@
                     <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Crear cuenta</a>
                     <a class="btn btn-outline-secondary" asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
 
-                    <button id="open-mockup-btn" class="btn btn-outline-secondary">
-                        Ver demo rápida
-                    </button>
+	                    <!-- Demo rápida: abre un modal con vídeo (y fallback si no existe el archivo) -->
+	                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#quickDemoModal">
+	                        Ver demo rápida
+	                    </button>
                 </div>
             </div>
 
             <div class="hero-right">
 
-                <div class="hero-media">
-                    <!-- VIDEO HERO -->
-                    <video class="hero-video" autoplay muted loop playsinline>
-                        <source src="/videos/VideoImagen.mp4" type="video/mp4" />
-                    </video>
+	                <div class="hero-media">
+	                    <!-- Marco interno (recorta vídeo + gradiente) -->
+	                    <div class="hero-media-frame">
+	                        <!-- VIDEO HERO -->
+	                        <video class="hero-video" autoplay muted loop playsinline>
+	                            <source src="/videos/VideoImagen.mp4" type="video/mp4" />
+	                        </video>
 
-                    <div class="moving-grad"></div>
+	                        <div class="moving-grad"></div>
+	                    </div>
 
-                    <!-- MOCKUP -->
-                    <div id="mockup" class="mockup">
-                        <div class="mockup-card">
-                            <div class="mockup-header">
-                                <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></div>
-                                <div style="width:10px;height:10px;border-radius:50%;background:#ffbd2e"></div>
-                                <div style="width:10px;height:10px;border-radius:50%;background:#28c840"></div>
-                                <div style="flex:1"></div>
-                                <div style="opacity:.6;font-size:12px">Workspace • Demo</div>
-                            </div>
-                            <div class="mockup-body">
-                                <div style="display:flex;justify-content:space-between">
-                                    <div class="pill">Marketing</div>
-                                    <div style="opacity:.6;font-size:.9rem">Hoy • 4 tareas</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="mockup-toggle" id="mockup-close-btn">
-                            ✕
-                        </button>
-                    </div>
+				    <!-- (Se eliminó el mockup decorativo que aparecía como “Marketing”) -->
                 </div>
 
             </div>
 
         </div>
+
+	        <!-- Modal: Demo rápida (vídeo) -->
+	        <div class="modal fade" id="quickDemoModal" tabindex="-1" aria-labelledby="quickDemoModalLabel" aria-hidden="true">
+	            <div class="modal-dialog modal-lg modal-dialog-centered">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h5 class="modal-title" id="quickDemoModalLabel">Demo rápida de TwiceTasks</h5>
+	                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+	                    </div>
+	                    <div class="modal-body">
+	                        <div class="ratio ratio-16x9">
+	                            <video id="quickDemoVideo" controls playsinline>
+	                                <source src="/videos/VideoImagen.mp4" type="video/mp4" />
+	                                Tu navegador no soporta vídeo HTML5.
+	                            </video>
+	                        </div>
+	                        <small class="text-muted d-block mt-2">
+	                            Si no se reproduce, añade tu archivo en <code>wwwroot/videos/VideoImagen.mp4</code>.
+	                        </small>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
 
         <!-- FEATURES -->
         <section class="features">
@@ -305,34 +322,33 @@
 
     </div>
 
-    @section Scripts {
-        <script>
-            // Reveal
-            const obs = new IntersectionObserver((e) => {
-                e.forEach(a => {
-                    if (a.isIntersecting) {
-                        a.target.classList.add('revealed');
-                        obs.unobserve(a.target);
-                    }
-                });
-            }, { threshold: .12 });
+	    @section Scripts {
+	        <script>
+	            // Reveal
+	            const obs = new IntersectionObserver((e) => {
+	                e.forEach(a => {
+	                    if (a.isIntersecting) {
+	                        a.target.classList.add('revealed');
+	                        obs.unobserve(a.target);
+	                    }
+	                });
+	            }, { threshold: .12 });
 
-            document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+	            document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
 
-            // Mockup slide
-            const mockup = document.getElementById("mockup");
-            const openBtn = document.getElementById("open-mockup-btn");
-            const closeBtn = document.getElementById("mockup-close-btn");
-
-            openBtn.addEventListener("click", () => {
-                mockup.classList.toggle("open");
-            });
-
-            closeBtn.addEventListener("click", () => {
-                mockup.classList.remove("open");
-            });
-        </script>
-    }
+	            // Pausa y resetea el vídeo al cerrar el modal
+	            const demoModal = document.getElementById('quickDemoModal');
+	            const demoVideo = document.getElementById('quickDemoVideo');
+	            if (demoModal && demoVideo) {
+	                demoModal.addEventListener('hidden.bs.modal', () => {
+	                    try {
+	                        demoVideo.pause();
+	                        demoVideo.currentTime = 0;
+	                    } catch { /* noop */ }
+	                });
+	            }
+	        </script>
+	    }
 }
 else
 {
