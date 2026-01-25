@@ -1,0 +1,32 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using TwiceTasks.Areas.Identity.Pages.Account.Manage
+
+<nav class="tt-manage-nav">
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <div class="tt-manage-avatar" aria-hidden="true">
+            <i class="bi bi-person"></i>
+        </div>
+        <div>
+            <div class="fw-semibold">Mi cuenta</div>
+            <div class="text-muted small">Preferencias y seguridad</div>
+        </div>
+    </div>
+
+    <div class="nav nav-pills flex-column gap-2">
+        <a class="nav-link @ManageNavPages.PageNavClass(ViewContext, ManageNavPages.Index)" asp-page="./Index">
+            <i class="bi bi-person-badge me-2"></i> Perfil
+        </a>
+        <a class="nav-link @ManageNavPages.PageNavClass(ViewContext, ManageNavPages.Email)" asp-page="./Email">
+            <i class="bi bi-envelope-at me-2"></i> Email
+        </a>
+        <a class="nav-link @ManageNavPages.PageNavClass(ViewContext, ManageNavPages.ChangePassword)" asp-page="./ChangePassword">
+            <i class="bi bi-key me-2"></i> Contraseña
+        </a>
+        <a class="nav-link @ManageNavPages.PageNavClass(ViewContext, ManageNavPages.TwoFactorAuthentication)" asp-page="./TwoFactorAuthentication">
+            <i class="bi bi-shield-check me-2"></i> 2FA
+        </a>
+        <a class="nav-link @ManageNavPages.PageNavClass(ViewContext, ManageNavPages.PersonalData)" asp-page="./PersonalData">
+            <i class="bi bi-file-earmark-lock me-2"></i> Datos personales
+        </a>
+    </div>
+</nav>

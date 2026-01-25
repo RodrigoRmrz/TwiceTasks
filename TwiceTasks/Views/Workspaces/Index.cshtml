@@ -1,0 +1,77 @@
+@model IEnumerable<TwiceTasks.ViewModels.WorkspaceCardVm>
+@{
+    ViewData["Title"] = "Workspaces";
+}
+
+<div class="container-xxl py-4">
+    <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3 mb-4">
+        <div>
+            <h1 class="fw-bold m-0" style="letter-spacing:-.02em;">Workspaces</h1>
+            <p class="text-muted mb-0">Organiza tus notas por proyectos. Abre un workspace para ver sus notas.</p>
+        </div>
+        <div>
+            <a class="btn btn-primary btn-lg" asp-action="Create">
+                <i class="bi bi-plus-circle me-2"></i>Crear workspace
+            </a>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="p-5 rounded-4 border" style="background: var(--card-bg); border-color: var(--border) !important;">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 border d-flex align-items-center justify-content-center" style="width:54px;height:54px;background: rgba(255,255,255,.04); border-color: var(--border) !important;">
+                    <i class="bi bi-kanban fs-3"></i>
+                </div>
+                <div>
+                    <h4 class="fw-bold mb-1" style="letter-spacing:-.02em;">Aún no tienes workspaces</h4>
+                    <div class="text-muted">Crea uno para empezar a organizar notas y archivos.</div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row g-3">
+            @foreach (var ws in Model)
+            {
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="card shadow-sm rounded-4 h-100" style="background: var(--card-bg); border-color: var(--border);">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start gap-3">
+                                <div class="min-w-0">
+                                    <h4 class="fw-bold mb-1 text-truncate" style="letter-spacing:-.02em;">@ws.Name</h4>
+                                    <div class="text-muted" style="min-height: 42px;">
+                                        @(string.IsNullOrWhiteSpace(ws.Description) ? "Sin descripción" : ws.Description)
+                                    </div>
+                                </div>
+                                <span class="badge rounded-pill text-bg-primary">@ws.PageCount notas</span>
+                            </div>
+
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <span class="badge rounded-pill text-bg-secondary">@ws.FileCount archivos</span>
+                                <span class="badge rounded-pill text-bg-light" style="color: var(--text); background: rgba(255,255,255,.06) !important; border: 1px solid var(--border);">
+                                    Creado: @ws.CreatedAt.ToLocalTime().ToShortDateString()
+                                </span>
+                            </div>
+
+                            <div class="d-flex flex-wrap gap-2 mt-4">
+                                <a class="btn btn-primary" asp-controller="Pages" asp-action="Index" asp-route-workspaceId="@ws.Id">
+                                    <i class="bi bi-journal-text me-2"></i>Abrir notas
+                                </a>
+                                <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@ws.Id">
+                                    <i class="bi bi-pencil me-2"></i>Editar
+                                </a>
+                                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@ws.Id">
+                                    <i class="bi bi-trash me-2"></i>Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">

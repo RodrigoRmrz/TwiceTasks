@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260125030845_M2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TwiceTasks\\Migrations\\20260125030845_M2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\migrations\\20260125030845_m2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\migrations\\20260125030845_m2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\areas\\identity\\pages\\account\\manage\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -275,8 +275,7 @@
               "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-25T02:51:03.705Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-25T02:51:03.705Z"
             },
             {
               "$type": "Document",

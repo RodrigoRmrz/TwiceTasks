@@ -1,0 +1,65 @@
+@model TwiceTasks.Models.Page
+
+@{
+    var workspaces = ViewBag.Workspaces as List<TwiceTasks.Models.Workspace> ?? new();
+    ViewData["Title"] = "Editar nota";
+}
+
+<div class="container-xxl py-4">
+    <div class="card shadow-sm rounded-4" style="background: var(--card-bg); border-color: var(--border);">
+        <div class="card-body p-4 p-lg-5">
+            <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3 mb-4">
+                <div>
+                    <h2 class="fw-bold m-0" style="letter-spacing:-.02em;"><i class="bi bi-pencil-square me-2"></i>Editar nota</h2>
+                    <p class="text-muted mb-0">Actualiza tu contenido y organiza la nota en el workspace que quieras.</p>
+                </div>
+                <a asp-action="Index" asp-route-workspaceId="@Model.WorkspaceId" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-arrow-left me-2"></i>Volver
+                </a>
+            </div>
+
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row g-3">
+                    <div class="col-12 col-lg-8">
+                        <label class="form-label fw-semibold">Título</label>
+                        <input asp-for="Title" class="form-control form-control-lg" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <label class="form-label fw-semibold">Workspace</label>
+                        <select asp-for="WorkspaceId" class="form-select form-select-lg">
+                            <option value="">— Sin workspace —</option>
+                            @foreach (var ws in workspaces)
+                            {
+                                <option value="@ws.Id">@ws.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Contenido</label>
+                        <textarea asp-for="Content" class="form-control" rows="14" placeholder="Escribe aquí..."></textarea>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-check2-circle me-2"></i>Guardar cambios
+                    </button>
+
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-lg">
+                        <i class="bi bi-trash me-2"></i>Eliminar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">

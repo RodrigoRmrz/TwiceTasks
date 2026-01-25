@@ -1,0 +1,73 @@
+@model IEnumerable<TwiceTasks.Models.CalendarEvent>
+
+<h1 class="mb-4">📅 Calendario</h1>
+
+<div id="calendar" class="calendar-grid"></div>
+
+<hr class="my-4" />
+
+<form asp-action="Create" method="post" class="event-form">
+
+    <input type="text"
+           name="title"
+           class="form-control"
+           placeholder="Título del evento"
+           required />
+
+    <input type="date"
+           name="date"
+           class="form-control mt-2"
+           required />
+
+    <button class="btn btn-primary mt-2">
+        Añadir evento
+    </button>
+</form>
+
+@section Scripts {
+<script>
+    const events = @Html.Raw(
+        System.Text.Json.JsonSerializer.Serialize(
+            Model.Select(e => new {
+                title = e.Title,
+                date = e.Date.ToString("yyyy-MM-dd")
+            })
+        )
+    );
+
+    const calendar = document.getElementById("calendar");
+
+    function renderCalendar() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth();
+
+        const lastDay = new Date(year, month + 1, 0);
+
+        calendar.innerHTML = "";
+
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const dateStr =
+                `${year}-${String(month + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+
+            const box = document.createElement("div");
+            box.className = "calendar-day";
+
+            box.innerHTML = `<strong>${day}</strong>`;
+
+            events
+                .filter(e => e.date === dateStr)
+                .forEach(e => {
+                    const ev = document.createElement("div");
+                    ev.className = "calendar-event";
+                    ev.textContent = e.title;
+                    box.appendChild(ev);
+                });
+
+            calendar.appendChild(box);
+        }
+    }
+
+    renderCalendar();
+</script>
+}

@@ -1,0 +1,568 @@
+﻿@{
+    ViewData["Title"] = "TwiceTasks";
+}
+
+@if (!(User?.Identity?.IsAuthenticated ?? false))
+{
+    <!-- ========================= -->
+    <!-- LANDING PAGE NO LOGUEADOS -->
+    <!-- ========================= -->
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --content-max: 1280px;
+            --radius: 14px;
+            --glass: rgba(255,255,255,0.06);
+        }
+
+        body, h1, h2, h3, p, a, button {
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        .landing {
+            max-width: var(--content-max);
+            margin: 0 auto;
+            padding: 88px 20px 56px;
+        }
+
+        /* ===== HERO ===== */
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 520px;
+            gap: 36px;
+            align-items: center;
+            min-height: 72vh;
+        }
+
+        .hero-left {}
+
+        .hero-title {
+            font-size: clamp(2.2rem, 4.4vw, 3.8rem);
+            line-height: 1.03;
+            font-weight: 800;
+            margin: 0 0 18px;
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            opacity: .78;
+            margin-bottom: 26px;
+            max-width: 56ch;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-actions .btn {
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* ===== HERO MEDIA ===== */
+
+        .hero-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-media {
+            width: 100%;
+            max-width: 520px;
+            height: 340px;
+            border-radius: var(--radius);
+            /* Deja el overflow visible para que el panel/mockup (demo) pueda “salir” del marco */
+            overflow: visible;
+            position: relative;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        /* Marco interno: aquí sí recortamos el vídeo y el gradiente */
+        .hero-media-frame {
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #000;
+            z-index: 1;
+        }
+
+        /* === VIDEO === */
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* fallback gradient debajo del vídeo */
+        .moving-grad {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 10% 20%, rgba(77,168,255,0.18), transparent 18%),
+                        radial-gradient(circle at 80% 80%, rgba(111,66,193,0.12), transparent 18%);
+            filter: blur(34px);
+            transform: translateZ(0);
+            animation: gradMove 12s linear infinite;
+            opacity: .35;
+        }
+
+        @@keyframes gradMove {
+            0% { transform: translate(-6%, -2%) scale(1.05); }
+            50% { transform: translate(6%, 2%) scale(1.08); }
+            100% { transform: translate(-6%, -2%) scale(1.05); }
+        }
+
+        /* MOCKUP PANEL */
+
+        .mockup {
+            position: absolute;
+            right: -10%;
+            bottom: -6%;
+            width: 420px;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: .7s cubic-bezier(.2,.9,.2,1);
+            z-index: 2;
+        }
+
+        .mockup.open {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .mockup-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+        }
+
+        .mockup-toggle {
+            position: absolute;
+            right: -42px;
+            top: 40%;
+            transform: translateY(-50%);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* FEATURES */
+
+        .features {
+            margin-top: 48px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: .4s;
+            border-radius: 12px;
+            padding: 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+
+        .feature-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* CTA */
+
+        .cta-strip {
+            margin-top: 36px;
+            background: linear-gradient(90deg, rgba(77,168,255,0.06), rgba(111,66,193,0.03));
+            border-radius: 12px;
+            padding: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+        }
+
+        @@media (max-width: 980px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .hero-right {
+                order: -1;
+            }
+            .mockup {
+                position: relative;
+                right: 0;
+                bottom: 0;
+                transform: none;
+                opacity: 1;
+            }
+            .mockup-toggle {
+                display: none;
+            }
+        }
+    </style>
+
+    <div class="landing">
+
+        <div class="hero">
+
+            <div class="hero-left">
+                <h1 class="hero-title">Organiza tu trabajo con precisión y calma</h1>
+
+                <p class="hero-sub">
+                    TwiceTasks combina la simplicidad y flexibilidad de TwiceTasks con la velocidad que necesitas.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Crear cuenta</a>
+                    <a class="btn btn-outline-secondary" asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
+
+	                    <!-- Demo rápida: abre un modal con vídeo (y fallback si no existe el archivo) -->
+	                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#quickDemoModal">
+	                        Ver demo rápida
+	                    </button>
+                </div>
+            </div>
+
+            <div class="hero-right">
+
+	                <div class="hero-media">
+	                    <!-- Marco interno (recorta vídeo + gradiente) -->
+	                    <div class="hero-media-frame">
+	                        <!-- VIDEO HERO -->
+	                        <video class="hero-video" autoplay muted loop playsinline>
+	                            <source src="/videos/VideoImagen.mp4" type="video/mp4" />
+	                        </video>
+
+	                        <div class="moving-grad"></div>
+	                    </div>
+
+				    <!-- (Se eliminó el mockup decorativo que aparecía como “Marketing”) -->
+                </div>
+
+            </div>
+
+        </div>
+
+	        <!-- Modal: Demo rápida (vídeo) -->
+	        <div class="modal fade" id="quickDemoModal" tabindex="-1" aria-labelledby="quickDemoModalLabel" aria-hidden="true">
+	            <div class="modal-dialog modal-lg modal-dialog-centered">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h5 class="modal-title" id="quickDemoModalLabel">Demo rápida de TwiceTasks</h5>
+	                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+	                    </div>
+	                    <div class="modal-body">
+	                        <div class="ratio ratio-16x9">
+	                            <video id="quickDemoVideo" controls playsinline>
+	                                <source src="/videos/VideoImagen.mp4" type="video/mp4" />
+	                                Tu navegador no soporta vídeo HTML5.
+	                            </video>
+	                        </div>
+	                        <small class="text-muted d-block mt-2">
+	                            Si no se reproduce, añade tu archivo en <code>wwwroot/videos/VideoImagen.mp4</code>.
+	                        </small>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+        <!-- FEATURES -->
+        <section class="features">
+            <div class="features-grid" id="features-grid">
+                <article class="feature-card" data-reveal>
+                    <h3>Paneles visuales</h3>
+                    <p>Organiza tus proyectos con una interfaz clara y moderna.</p>
+                </article>
+
+                <article class="feature-card" data-reveal>
+                    <h3>Notas y documentación</h3>
+                    <p>Un editor limpio para tus ideas y conocimiento.</p>
+                </article>
+
+                <article class="feature-card" data-reveal>
+                    <h3>Archivos seguros</h3>
+                    <p>Administra y accede a tus documentos fácilmente.</p>
+                </article>
+            </div>
+
+            <div class="cta-strip">
+                <div>
+                    <strong>Empieza hoy mismo</strong><br />
+                    <span style="opacity:.7">Crea una cuenta gratuita en segundos.</span>
+                </div>
+                <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">
+                    Crear cuenta
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+	    @section Scripts {
+	        <script>
+	            // Reveal
+	            const obs = new IntersectionObserver((e) => {
+	                e.forEach(a => {
+	                    if (a.isIntersecting) {
+	                        a.target.classList.add('revealed');
+	                        obs.unobserve(a.target);
+	                    }
+	                });
+	            }, { threshold: .12 });
+
+	            document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+
+	            // Pausa y resetea el vídeo al cerrar el modal
+	            const demoModal = document.getElementById('quickDemoModal');
+	            const demoVideo = document.getElementById('quickDemoVideo');
+	            if (demoModal && demoVideo) {
+	                demoModal.addEventListener('hidden.bs.modal', () => {
+	                    try {
+	                        demoVideo.pause();
+	                        demoVideo.currentTime = 0;
+	                    } catch { /* noop */ }
+	                });
+	            }
+	        </script>
+	    }
+}
+else
+{
+    <!-- Fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body, h1, h2, h3, h4, p {
+            font-family: "Inter", sans-serif;
+            color: var(--text);
+        }
+
+        .dashboard-home {
+            padding: 40px 32px;
+            animation: fadeSlide .6s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @@keyframes fadeSlide {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* PANEL DE BIENVENIDA */
+        .welcome-box {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 28px;
+            border: 1px solid var(--border);
+            box-shadow: 0 6px 20px var(--shadow);
+            margin-bottom: 28px;
+        }
+
+            .welcome-box h1 {
+                font-size: 2rem;
+                font-weight: 700;
+                margin-bottom: 6px;
+                color: var(--text);
+            }
+
+        .welcome-sub {
+            opacity: .7;
+            color: var(--text-muted);
+        }
+
+        /* QUICK ACTIONS */
+        .quick-actions {
+            margin-top: 28px;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .qa-btn {
+            padding: 14px 20px;
+            background: var(--bg-soft);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: var(--text);
+            text-decoration: none;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+            .qa-btn:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px var(--shadow);
+                background: var(--card-bg); 
+                color: var(--text);
+                opacity: 1; 
+            }
+
+            .qa-btn:visited {
+                color: var(--text);
+            }
+
+        /* FAVORITOS */
+        .favorites-box {
+            margin-top: 32px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            box-shadow: 0 4px 16px var(--shadow);
+        }
+
+            .favorites-box h3 {
+                color: var(--text);
+                margin-bottom: 14px;
+            }
+
+        .fav-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: .2s;
+            color: var(--text);
+        }
+
+            .fav-item:hover {
+                opacity: 0.7;
+            }
+
+            .fav-item:last-child {
+                border-bottom: none;
+            }
+
+        /* GRID */
+        .grid-notion {
+            margin-top: 36px;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .grid-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 16px var(--shadow);
+            transition: .22s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+            .grid-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 26px var(--shadow);
+                color: inherit;
+            }
+
+            .grid-card h3 {
+                margin-bottom: 8px;
+                font-weight: 600;
+                color: var(--text);
+                text-decoration: none;
+            }
+
+            .grid-card p {
+                opacity: .65;
+                color: var(--text-muted);
+                text-decoration: none;
+            }
+    </style>
+
+
+    <div class="dashboard-home">
+
+        <div class="welcome-box">
+            <h1>¡Hola @User.Identity.Name! 👋</h1>
+            <p class="welcome-sub">Tu panel personal con acciones rápidas.</p>
+        </div>
+
+        <div class="quick-actions">
+            <a class="qa-btn" asp-controller="Workspaces" asp-action="Create">
+                <i class="bi bi-kanban"></i> Nuevo Workspace
+            </a>
+
+            <a class="qa-btn" asp-controller="Pages" asp-action="Create">
+                <i class="bi bi-journal-plus"></i> Nueva Nota
+            </a>
+
+            <a class="qa-btn" asp-controller="Files" asp-action="Index">
+                <i class="bi bi-cloud-upload"></i> Subir Archivo
+            </a>
+
+            <a class="qa-btn" asp-controller="Calendar" asp-action="Index">
+                <i class="bi bi-calendar-event"></i> Calendario
+            </a>
+        </div>
+
+        <div class="favorites-box">
+            <h3>⭐ Favoritos</h3>
+
+            @if (ViewBag.Favorites != null && ViewBag.Favorites.Count > 0)
+            {
+                foreach (var fav in ViewBag.Favorites)
+                {
+                    <div class="fav-item" onclick="location.href='@fav.Url'">@fav.Title</div>
+                }
+            }
+            else
+            {
+                <p class="welcome-sub">No tienes favoritos aún.</p>
+            }
+        </div>
+
+        <div class="grid-notion">
+            <a class="grid-card" asp-controller="Workspaces" asp-action="Index">
+                <h3>Workspaces</h3>
+                <p>Tus proyectos organizados.</p>
+            </a>
+
+            <a class="grid-card" asp-controller="Pages" asp-action="Index">
+                <h3>Notas</h3>
+                <p>Ideas y apuntes rápidos.</p>
+            </a>
+
+            <a class="grid-card" asp-controller="Files" asp-action="Index">
+                <h3>Archivos</h3>
+                <p>Todos tus documentos.</p>
+            </a>
+        </div>
+
+    </div>
+
+}
