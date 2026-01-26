@@ -3,14 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\migrations\\20260126070914_m1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\migrations\\20260126070914_m1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -175,32 +167,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "TwiceTasks\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "TwiceTasks\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAB4CAAAANzMzMzMXwGQCAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-26T19:16:26.654Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "TwiceTasks\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "TwiceTasks\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAABUAAAAAKjMzMzMiwEAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-26T19:15:51.465Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "20260126070914_M1.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260126070914_M1.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Migrations\\20260126070914_M1.cs",
@@ -213,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "20260126070744_M1.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260126070744_M1.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Migrations\\20260126070744_M1.cs",
@@ -225,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "CalendarEvent.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\CalendarEvent.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Models\\CalendarEvent.cs",
@@ -237,7 +203,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "CalendarController.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Controllers\\CalendarController.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Controllers\\CalendarController.cs",
@@ -249,7 +215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Calendar\\Index.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Views\\Calendar\\Index.cshtml",
@@ -261,7 +227,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "Register.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
@@ -273,7 +239,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 8,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\_Layout.cshtml",
@@ -285,7 +251,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "Login.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
@@ -297,7 +263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 9,
               "Title": "TwoFactorAuthentication.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\TwoFactorAuthentication.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\TwoFactorAuthentication.cshtml",
@@ -309,7 +275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 10,
               "Title": "PersonalData.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\PersonalData.cshtml",
@@ -321,7 +287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 11,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Index.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Index.cshtml",
@@ -333,7 +299,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 12,
               "Title": "Email.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml",
@@ -345,7 +311,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 13,
               "Title": "DownloadPersonalData.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DownloadPersonalData.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DownloadPersonalData.cshtml",
@@ -357,7 +323,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 14,
               "Title": "DeletePersonalData.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DeletePersonalData.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\DeletePersonalData.cshtml",
@@ -369,7 +335,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "ChangePassword.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml",
@@ -381,7 +347,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 15,
               "Title": "ManageNavPages.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Manage\\ManageNavPages.cs",
@@ -393,7 +359,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 16,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Data\\ApplicationDbContext.cs",
@@ -405,7 +371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 17,
               "Title": "Workspace.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Models\\Workspace.cs",
               "RelativeDocumentMoniker": "TwiceTasks\\Models\\Workspace.cs",
@@ -417,7 +383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 18,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\appsettings.json",
               "RelativeDocumentMoniker": "TwiceTasks\\appsettings.json",

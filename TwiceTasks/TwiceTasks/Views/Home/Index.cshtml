@@ -1,10 +1,5 @@
-﻿@using TwiceTasks.Models
-@using System.Globalization
-
-@{
+﻿@{
     ViewData["Title"] = "TwiceTasks";
-    var upcomingEvents = ViewBag.UpcomingEvents as List<CalendarEvent>;
-    var es = new CultureInfo("es-ES");
 }
 
 @if (!(User?.Identity?.IsAuthenticated ?? false))
@@ -550,67 +545,6 @@ else
                 <p class="welcome-sub">No tienes favoritos aún.</p>
             }
         </div>
-        <div class="favorites-box" style="margin-top: 18px;">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-                <h3 style="margin:0;">📅 Próximos eventos</h3>
-                <a class="qa-btn" style="padding:10px 14px; border-radius:10px;" asp-controller="Calendar" asp-action="Index">
-                    <i class="bi bi-calendar-event"></i> Ver calendario
-                </a>
-            </div>
-
-            <div style="margin-top: 14px;">
-                @if (upcomingEvents != null && upcomingEvents.Any())
-                {
-                    foreach (var ev in upcomingEvents)
-                    {
-                        <div class="fav-item" style="display:flex; align-items:flex-start; justify-content:space-between; gap:14px;">
-                            <div>
-                                <div style="font-weight:600;">@ev.Title</div>
-                                <div class="welcome-sub" style="margin-top:2px;">
-                                    @if (ev.AllDay)
-                                    {
-                                        @ev.Date.ToString("dd MMM yyyy", es)
-                                    }
-                                    else
-                                    {
-                                        @ev.Date.ToString("dd MMM yyyy HH:mm", es)
-                                    }
-
-                                    @if (ev.End != null)
-                                    {
-                                        <span> · hasta </span>
-                                        @if (ev.AllDay)
-                                        {
-                                            @ev.End.Value.AddDays(-1).ToString("dd MMM yyyy", es)
-                                        }
-                                        else
-                                        {
-                                            @ev.End.Value.ToString("dd MMM yyyy HH:mm", es)
-                                        }
-                                    }
-                                </div>
-                            </div>
-
-                            <span style="
-                                    font-size:.78rem;
-                                    padding:6px 10px;
-                                    border-radius:999px;
-                                    border:1px solid var(--border);
-                                    background: var(--bg-soft);
-                                    color: var(--text);
-                                    white-space:nowrap;">
-                                @(ev.AllDay ? "Todo el día" : "Con hora")
-                            </span>
-                        </div>
-                    }
-                }
-                else
-                {
-                    <p class="welcome-sub" style="margin:0;">No tienes eventos próximos.</p>
-                }
-            </div>
-        </div>
-
 
         <div class="grid-notion">
             <a class="grid-card" asp-controller="Workspaces" asp-action="Index">
