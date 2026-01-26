@@ -1,0 +1,42 @@
+@page
+@model TwiceTasks.Areas.Identity.Pages.Account.Manage.DeletePersonalDataModel
+@{
+    ViewData["Title"] = "Eliminar cuenta";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+    Layout = "_Layout";
+}
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<div class="tt-form-section-title text-danger">Eliminar cuenta</div>
+<div class="tt-form-section-sub">Esta acción es permanente. Si eliminas la cuenta, no podrás recuperar el acceso.</div>
+
+<div class="alert alert-warning">
+    <div class="fw-semibold mb-1"><i class="bi bi-exclamation-triangle me-2"></i>Advertencia</div>
+    <div>Eliminar la cuenta cerrará tu sesión y borrará tus credenciales de acceso.</div>
+</div>
+
+<form method="post" class="needs-validation" novalidate>
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+    @if (Model.RequirePassword)
+    {
+        <div class="mb-3">
+            <label asp-for="Input.Password" class="form-label fw-semibold"></label>
+            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" />
+            <span asp-validation-for="Input.Password" class="text-danger small"></span>
+            <div class="form-text">Confirma tu contraseña para continuar.</div>
+        </div>
+    }
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger btn-lg">
+            <i class="bi bi-trash me-2"></i>Eliminar definitivamente
+        </button>
+        <a class="btn btn-outline-secondary btn-lg" asp-page="./PersonalData">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

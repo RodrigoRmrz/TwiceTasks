@@ -1,0 +1,87 @@
+﻿@model TwiceTasks.Models.Collection
+
+<div class="create-wrapper">
+    <div class="create-card">
+        <h2>Nueva colección</h2>
+
+        <form asp-action="Create" asp-controller="Collection" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label asp-for="Name">Nombre</label>
+                <input asp-for="Name" class="form-control" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description">Descripción (opcional)</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="btn-save">
+                    Crear colección
+                </button>
+
+                <a asp-controller="Files" asp-action="Index" class="btn-cancel">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+<style>
+    .create-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 60px;
+    }
+
+    .create-card {
+        background: var(--card-bg);
+        padding: 35px;
+        width: 450px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        box-shadow: 0 6px 24px var(--shadow);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn-save {
+        background: var(--accent);
+        color: black;
+        padding: 10px 22px;
+        border-radius: var(--radius);
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .btn-cancel {
+        background: var(--border);
+        color: var(--text);
+        padding: 10px 22px;
+        border-radius: var(--radius);
+        text-decoration: none;
+        font-weight: 600;
+    }
+</style>

@@ -1,0 +1,427 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+textarea:focus, input:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+/* CONTENEDOR GENERAL */
+.page-editor-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* TÍTULO TIPO NOTION */
+.page-title-input {
+    font-size: 2.4rem;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.page-title-input::placeholder {
+    color: #b0b0b0;
+}
+
+/* PANEL DE ADJUNTOS */
+.attachments-panel {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 1.5rem;
+}
+
+.attachments-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+/* LISTA DE ARCHIVOS */
+.attachments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.attachment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: #f8f9fa;
+}
+
+.attachment-item a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.attachment-item:hover {
+    background: #eef2f6;
+}
+
+.delete-attachment {
+    color: #dc3545;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+/* ===== BASE ===== */
+
+html.dark {
+    background-color: #0f1115;
+    color: #e6e6e6;
+}
+
+/* ===== NAVBAR ===== */
+html.dark .navbar {
+    background-color: #14161c !important;
+    border-bottom: 1px solid #222;
+}
+
+html.dark .nav-link,
+html.dark .navbar-brand {
+    color: #e6e6e6 !important;
+}
+
+/* ===== TABLES ===== */
+html.dark .table {
+    color: #e6e6e6;
+    background-color: transparent;
+}
+
+html.dark .table thead {
+    border-bottom: 1px solid #333;
+}
+
+html.dark .table-striped tbody tr {
+    background-color: #14161c;
+}
+
+html.dark .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #101218;
+}
+
+/* ===== BUTTONS ===== */
+html.dark .btn-primary {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+html.dark .btn-secondary {
+    background-color: #2a2f3a;
+    border-color: #2a2f3a;
+    color: #e6e6e6;
+}
+
+html.dark .btn-outline-primary {
+    color: #88a4ff;
+    border-color: #88a4ff;
+}
+
+html.dark .btn-outline-primary:hover {
+    background-color: #88a4ff;
+    color: #000;
+}
+
+/* ===== FORMS ===== */
+html.dark .form-control,
+html.dark input,
+html.dark textarea,
+html.dark select {
+    background-color: #14161c;
+    color: #e6e6e6;
+    border: 1px solid #333;
+}
+
+html.dark .form-control::placeholder {
+    color: #888;
+}
+
+/* File input */
+html.dark input[type="file"] {
+    background-color: #14161c;
+    color: #e6e6e6;
+}
+
+/* ===== LINKS ===== */
+html.dark a {
+    color: #7fa2ff;
+}
+
+html.dark a:hover {
+    color: #a5b8ff;
+}
+
+/* ===== EDITOR.JS ===== */
+html.dark .codex-editor__redactor {
+    background-color: transparent;
+    color: #e6e6e6;
+}
+
+html.dark .ce-paragraph {
+    color: #e6e6e6;
+}
+
+html.dark .cdx-input {
+    background-color: #14161c;
+    color: #e6e6e6;
+}
+
+/* ===== CARDS / LISTAS ===== */
+html.dark .list-group-item,
+html.dark .attachment-item {
+    background-color: #14161c;
+    border: 1px solid #222;
+    color: #e6e6e6;
+}
+
+html.dark .list-group-item:hover,
+html.dark .attachment-item:hover {
+    background-color: #1b1f2a;
+}
+
+/* ===== HR ===== */
+html.dark hr {
+    border-color: #222;
+}
+/* ===== FIX TEXTO EN TABLAS (DARK MODE) ===== */
+
+html.dark .table td,
+html.dark .table th {
+    color: #e6e6e6 !important;
+}
+
+/* Links dentro de tablas */
+html.dark .table a {
+    color: #7fa2ff;
+}
+
+html.dark .table a:hover {
+    color: #a5b8ff;
+}
+
+/* Quitar posibles fondos heredados */
+html.dark .table td {
+    background-color: transparent !important;
+}
+/* ===== FILE UPLOAD MODERNO ===== */
+
+.attachment-upload-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+/* Botón/label tipo Notion */
+.file-picker {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 6px;
+    background-color: #f1f3f5;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.file-picker:hover {
+    background-color: #e9ecef;
+}
+
+/* Dark mode */
+html.dark .file-picker {
+    background-color: #14161c;
+    border-color: #333;
+    color: #e6e6e6;
+}
+
+html.dark .file-picker:hover {
+    background-color: #1b1f2a;
+}
+/* ===== TAGS ===== */
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: #e9ecef;
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.85rem;
+    border: none;
+}
+
+.tag-chip span {
+    font-weight: 500;
+}
+
+.tag-chip button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.tag-chip button:hover {
+    color: #dc3545;
+}
+
+.tag-input-form {
+    display: inline-block;
+}
+
+.tag-input {
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+    padding: 0.2rem;
+    min-width: 60px;
+}
+
+/* Dark mode */
+html.dark .tag-chip {
+    background-color: #1b1f2a;
+    color: #e6e6e6;
+}
+
+html.dark .tag-chip button {
+    color: #aaa;
+}
+
+html.dark .tag-input {
+    background-color: transparent;
+    color: #e6e6e6;
+}
+#editorjs {
+    min-height: 300px;
+    cursor: text;
+}
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.75rem;
+}
+
+.calendar-day {
+    min-height: 140px;
+    background-color: #f8f9fa;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+}
+
+.calendar-event {
+    background-color: #0d6efd;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+}
+
+/* Dark mode */
+html.dark .calendar-day {
+    background-color: #1b1f2a;
+}
+
+html.dark .calendar-event {
+    background-color: #375aee;
+}
+
+
+
+
+
+
+
+/* ===============================
+   FullCalendar styling (light/dark)
+   =============================== */
+
+#twiceCalendar {
+    min-height: 520px;
+}
+
+#twiceCalendar .fc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px;
+}
+
+#twiceCalendar .fc .fc-toolbar-title {
+    color: var(--text);
+    font-weight: 800;
+}
+
+#twiceCalendar .fc .fc-button {
+    border-color: var(--border);
+}
+
+html.dark #twiceCalendar .fc .fc-button {
+    color: var(--text);
+}
+
+#twiceCalendar .fc .fc-scrollgrid,
+#twiceCalendar .fc .fc-scrollgrid td,
+#twiceCalendar .fc .fc-scrollgrid th {
+    border-color: var(--border);
+}
+
+html.dark #twiceCalendar .fc .fc-col-header-cell-cushion,
+html.dark #twiceCalendar .fc .fc-daygrid-day-number,
+html.dark #twiceCalendar .fc .fc-list-day-cushion,
+html.dark #twiceCalendar .fc .fc-list-event-title {
+    color: var(--text);
+}
+
+html.dark #twiceCalendar .fc .fc-list {
+    background: var(--card);
+}
+
+html.dark #twiceCalendar .fc .fc-list-day-cushion,
+html.dark #twiceCalendar .fc .fc-list-table {
+    border-color: var(--border);
+}
+
+html.dark #twiceCalendar .fc .fc-day-today {
+    background: rgba(255,255,255,0.04);
+}
+
+
+/* Modal close button in dark */
+html.dark .btn-close {
+    filter: invert(1) grayscale(100%);
+}

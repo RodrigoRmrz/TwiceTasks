@@ -1,0 +1,37 @@
+﻿@model TwiceTasks.Models.Collection
+
+<div class="delete-box">
+    <h2>🗑️ Eliminar colección</h2>
+
+    <p>¿Seguro que deseas eliminar la colección <strong>@Model.Name</strong>?</p>
+    <p class="warning">⚠ Los archivos NO se eliminan, solo quedan sin colección.</p>
+
+    <form method="post" asp-action="DeleteConfirmed">
+        <input type="hidden" asp-for="Id" />
+        <button class="btn-danger">Eliminar</button>
+        <a asp-action="Index" class="btn-cancel">Cancelar</a>
+    </form>
+</div>
+
+<style>
+    .delete-box {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        box-shadow: 0 8px 22px var(--shadow);
+    }
+
+    .btn-danger {
+        background: #e55353;
+        padding: 10px 16px;
+        border-radius: var(--radius);
+        color: white;
+        font-weight: 600;
+    }
+
+    .warning {
+        color: #e55353;
+        margin-bottom: 20px;
+    }
+</style>

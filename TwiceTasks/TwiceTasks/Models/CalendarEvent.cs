@@ -19,5 +19,8 @@ namespace TwiceTasks.Models
         // Opcional: vincular a una página
         public int? PageId { get; set; }
         public Page? Page { get; set; }
+        public DateTime? End { get; set; }
+        public bool AllDay { get; set; } = true;
+
     }
 }

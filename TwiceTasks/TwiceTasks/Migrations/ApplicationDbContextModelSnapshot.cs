@@ -238,7 +238,13 @@ namespace TwiceTasks.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("AllDay")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("End")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("PageId")

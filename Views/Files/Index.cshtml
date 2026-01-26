@@ -1,0 +1,362 @@
+﻿@model TwiceTasks.ViewModels.FilesIndexViewModel
+
+<div class="files-container">
+    <div class="files-header">
+        <div class="header-left">
+            <h1>📁 Mis Archivos</h1>
+            <p class="subtitle">Organiza tus documentos en colecciones personalizadas.</p>
+        </div>
+
+        <div class="header-right">
+            <a asp-controller="Collection" asp-action="Create" class="new-collection-btn">
+                <i class="bi bi-folder-plus"></i>
+                Nueva colección
+            </a>
+        </div>
+    </div>
+
+    <div class="collection-filter-wrapper">
+        <div class="pro-dropdown">
+            <button class="pro-dropbtn" onclick="toggleFilesDropdown()">
+                <div class="pro-drop-content">
+                    <i class="bi bi-folder2-open"></i>
+                    <span class="pro-label">Filtrar por:</span>
+                    <span class="pro-selected-name">
+                        @(Model.Collections.FirstOrDefault(c => c.Id == Model.SelectedCollectionId)?.Name ?? "Sin Coleccion")
+                    </span>
+                </div>
+                <i class="bi bi-chevron-down pro-chevron"></i>
+            </button>
+
+            <div id="filesCollectionMenu" class="pro-dropdown-menu">
+                <div class="menu-search">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="menuInput" placeholder="Buscar colección..." onkeyup="filterMenu()">
+                </div>
+
+                <div class="menu-items">
+                    <a asp-action="Index" asp-controller="Files" asp-route-collectionId="0"
+                       class="menu-item @(Model.SelectedCollectionId == 0 ? "active" : "")">
+                        <i class="bi bi-grid-fill"></i> Sin Coleccion
+                    </a>
+
+                    <div class="menu-divider">Tus Colecciones</div>
+
+                    @foreach (var col in Model.Collections)
+                    {
+                        <a asp-action="Index" asp-controller="Files" asp-route-collectionId="@col.Id"
+                           class="menu-item @(Model.SelectedCollectionId == col.Id ? "active" : "")">
+                            <i class="bi bi-folder"></i> @col.Name
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="upload-box">
+        <form method="post" enctype="multipart/form-data" asp-action="Upload" class="upload-form">
+            <input type="hidden" name="collectionId" value="@Model.SelectedCollectionId" />
+            <label class="upload-area">
+                <i class="bi bi-cloud-arrow-up"></i>
+                <span>Arrastra o haz clic para subir a <strong>@(Model.Collections.FirstOrDefault(c => c.Id == Model.SelectedCollectionId)?.Name ?? "General")</strong></span>
+                <input type="file" name="file" hidden onchange="this.form.submit()" />
+            </label>
+        </form>
+    </div>
+
+    <div class="files-grid">
+        @if (!Model.Files.Any())
+        {
+            <div class="empty-state">
+                <i class="bi bi-folder-x"></i>
+                <p>No hay archivos en esta colección.</p>
+            </div>
+        }
+        else
+        {
+            foreach (var file in Model.Files)
+            {
+                <div class="file-card">
+                    <div class="file-icon">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <div class="file-info">
+                        <span class="file-name">@file.FileName</span>
+                        <span class="file-size">@((file.FileSize / 1024)) KB</span>
+                    </div>
+                    <div class="file-actions">
+                        <a href="@file.FilePath" target="_blank" class="view-btn">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@file.Id" class="delete-btn">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<style>
+    :root {
+        --pro-blue: #2383e2;
+        --pro-hover: rgba(35, 131, 226, 0.05);
+        --pro-border: rgba(0,0,0,0.1);
+    }
+
+    .files-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .new-collection-btn {
+        background: var(--pro-blue);
+        color: white !important;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    /* ESTILOS DEL SELECTOR PRO */
+    .collection-filter-wrapper {
+        margin-bottom: 25px;
+    }
+
+    .pro-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .pro-dropbtn {
+        background: white;
+        border: 1px solid var(--pro-border);
+        padding: 10px 16px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+        min-width: 250px;
+        justify-content: space-between;
+        transition: 0.2s;
+    }
+
+        .pro-dropbtn:hover {
+            border-color: var(--pro-blue);
+            background: #fcfcfc;
+        }
+
+    .pro-drop-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    .pro-label {
+        color: #888;
+    }
+
+    .pro-selected-name {
+        font-weight: 700;
+        color: #333;
+    }
+
+    .pro-chevron {
+        font-size: 12px;
+        color: #aaa;
+    }
+
+    .pro-dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 110%;
+        left: 0;
+        background: white;
+        min-width: 280px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        border: 1px solid var(--pro-border);
+        z-index: 1000;
+        padding: 8px;
+    }
+
+    .menu-search {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        background: #f5f5f5;
+        border-radius: 6px;
+        margin-bottom: 8px;
+    }
+
+        .menu-search input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 13px;
+            width: 100%;
+        }
+
+    .menu-items {
+        max-height: 250px;
+        overflow-y: auto;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        text-decoration: none;
+        color: #444;
+        font-size: 14px;
+        border-radius: 6px;
+        transition: 0.1s;
+    }
+
+        .menu-item:hover {
+            background: var(--pro-hover);
+            color: var(--pro-blue);
+        }
+
+        .menu-item.active {
+            background: rgba(35, 131, 226, 0.1);
+            color: var(--pro-blue);
+            font-weight: 600;
+        }
+
+    .menu-divider {
+        font-size: 11px;
+        color: #999;
+        text-transform: uppercase;
+        padding: 15px 10px 5px;
+        font-weight: 700;
+    }
+
+    .show-menu {
+        display: block !important;
+        animation: fadeIn 0.2s ease;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* RESTO DE LA GRID */
+    .upload-area {
+        width: 100%;
+        max-width: 500px;
+        padding: 30px;
+        border: 2px dashed var(--pro-border);
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        display: block;
+        margin: 0 auto 30px;
+        transition: 0.2s;
+    }
+
+        .upload-area:hover {
+            border-color: var(--pro-blue);
+            background: var(--pro-hover);
+        }
+
+    .files-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+    }
+
+    .file-card {
+        background: white;
+        border: 1px solid var(--pro-border);
+        padding: 15px;
+        border-radius: 12px;
+        transition: 0.2s;
+    }
+
+        .file-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+    .file-icon {
+        font-size: 2.5rem;
+        color: var(--pro-blue);
+        margin-bottom: 10px;
+    }
+
+    .file-name {
+        display: block;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .file-size {
+        font-size: 12px;
+        color: #888;
+    }
+
+    .file-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid #f5f5f5;
+    }
+
+    .view-btn {
+        color: #666;
+    }
+
+    .delete-btn {
+        color: #ff4d4d;
+    }
+
+    .show-menu {
+        display: block !important;
+    }
+</style>
+
+<script>
+    function toggleFilesDropdown() {
+        document.getElementById("filesCollectionMenu").classList.toggle("show-menu");
+    }
+
+    // Cerrar el menú si se hace clic fuera
+    window.addEventListener('click', function(e) {
+        if (!document.querySelector('.pro-dropdown').contains(e.target)) {
+            document.getElementById("filesCollectionMenu").classList.remove("show-menu");
+        }
+    });
+
+    // Filtro de búsqueda dentro del menú
+    function filterMenu() {
+        var input = document.getElementById("menuInput").value.toLowerCase();
+        var items = document.getElementsByClassName("menu-item");
+
+        for (var i = 0; i < items.length; i++) {
+            var text = items[i].innerText.toLowerCase();
+            // Mantener el item de "Todas las carpetas" siempre visible o filtrable
+            items[i].style.display = text.includes(input) ? "flex" : "none";
+        }
+    }
+</script>
