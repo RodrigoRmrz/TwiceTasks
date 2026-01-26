@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260126070914_M1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TwiceTasks\\Migrations\\20260126070914_M1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|c:\\users\\rodri\\documents\\github\\twicetasks\\twicetasks\\twicetasks\\migrations\\20260126070914_m1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AAA923B-8474-4EED-BCD6-E5A6848A294F}|TwiceTasks\\TwiceTasks.csproj|solutionrelative:twicetasks\\migrations\\20260126070914_m1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Migrations\\20260126070744_M1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -187,8 +187,7 @@
               "RelativeToolTip": "TwiceTasks\\Migrations\\20260126070744_M1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-26T07:07:44.187Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-26T07:07:44.187Z"
             },
             {
               "$type": "Document",
@@ -200,8 +199,7 @@
               "RelativeToolTip": "TwiceTasks\\Models\\CalendarEvent.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAqwBcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-26T07:06:30.057Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-26T07:06:30.057Z"
             },
             {
               "$type": "Document",
@@ -213,8 +211,7 @@
               "RelativeToolTip": "TwiceTasks\\Controllers\\CalendarController.cs",
               "ViewState": "AgIAAFUAAAAAAAAAAAAuwGUAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-26T07:05:55.696Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-26T07:05:55.696Z"
             },
             {
               "$type": "Document",
@@ -226,8 +223,7 @@
               "RelativeToolTip": "TwiceTasks\\Views\\Calendar\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADwBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-26T06:57:53.026Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-26T06:57:53.026Z"
             },
             {
               "$type": "Document",
@@ -239,8 +235,7 @@
               "RelativeToolTip": "TwiceTasks\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
               "ViewState": "AgIAAAoAAAAAAAAAAADwvxkAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-25T02:57:35.346Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-25T02:57:35.346Z"
             },
             {
               "$type": "Document",
