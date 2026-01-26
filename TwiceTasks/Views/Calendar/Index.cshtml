@@ -1,73 +1,426 @@
-@model IEnumerable<TwiceTasks.Models.CalendarEvent>
+@model TwiceTasks.ViewModels.CalendarIndexViewModel
+@{
+    ViewData["Title"] = "Calendario";
+    var es = System.Globalization.CultureInfo.GetCultureInfo("es-ES");
+    var initialDate = new DateTime(Model.Year, Model.Month, 1).ToString("yyyy-MM-dd");
+}
 
-<h1 class="mb-4">📅 Calendario</h1>
+<!-- FullCalendar (CDN) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" />
 
-<div id="calendar" class="calendar-grid"></div>
+<div class="container-xxl py-4">
+    <div class="cal-header">
+        <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-calendar3 cal-icon"></i>
+            <div>
+                <div class="cal-title">Calendario</div>
+                <div class="cal-sub">Vista mensual, semanal y diaria. Arrastra y edita eventos.</div>
+            </div>
+        </div>
 
-<hr class="my-4" />
+        <div class="cal-actions">
+            <button class="btn btn-primary" id="btnNewEvent">
+                <i class="bi bi-plus-lg"></i> Nuevo evento
+            </button>
 
-<form asp-action="Create" method="post" class="event-form">
+            @* Token antiforgery para llamadas AJAX *@
+            <div style="display:none">@Html.AntiForgeryToken()</div>
+        </div>
+    </div>
 
-    <input type="text"
-           name="title"
-           class="form-control"
-           placeholder="Título del evento"
-           required />
+    <div class="row g-4 mt-2">
+        <div class="col-lg-8">
+            <div class="cal-card">
+                <div id="twiceCalendar"></div>
+            </div>
+        </div>
 
-    <input type="date"
-           name="date"
-           class="form-control mt-2"
-           required />
+        <div class="col-lg-4">
+            <div class="cal-card">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="cal-side-title">Próximos eventos</div>
+                    <span class="badge text-bg-secondary" id="upcomingCount">@Model.UpcomingEvents.Count</span>
+                </div>
 
-    <button class="btn btn-primary mt-2">
-        Añadir evento
-    </button>
-</form>
+                <div class="cal-list mt-3" id="upcomingList">
+                    @if (!Model.UpcomingEvents.Any())
+                    {
+                        <div class="cal-empty-state">
+                            <i class="bi bi-emoji-smile"></i>
+                            <div class="mt-2">No tienes eventos próximos.</div>
+                            <div class="opacity-75 small">Pulsa en el calendario para crear uno.</div>
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (var ev in Model.UpcomingEvents.OrderBy(e => e.Date))
+                        {
+                            <div class="cal-event-row" data-id="@ev.Id">
+                                <div class="cal-event-date">
+                                    <div class="cal-event-day">@ev.Date.ToString("dd")</div>
+                                    <div class="cal-event-mon">@ev.Date.ToString("MMM", es)</div>
+                                </div>
+                                <div class="cal-event-body">
+                                    <div class="cal-event-title">@ev.Title</div>
+                                    <div class="cal-event-sub">@ev.Date.ToString("dddd, dd MMMM", es)</div>
+                                </div>
+                                <button type="button" class="btn btn-outline-danger btn-sm js-del-upcoming" title="Eliminar" data-id="@ev.Id">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Crear/Editar evento -->
+<div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content cal-modal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"><i class="bi bi-calendar-plus"></i> Evento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="evtId" />
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="evtTitle" placeholder="Título" required />
+                    <label for="evtTitle">Título</label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="evtAllDay" checked />
+                    <label class="form-check-label" for="evtAllDay">Todo el día</label>
+                </div>
+
+                <div id="allDayFields">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="date" id="evtStartDate" />
+                        <label for="evtStartDate">Fecha</label>
+                    </div>
+                </div>
+
+                <div id="timeFields" style="display:none">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="datetime-local" id="evtStartDateTime" />
+                        <label for="evtStartDateTime">Inicio</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control" type="datetime-local" id="evtEndDateTime" />
+                        <label for="evtEndDateTime">Fin (opcional)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" id="btnDelete" style="display:none">
+                    <i class="bi bi-trash"></i> Eliminar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnSave">
+                    <i class="bi bi-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
-<script>
-    const events = @Html.Raw(
-        System.Text.Json.JsonSerializer.Serialize(
-            Model.Select(e => new {
-                title = e.Title,
-                date = e.Date.ToString("yyyy-MM-dd")
-            })
-        )
-    );
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/locales-all.global.min.js"></script>
 
-    const calendar = document.getElementById("calendar");
+    <script>
+        (function () {
+            const calendarEl = document.getElementById('twiceCalendar');
+            const modalEl = document.getElementById('eventModal');
+            const modal = new bootstrap.Modal(modalEl);
 
-    function renderCalendar() {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = now.getMonth();
+            // Anti-forgery token
+            const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+            const antiForgeryToken = tokenInput ? tokenInput.value : null;
 
-        const lastDay = new Date(year, month + 1, 0);
+            // Modal fields
+            const fId = document.getElementById('evtId');
+            const fTitle = document.getElementById('evtTitle');
+            const fAllDay = document.getElementById('evtAllDay');
+            const fStartDate = document.getElementById('evtStartDate');
+            const fStartDT = document.getElementById('evtStartDateTime');
+            const fEndDT = document.getElementById('evtEndDateTime');
+            const allDayFields = document.getElementById('allDayFields');
+            const timeFields = document.getElementById('timeFields');
+            const btnDelete = document.getElementById('btnDelete');
+            const btnSave = document.getElementById('btnSave');
+            const btnNew = document.getElementById('btnNewEvent');
 
-        calendar.innerHTML = "";
+            function pad(n) { return String(n).padStart(2, '0'); }
+            function toDateInputValue(d) {
+                return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+            }
+            function toDateTimeLocalValue(d) {
+                return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            }
 
-        for (let day = 1; day <= lastDay.getDate(); day++) {
-            const dateStr =
-                `${year}-${String(month + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+            function setAllDayUI(isAllDay) {
+                allDayFields.style.display = isAllDay ? '' : 'none';
+                timeFields.style.display = isAllDay ? 'none' : '';
+            }
 
-            const box = document.createElement("div");
-            box.className = "calendar-day";
+            fAllDay.addEventListener('change', () => setAllDayUI(fAllDay.checked));
 
-            box.innerHTML = `<strong>${day}</strong>`;
+            function openModalForNew(startDate) {
+                document.getElementById('modalTitle').innerHTML = '<i class="bi bi-plus-circle"></i> Nuevo evento';
+                fId.value = '';
+                fTitle.value = '';
+                fAllDay.checked = true;
+                setAllDayUI(true);
 
-            events
-                .filter(e => e.date === dateStr)
-                .forEach(e => {
-                    const ev = document.createElement("div");
-                    ev.className = "calendar-event";
-                    ev.textContent = e.title;
-                    box.appendChild(ev);
+                const d = startDate || new Date();
+                fStartDate.value = toDateInputValue(d);
+                fStartDT.value = toDateTimeLocalValue(d);
+                fEndDT.value = '';
+                btnDelete.style.display = 'none';
+                modal.show();
+                setTimeout(() => fTitle.focus(), 150);
+            }
+
+            function openModalForEdit(fcEvent) {
+                document.getElementById('modalTitle').innerHTML = '<i class="bi bi-pencil-square"></i> Editar evento';
+                fId.value = fcEvent.id;
+                fTitle.value = fcEvent.title || '';
+                fAllDay.checked = !!fcEvent.allDay;
+                setAllDayUI(fAllDay.checked);
+
+                const start = fcEvent.start ? new Date(fcEvent.start) : new Date();
+                const end = fcEvent.end ? new Date(fcEvent.end) : null;
+
+                fStartDate.value = toDateInputValue(start);
+                fStartDT.value = toDateTimeLocalValue(start);
+                fEndDT.value = end ? toDateTimeLocalValue(end) : '';
+
+                btnDelete.style.display = '';
+                modal.show();
+                setTimeout(() => fTitle.focus(), 150);
+            }
+
+            async function postJson(url, payload) {
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...(antiForgeryToken ? { 'RequestVerificationToken': antiForgeryToken } : {})
+                    },
+                    body: JSON.stringify(payload)
                 });
+                if (!res.ok) {
+                    const txt = await res.text();
+                    throw new Error(txt || 'Error en la petición');
+                }
+                // Puede venir vacío en Ok()
+                const ct = res.headers.get('content-type') || '';
+                return ct.includes('application/json') ? res.json() : null;
+            }
 
-            calendar.appendChild(box);
-        }
-    }
+            async function refreshUpcoming() {
+                try {
+                    const res = await fetch('@Url.Action("Upcoming", "Calendar")');
+                    if (!res.ok) return;
+                    const items = await res.json();
 
-    renderCalendar();
-</script>
+                    const list = document.getElementById('upcomingList');
+                    const count = document.getElementById('upcomingCount');
+                    if (count) count.textContent = items.length;
+
+                    if (!items.length) {
+                        list.innerHTML = `
+                            <div class="cal-empty-state">
+                                <i class="bi bi-emoji-smile"></i>
+                                <div class="mt-2">No tienes eventos próximos.</div>
+                                <div class="opacity-75 small">Pulsa en el calendario para crear uno.</div>
+                            </div>`;
+                        return;
+                    }
+
+                    const formatterDay = new Intl.DateTimeFormat('es-ES', { day: '2-digit' });
+                    const formatterMon = new Intl.DateTimeFormat('es-ES', { month: 'short' });
+                    const formatterLong = new Intl.DateTimeFormat('es-ES', { weekday: 'long', day: '2-digit', month: 'long' });
+
+                    list.innerHTML = items.map(ev => {
+                        const d = new Date(ev.start);
+                        const day = formatterDay.format(d);
+                        const mon = formatterMon.format(d);
+                        const long = formatterLong.format(d);
+                        const title = (ev.title || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                        return `
+                            <div class="cal-event-row" data-id="${ev.id}">
+                                <div class="cal-event-date">
+                                    <div class="cal-event-day">${day}</div>
+                                    <div class="cal-event-mon">${mon}</div>
+                                </div>
+                                <div class="cal-event-body">
+                                    <div class="cal-event-title">${title}</div>
+                                    <div class="cal-event-sub">${long}</div>
+                                </div>
+                                <button type="button" class="btn btn-outline-danger btn-sm js-del-upcoming" title="Eliminar" data-id="${ev.id}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>`;
+                    }).join('');
+                } catch { /* noop */ }
+            }
+
+            // FullCalendar init
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                initialDate: '@initialDate',
+                locale: 'es',
+                firstDay: 1,
+                height: 'auto',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                },
+                selectable: true,
+                selectMirror: true,
+                navLinks: true,
+                nowIndicator: true,
+                editable: true,
+                eventDurationEditable: true,
+                eventSources: [
+                    {
+                        url: '@Url.Action("EventsFeed", "Calendar")',
+                        method: 'GET'
+                    }
+                ],
+                dateClick: function (info) {
+                    openModalForNew(info.date);
+                },
+                select: function (info) {
+                    openModalForNew(info.start);
+                    // si el usuario ha seleccionado rango, lo usamos como fin (solo si no es allDay)
+                },
+                eventClick: function (info) {
+                    openModalForEdit(info.event);
+                },
+                eventDrop: async function (info) {
+                    try {
+                        await postJson('@Url.Action("Move", "Calendar")', {
+                            id: parseInt(info.event.id),
+                            start: info.event.start,
+                            end: info.event.end,
+                            allDay: info.event.allDay
+                        });
+                        refreshUpcoming();
+                    } catch (e) {
+                        info.revert();
+                        alert('No se pudo mover el evento.');
+                    }
+                },
+                eventResize: async function (info) {
+                    try {
+                        await postJson('@Url.Action("Move", "Calendar")', {
+                            id: parseInt(info.event.id),
+                            start: info.event.start,
+                            end: info.event.end,
+                            allDay: info.event.allDay
+                        });
+                        refreshUpcoming();
+                    } catch (e) {
+                        info.revert();
+                        alert('No se pudo cambiar la duración.');
+                    }
+                }
+            });
+
+            calendar.render();
+
+            // Nuevo evento
+            btnNew.addEventListener('click', () => openModalForNew(new Date()));
+
+            // Guardar (create/update)
+            btnSave.addEventListener('click', async () => {
+                const title = (fTitle.value || '').trim();
+                if (!title) {
+                    alert('El título es obligatorio.');
+                    return;
+                }
+
+                const allDay = fAllDay.checked;
+                let start;
+                let end = null;
+
+                if (allDay) {
+                    if (!fStartDate.value) {
+                        alert('Selecciona una fecha.');
+                        return;
+                    }
+                    start = new Date(fStartDate.value + 'T00:00:00');
+                    // all-day: dejamos end null, el servidor/cliente lo interpreta
+                } else {
+                    if (!fStartDT.value) {
+                        alert('Selecciona una fecha/hora de inicio.');
+                        return;
+                    }
+                    start = new Date(fStartDT.value);
+                    if (fEndDT.value) end = new Date(fEndDT.value);
+                }
+
+                try {
+                    await postJson('@Url.Action("Upsert", "Calendar")', {
+                        id: fId.value ? parseInt(fId.value) : null,
+                        title,
+                        start,
+                        end,
+                        allDay
+                    });
+
+                    modal.hide();
+                    calendar.refetchEvents();
+                    refreshUpcoming();
+                } catch (e) {
+                    alert('No se pudo guardar el evento.');
+                }
+            });
+
+            // Eliminar (desde modal)
+            btnDelete.addEventListener('click', async () => {
+                const id = fId.value ? parseInt(fId.value) : null;
+                if (!id) return;
+                if (!confirm('¿Eliminar este evento?')) return;
+
+                try {
+                    await postJson('@Url.Action("DeleteAjax", "Calendar")', id);
+                    modal.hide();
+                    calendar.refetchEvents();
+                    refreshUpcoming();
+                } catch (e) {
+                    alert('No se pudo eliminar el evento.');
+                }
+            });
+
+            // Eliminar desde lista lateral
+            document.addEventListener('click', async (e) => {
+                const btn = e.target.closest('.js-del-upcoming');
+                if (!btn) return;
+                const id = parseInt(btn.getAttribute('data-id'));
+                if (!id) return;
+                if (!confirm('¿Eliminar este evento?')) return;
+
+                try {
+                    await postJson('@Url.Action("DeleteAjax", "Calendar")', id);
+                    calendar.refetchEvents();
+                    refreshUpcoming();
+                } catch {
+                    alert('No se pudo eliminar el evento.');
+                }
+            });
+
+        })();
+    </script>
 }

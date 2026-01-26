@@ -51,48 +51,41 @@ namespace TwiceTasks.Controllers
         }
         
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upload(IFormFile file, int? collectionId)
+        public async Task<IActionResult> Upload(IFormFile file)
         {
             if (file == null || file.Length == 0)
-                return RedirectToAction(nameof(Index), new { collectionId = collectionId ?? 0 });
+                return RedirectToAction(nameof(Index));
 
             var userId = _userManager.GetUserId(User);
 
             var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", userId);
             Directory.CreateDirectory(uploadsFolder);
 
-            var originalName = Path.GetFileName(file.FileName);
-            var uniqueName = $"{Path.GetFileNameWithoutExtension(originalName)}_{Guid.NewGuid():N}{Path.GetExtension(originalName)}";
-            var physicalPath = Path.Combine(uploadsFolder, uniqueName);
+            var filePath = Path.Combine(uploadsFolder, file.FileName);
 
-            using (var stream = new FileStream(physicalPath, FileMode.Create))
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
             var dbFile = new FileResource
             {
-                FileName = originalName,
-                FilePath = $"/uploads/{userId}/{uniqueName}",
+                FileName = file.FileName,
+                FilePath = $"/uploads/{userId}/{file.FileName}",
                 FileSize = file.Length,
-                UserId = userId,
-                CollectionId = (collectionId.HasValue && collectionId.Value != 0) ? collectionId.Value : null
+                UserId = userId
             };
 
             _context.FileResources.Add(dbFile);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index), new { collectionId = collectionId ?? 0 });
-        
+            return RedirectToAction(nameof(Index));
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, int? collectionId)
+
+        public async Task<IActionResult> Delete(int id)
         {
-            var userId = _userManager.GetUserId(User);
             var file = await _context.FileResources.FindAsync(id);
-            if (file == null || file.UserId != userId)
+            if (file == null || file.UserId != _userManager.GetUserId(User))
                 return Unauthorized();
 
             var fullPath = Path.Combine(_env.WebRootPath, file.FilePath.TrimStart('/'));
@@ -102,10 +95,9 @@ namespace TwiceTasks.Controllers
             _context.FileResources.Remove(file);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index), new { collectionId = collectionId ?? 0 });
+            return RedirectToAction(nameof(Index));
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadToPage(IFormFile file, int pageId)
         {
             if (file == null || file.Length == 0)
@@ -115,7 +107,7 @@ namespace TwiceTasks.Controllers
                 .Include(p => p.Workspace)
                 .FirstOrDefaultAsync(p => p.Id == pageId);
 
-            if (page == null || page.UserId != _userManager.GetUserId(User))
+            if (page == null || page.Workspace!.UserId != _userManager.GetUserId(User))
                 return Unauthorized();
 
             var userId = _userManager.GetUserId(User);
@@ -145,7 +137,6 @@ namespace TwiceTasks.Controllers
             return RedirectToAction("Edit", "Pages", new { id = pageId });
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> MoveToCollection(int fileId, int? collectionId)
         {
             var userId = _userManager.GetUserId(User);

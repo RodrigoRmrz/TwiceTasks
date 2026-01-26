@@ -40,18 +40,6 @@ namespace TwiceTasks.Controllers
                 .ToListAsync();
 
             ViewBag.Workspaces = workspaces;
-            // Archivos recientes (para mostrar una vista rápida en Notas)
-            var recentFilesQuery = _context.FileResources
-                .Where(f => f.UserId == userId);
-
-            if (workspaceId.HasValue)
-                recentFilesQuery = recentFilesQuery.Where(f => f.WorkspaceId == workspaceId.Value);
-
-            ViewBag.RecentFiles = await recentFilesQuery
-                .OrderByDescending(f => f.UploadedAt)
-                .Take(6)
-                .ToListAsync();
-
 
             // Home (sin workspace): mostramos NOTAS SUELTAS + "recientes" en la vista
             if (!workspaceId.HasValue)

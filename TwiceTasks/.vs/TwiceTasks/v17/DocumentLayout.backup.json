@@ -60,7 +60,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 16,
           "Children": [
             {
               "$type": "Document",
@@ -74,32 +74,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-15T15:50:01.95Z",
               "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "TwiceTasks\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Shared\\_Layout.cshtml*",
-              "RelativeToolTip": "TwiceTasks\\Views\\Shared\\_Layout.cshtml*",
-              "ViewState": "AgIAAPwAAAAAAAAAAAAAABwBAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-25T05:08:31.855Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Files\\Index.cshtml",
-              "RelativeDocumentMoniker": "TwiceTasks\\Views\\Files\\Index.cshtml",
-              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Files\\Index.cshtml",
-              "RelativeToolTip": "TwiceTasks\\Views\\Files\\Index.cshtml",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-25T05:06:36.405Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -163,6 +137,31 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAPwAAAAAAAAAAAAAABwBAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T05:08:31.855Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Files\\Index.cshtml",
+              "RelativeDocumentMoniker": "TwiceTasks\\Views\\Files\\Index.cshtml",
+              "ToolTip": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Files\\Index.cshtml",
+              "RelativeToolTip": "TwiceTasks\\Views\\Files\\Index.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-25T05:06:36.405Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\rodri\\Documents\\GitHub\\TwiceTasks\\TwiceTasks\\TwiceTasks\\Views\\Collection\\Index.cshtml",
@@ -171,8 +170,7 @@
               "RelativeToolTip": "TwiceTasks\\Views\\Collection\\Index.cshtml",
               "ViewState": "AgIAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-25T05:05:25.204Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-25T05:05:25.204Z"
             },
             {
               "$type": "Document",
@@ -208,8 +206,7 @@
               "RelativeToolTip": "TwiceTasks\\Views\\Pages\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAPQBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T16:02:36.365Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T16:02:36.365Z"
             },
             {
               "$type": "Document",
@@ -233,8 +230,7 @@
               "RelativeToolTip": "TwiceTasks\\Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAKQBAAAAAAAAAAAAABoCAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T15:47:16.655Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-15T15:47:16.655Z"
             },
             {
               "$type": "Document",

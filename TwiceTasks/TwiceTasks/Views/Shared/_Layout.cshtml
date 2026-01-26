@@ -229,6 +229,11 @@
                 background: var(--border);
             }
 
+        .sidebar a.active {
+            background: var(--border);
+            font-weight: 600;
+        }
+
         /* When sidebar hidden (not rendered) ensure main content margin */
         .main-wrapper {
             margin-left: 80px;
@@ -260,6 +265,9 @@
     </style>
 </head>
 <body>
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    }
     <!-- Big theme toggle in corner -->
     <button id="darkModeToggle" class="theme-toggle-fab" aria-label="Activar o desactivar modo oscuro" title="Tema">🌙</button>
 
@@ -276,17 +284,20 @@
     {
         <div class="sidebar" role="navigation" aria-label="Dashboard">
             <h2>Mi Dashboard</h2>
-            <a asp-controller="Home" asp-action="Index" title="Inicio">
+            <a asp-controller="Home" asp-action="Index" title="Inicio" class="@(currentController == "Home" ? "active" : "")">
                 <i class="bi bi-house-door"></i><span>Inicio</span>
             </a>
-            <a asp-controller="Workspaces" asp-action="Index" title="Workspaces">
+            <a asp-controller="Workspaces" asp-action="Index" title="Workspaces" class="@(currentController == "Workspaces" ? "active" : "")">
                 <i class="bi bi-kanban"></i><span>Workspaces</span>
             </a>
-            <a asp-controller="Pages" asp-action="Index" title="Notas">
+            <a asp-controller="Pages" asp-action="Index" title="Notas" class="@(currentController == "Pages" ? "active" : "")">
                 <i class="bi bi-journal-text"></i><span>Notas</span>
             </a>
-            <a asp-controller="Files" asp-action="Index" title="Archivos">
+            <a asp-controller="Files" asp-action="Index" title="Archivos" class="@(currentController == "Files" ? "active" : "")">
                 <i class="bi bi-folder"></i><span>Archivos</span>
+            </a>
+            <a asp-controller="Calendar" asp-action="Index" title="Calendario" class="@(currentController == "Calendar" ? "active" : "")">
+                <i class="bi bi-calendar-event"></i><span>Calendario</span>
             </a>
         </div>
     }

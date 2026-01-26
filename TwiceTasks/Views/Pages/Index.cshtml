@@ -4,257 +4,517 @@
     var workspace = ViewBag.Workspace as TwiceTasks.Models.Workspace;
     var workspaces = ViewBag.Workspaces as List<TwiceTasks.Models.Workspace> ?? new();
     var unassigned = ViewBag.UnassignedPages as List<TwiceTasks.Models.Page> ?? new();
-    var recentFiles = ViewBag.RecentFiles as List<TwiceTasks.Models.FileResource> ?? new();
 
     ViewData["Title"] = workspace != null ? $"Notas - {workspace.Name}" : "Notas";
     int? returnWsId = workspace?.Id;
 
-    var notes = (workspace == null ? unassigned : (Model ?? Enumerable.Empty<TwiceTasks.Models.Page>()))
+    // Recientes en home: usa las notas sueltas (si quieres globales reales, lo hacemos en controller)
+    var recentPages = (workspace == null ? unassigned : (Model ?? Enumerable.Empty<TwiceTasks.Models.Page>()))
         .OrderByDescending(p => p.UpdatedAt)
+        .Take(6)
         .ToList();
-
-    var recentNotes = notes.Take(8).ToList();
 }
 
 <style>
-    .notes-shell { max-width: 1700px; }
-    .panel {
+    .nt-wrap {
+        max-width: 1120px;
+    }
+
+    .nt-header {
         background: var(--card-bg);
         border: 1px solid var(--border);
-        border-radius: 18px;
+        border-radius: 16px;
         box-shadow: 0 10px 26px var(--shadow);
+        padding: 14px 14px;
     }
-    .panel-h {
-        padding: 14px 16px;
-        border-bottom: 1px solid var(--border);
-    }
-    .panel-b { padding: 14px 16px; }
 
-    .ws-link {
+    .nt-title {
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nt-sub {
+        margin: 6px 0 0 0;
+        color: var(--text-muted);
+        opacity: .85;
+        font-size: .95rem;
+    }
+
+    .nt-section {
+        margin-top: 16px;
+    }
+
+        .nt-section h6 {
+            margin: 0 0 10px 0;
+            font-weight: 650;
+            letter-spacing: -0.01em;
+            opacity: .92;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+    .nt-hint {
+        color: var(--text-muted);
+        opacity: .8;
+        font-size: .9rem;
+        margin-top: 2px;
+    }
+
+    .nt-card {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--card-bg);
+        box-shadow: 0 6px 16px var(--shadow);
+        transition: transform .16s ease, box-shadow .16s ease;
+    }
+
+        .nt-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px var(--shadow);
+        }
+
+    .note-title {
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+        opacity: .92;
+        font-size: .82rem;
+        white-space: nowrap;
+    }
+
+    .note-meta {
+        margin-top: 10px;
+        color: var(--text-muted);
+        opacity: .85;
+        font-size: .9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .icon-btn {
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mini-actions select {
+        min-width: 190px;
+    }
+
+    @@media (max-width: 576px) {
+        .mini-actions {
+            flex-direction: column;
+            align-items: stretch !important;
+        }
+
+            .mini-actions select {
+                width: 100%;
+                min-width: 0;
+            }
+    }
+
+    /* Offcanvas workspace list */
+    .ws-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: calc(100vh - 220px);
+        overflow: auto;
+        padding-right: 4px;
+    }
+
+    .ws-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
-        padding: 10px 12px;
+        gap: 12px;
+        padding: 10px 10px;
         border-radius: 12px;
         text-decoration: none;
         color: var(--text);
         border: 1px solid transparent;
     }
-    .ws-link:hover {
-        background: rgba(255,255,255,.04);
-        border-color: var(--border);
-        color: var(--text);
-    }
-    .ws-link.active {
-        border-color: var(--border);
-        background: rgba(13,110,253,.10);
+
+        .ws-item:hover {
+            background: rgba(255,255,255,.04);
+            border-color: var(--border);
+            color: var(--text);
+        }
+
+    .ws-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
     }
 
-    .note-card {
-        background: var(--card-bg);
+    .ws-ic {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
         border: 1px solid var(--border);
-        border-radius: 16px;
-        box-shadow: 0 6px 16px var(--shadow);
-        transition: transform .16s ease, box-shadow .16s ease;
-        height: 100%;
+        background: rgba(255,255,255,.04);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
     }
-    .note-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 14px 28px var(--shadow);
-    }
-    .note-title {
-        font-weight: 800;
-        letter-spacing: -0.02em;
+
+    .ws-name {
+        font-weight: 650;
+        letter-spacing: -0.01em;
         margin: 0;
-        line-height: 1.2;
+        line-height: 1.1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
-    .note-snippet {
+
+    .ws-sub {
+        margin: 2px 0 0 0;
         color: var(--text-muted);
-        opacity: .88;
-        margin: 10px 0 0 0;
+        opacity: .85;
+        font-size: .9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
-    .mini-select {
-        min-width: 180px;
-    }
-
-    @@media (max-width: 1200px) {
-        .right-col { display: none; }
+    .ws-right {
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: .82rem;
+        opacity: .95;
+        white-space: nowrap;
     }
 </style>
 
-<div class="container-xxl py-4 notes-shell">
-    <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3 mb-4">
-        <div>
-            <h1 class="fw-bold m-0" style="letter-spacing:-.02em;">
-                @(workspace != null ? workspace.Name : "Notas")
-            </h1>
-            <p class="text-muted mb-0">
-                @(workspace != null ? "Tus notas dentro de este workspace." : "Tus notas sin workspace y un resumen rápido de tu contenido.")
-            </p>
-        </div>
-        <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-primary btn-lg" asp-controller="Pages" asp-action="Create" asp-route-workspaceId="@returnWsId">
-                <i class="bi bi-plus-circle me-2"></i>Nueva nota
-            </a>
-            <a class="btn btn-outline-secondary btn-lg" asp-controller="Files" asp-action="Index">
-                <i class="bi bi-folder me-2"></i>Archivos
-            </a>
+<div class="container py-4 nt-wrap">
+
+    <!-- HEADER -->
+    <div class="nt-header mb-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+            <div>
+                @if (workspace != null)
+                {
+                    <div class="nt-title">
+                        <i class="bi bi-folder2-open"></i>
+                        <span>@workspace.Name</span>
+                    </div>
+                    <div class="nt-sub">Workspace abierto.</div>
+                }
+                else
+                {
+                    <div class="nt-title">
+                        <i class="bi bi-grid-1x2"></i>
+                        <span>Notas</span>
+                    </div>
+                    <div class="nt-sub">Recientes y notas rápidas. Workspaces en el panel.</div>
+                }
+            </div>
+
+            <div class="d-flex flex-wrap gap-2">
+                @if (workspace != null)
+                {
+                    <a class="btn btn-primary" asp-controller="Pages" asp-action="Create" asp-route-workspaceId="@workspace.Id">
+                        <i class="bi bi-journal-plus me-2"></i>Nueva
+                    </a>
+
+                    <a class="btn btn-outline-secondary" asp-controller="Pages" asp-action="Index">
+                        <i class="bi bi-arrow-left me-2"></i>Inicio
+                    </a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" asp-controller="Pages" asp-action="Create">
+                        <i class="bi bi-journal-plus me-2"></i>Nueva
+                    </a>
+                }
+
+                <button class="btn btn-outline-secondary" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#wsCanvas" aria-controls="wsCanvas">
+                    <i class="bi bi-folder me-2"></i>Workspaces
+                </button>
+            </div>
         </div>
     </div>
 
-    <div class="row g-3 align-items-start">
-        <!-- LEFT: Workspaces -->
-        <div class="col-12 col-lg-3">
-            <div class="panel">
-                <div class="panel-h d-flex align-items-center justify-content-between">
-                    <div class="fw-bold" style="letter-spacing:-.01em;">Workspaces</div>
-                    <a class="btn btn-sm btn-outline-primary" asp-controller="Workspaces" asp-action="Create">
-                        <i class="bi bi-plus"></i>
-                    </a>
-                </div>
-                <div class="panel-b">
-                    <div class="d-grid gap-2">
-                        <a class="ws-link @(workspace == null ? "active" : "")" asp-controller="Pages" asp-action="Index">
-                            <div class="d-flex align-items-center gap-2">
-                                <i class="bi bi-inbox"></i>
-                                <span class="fw-semibold">Sin workspace</span>
-                            </div>
-                        </a>
-                        @foreach (var ws in workspaces)
-                        {
-                            var isActive = workspace != null && workspace.Id == ws.Id;
-                            <a class="ws-link @(isActive ? "active" : "")" asp-controller="Pages" asp-action="Index" asp-route-workspaceId="@ws.Id">
-                                <div class="d-flex align-items-center gap-2" style="min-width:0;">
-                                    <i class="bi bi-kanban"></i>
-                                    <span class="fw-semibold text-truncate">@ws.Name</span>
+    @* ===========================
+       MODO B: dentro de workspace
+       =========================== *@
+    @if (workspace != null)
+    {
+        @if (Model != null && Model.Any())
+        {
+            <div class="row g-3">
+                @foreach (var p in Model)
+                {
+                    var when = p.UpdatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="nt-card card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-between align-items-start gap-2">
+                                    <h5 class="note-title text-truncate" title="@p.Title">@p.Title</h5>
+                                    <a class="btn btn-sm btn-outline-secondary icon-btn" asp-action="Edit" asp-route-id="@p.Id" title="Editar">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
                                 </div>
-                                <i class="bi bi-chevron-right" style="opacity:.65;"></i>
-                            </a>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- CENTER: Notes -->
-        <div class="col-12 col-lg-6">
-            <div class="panel">
-                <div class="panel-h d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
-                    <div>
-                        <div class="fw-bold" style="letter-spacing:-.01em;">@((workspace == null) ? "Notas sin workspace" : "Notas")</div>
-                        <div class="text-muted small">@notes.Count nota(s)</div>
-                    </div>
-                    <div class="text-muted small">Ordenadas por última actualización</div>
-                </div>
-                <div class="panel-b">
-                    @if (!notes.Any())
-                    {
-                        <div class="text-center py-5">
-                            <div class="display-6">📝</div>
-                            <h4 class="fw-bold mt-3">Aún no hay notas aquí</h4>
-                            <p class="text-muted mb-4">Crea tu primera nota y empieza a organizarte.</p>
-                            <a class="btn btn-primary btn-lg" asp-controller="Pages" asp-action="Create" asp-route-workspaceId="@returnWsId">
-                                <i class="bi bi-plus-circle me-2"></i>Crear nota
-                            </a>
+                                <div class="note-meta">
+                                    <span class="pill">
+                                        <i class="bi bi-clock"></i>
+                                        Última modificación: @when
+                                    </span>
+                                </div>
+
+                                <div class="mt-auto pt-3">
+                                    <form asp-action="Move" method="post" class="d-flex gap-2 align-items-center mini-actions">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="pageId" value="@p.Id" />
+                                        <input type="hidden" name="returnWorkspaceId" value="@(returnWsId?.ToString() ?? "")" />
+
+                                        <select name="workspaceId" class="form-select form-select-sm">
+                                            <option value="">Sin workspace</option>
+                                            @foreach (var ws in workspaces)
+                                            {
+                                                <option value="@ws.Id" selected="@(p.WorkspaceId == ws.Id)">@ws.Name</option>
+                                            }
+                                        </select>
+
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-arrow-left-right me-1"></i>Mover
+                                        </button>
+
+                                        <a class="btn btn-sm btn-outline-danger icon-btn" asp-action="Delete" asp-route-id="@p.Id" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    }
-                    else
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-light border">
+                <i class="bi bi-info-circle me-2"></i>No hay notas en este workspace todavía.
+            </div>
+        }
+    }
+    @* ===========================
+       MODO A: home limpio
+       =========================== *@
+    else
+    {
+        <!-- RECENTES -->
+        <div class="nt-section">
+            <h6><i class="bi bi-lightning-charge"></i>Recientes</h6>
+            <div class="nt-hint">Acceso rápido a lo último que tocaste.</div>
+
+            @if (recentPages.Any())
+            {
+                <div class="row g-3 mt-1">
+                    @foreach (var p in recentPages)
                     {
-                        <div class="row g-3">
-                            @foreach (var p in recentNotes)
-                            {
-                                var snippet = string.IsNullOrWhiteSpace(p.Content)
-                                    ? "Sin contenido"
-                                    : (p.Content.Length > 140 ? p.Content.Substring(0, 140) + "…" : p.Content);
+                        var when = p.UpdatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
-                                <div class="col-12">
-                                    <div class="note-card p-4">
-                                        <div class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3">
-                                            <div class="min-w-0">
-                                                <h3 class="note-title text-truncate">@p.Title</h3>
-                                                <div class="text-muted small mt-1">
-                                                    Actualizado: @p.UpdatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
-                                                </div>
-                                                <p class="note-snippet">@snippet</p>
-                                            </div>
-                                            <div class="d-flex flex-wrap gap-2 justify-content-md-end">
-                                                <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@p.Id">
-                                                    <i class="bi bi-pencil me-2"></i>Editar
-                                                </a>
-                                                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@p.Id">
-                                                    <i class="bi bi-trash me-2"></i>Eliminar
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <form class="d-flex flex-column flex-md-row gap-2 align-items-md-center" asp-action="Move" method="post">
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="pageId" value="@p.Id" />
-                                                <input type="hidden" name="returnWorkspaceId" value="@returnWsId" />
-
-                                                <label class="text-muted small" style="min-width:110px;">Mover a:</label>
-                                                <select class="form-select mini-select" name="workspaceId">
-                                                    <option value="">Sin workspace</option>
-                                                    @foreach (var ws in workspaces)
-                                                    {
-                                                        <option value="@ws.Id" selected="@(p.WorkspaceId == ws.Id)">@ws.Name</option>
-                                                    }
-                                                </select>
-                                                <button class="btn btn-sm btn-outline-secondary" type="submit">
-                                                    <i class="bi bi-arrow-right-circle me-1"></i>Mover
-                                                </button>
-                                            </form>
-                                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <a class="nt-card card h-100 text-decoration-none" asp-action="Edit" asp-route-id="@p.Id">
+                                <div class="card-body">
+                                    <h5 class="note-title text-truncate" title="@p.Title">@p.Title</h5>
+                                    <div class="note-meta">
+                                        <span class="pill">
+                                            <i class="bi bi-clock"></i>
+                                            Última modificación: @when
+                                        </span>
+                                        <span class="pill">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                            Suelta
+                                        </span>
                                     </div>
                                 </div>
-                            }
+                            </a>
                         </div>
-
-                        @if (notes.Count > recentNotes.Count)
-                        {
-                            <div class="text-center mt-4">
-                                <span class="text-muted">Mostrando @recentNotes.Count de @notes.Count notas.</span>
-                            </div>
-                        }
                     }
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="alert alert-light border mt-2">
+                    <i class="bi bi-info-circle me-2"></i>Aún no hay notas recientes.
+                </div>
+            }
         </div>
 
-        <!-- RIGHT: Recent Files -->
-        <div class="col-12 col-lg-3 right-col">
-            <div class="panel">
-                <div class="panel-h d-flex align-items-center justify-content-between">
-                    <div class="fw-bold" style="letter-spacing:-.01em;">Archivos recientes</div>
-                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Files" asp-action="Index">Ver todos</a>
+        <!-- NOTAS SIN WORKSPACE -->
+        <div class="nt-section mt-4">
+            <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-2">
+                <div>
+                    <h6><i class="bi bi-file-earmark-text"></i>Notas sin workspace</h6>
+                    <div class="nt-hint">Apuntes rápidos. Puedes moverlos a un workspace cuando quieras.</div>
                 </div>
-                <div class="panel-b">
-                    @if (!recentFiles.Any())
+                <span class="pill">
+                    <i class="bi bi-hash"></i>@unassigned.Count
+                </span>
+            </div>
+
+            @if (unassigned.Any())
+            {
+                <div class="row g-3 mt-1">
+                    @foreach (var p in unassigned)
                     {
-                        <div class="text-muted">Aún no has subido archivos.</div>
-                    }
-                    else
-                    {
-                        <div class="d-grid gap-2">
-                            @foreach (var f in recentFiles)
-                            {
-                                <a class="d-flex align-items-center justify-content-between gap-2 text-decoration-none" href="@f.FilePath" target="_blank" style="color: var(--text); padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,.03);">
-                                    <div class="d-flex align-items-center gap-2 min-w-0">
-                                        <i class="bi bi-file-earmark"></i>
-                                        <span class="text-truncate">@f.FileName</span>
+                        var when = p.UpdatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="nt-card card h-100">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex justify-content-between align-items-start gap-2">
+                                        <h5 class="note-title text-truncate" title="@p.Title">@p.Title</h5>
+                                        <a class="btn btn-sm btn-outline-secondary icon-btn" asp-action="Edit" asp-route-id="@p.Id" title="Editar">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
                                     </div>
-                                    <span class="text-muted small">@((f.FileSize / 1024)) KB</span>
-                                </a>
-                            }
+
+                                    <div class="note-meta">
+                                        <span class="pill">
+                                            <i class="bi bi-clock"></i>
+                                            Última modificación: @when
+                                        </span>
+                                    </div>
+
+                                    <div class="mt-auto pt-3">
+                                        <form asp-action="Move" method="post" class="d-flex gap-2 align-items-center mini-actions">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="pageId" value="@p.Id" />
+                                            <input type="hidden" name="returnWorkspaceId" value="" />
+
+                                            <select name="workspaceId" class="form-select form-select-sm">
+                                                <option value="">Sin workspace</option>
+                                                @foreach (var ws in workspaces)
+                                                {
+                                                    <option value="@ws.Id">@ws.Name</option>
+                                                }
+                                            </select>
+
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-arrow-left-right me-1"></i>Mover
+                                            </button>
+
+                                            <a class="btn btn-sm btn-outline-danger icon-btn" asp-action="Delete" asp-route-id="@p.Id" title="Eliminar">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     }
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="alert alert-light border mt-2">
+                    <i class="bi bi-info-circle me-2"></i>No tienes notas sueltas todavía.
+                </div>
+            }
         </div>
+    }
+
+</div>
+
+<!-- OFFCANVAS WORKSPACES (lista vertical con scroll, NO grid) -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="wsCanvas" aria-labelledby="wsCanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="wsCanvasLabel">
+            <i class="bi bi-folder me-2"></i>Workspaces
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input id="wsSearch" type="text" class="form-control" placeholder="Buscar workspace..." />
+        </div>
+
+        <div class="d-grid gap-2 mb-3">
+            <a class="btn btn-primary" asp-controller="Workspaces" asp-action="Create">
+                <i class="bi bi-kanban me-2"></i>Nuevo workspace
+            </a>
+            <a class="btn btn-outline-secondary" asp-controller="Workspaces" asp-action="Index">
+                <i class="bi bi-kanban-fill me-2"></i>Administrar
+            </a>
+        </div>
+
+        <div id="wsList" class="ws-list">
+            @foreach (var ws in workspaces)
+            {
+                <a class="ws-item" asp-controller="Pages" asp-action="Index" asp-route-workspaceId="@ws.Id">
+                    <div class="ws-left">
+                        <span class="ws-ic"><i class="bi bi-folder2-open"></i></span>
+                        <div style="min-width:0">
+                            <p class="ws-name">@ws.Name</p>
+                            <p class="ws-sub">Abrir</p>
+                        </div>
+                    </div>
+                    <span class="ws-right"><i class="bi bi-chevron-right"></i></span>
+                </a>
+            }
+        </div>
+
+        @if (!workspaces.Any())
+        {
+            <div class="alert alert-light border mt-3">
+                <i class="bi bi-info-circle me-2"></i>No tienes workspaces todavía.
+            </div>
+        }
     </div>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+@section Scripts {
+    <script>
+        // Buscador en el offcanvas: filtra la lista vertical
+        const wsSearch = document.getElementById('wsSearch');
+        const wsList = document.getElementById('wsList');
+
+        if (wsSearch && wsList) {
+            wsSearch.addEventListener('input', () => {
+                const q = wsSearch.value.toLowerCase().trim();
+                const items = wsList.querySelectorAll('a.ws-item');
+
+                items.forEach(it => {
+                    const text = it.innerText.toLowerCase();
+                    it.style.display = text.includes(q) ? '' : 'none';
+                });
+            });
+        }
+    </script>
+}

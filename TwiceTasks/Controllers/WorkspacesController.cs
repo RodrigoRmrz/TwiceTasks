@@ -1,6 +1,5 @@
 using TwiceTasks.Data;
 using TwiceTasks.Models;
-using TwiceTasks.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,16 +28,6 @@ namespace TwiceTasks.Controllers
             var workspaces = await _context.Workspaces
                 .Where(w => w.UserId == userId)
                 .OrderByDescending(w => w.CreatedAt)
-                .Select(w => new WorkspaceCardVm
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    Description = w.Description,
-                    CreatedAt = w.CreatedAt,
-                    UpdatedAt = w.UpdatedAt,
-                    PageCount = _context.Pages.Count(p => p.WorkspaceId == w.Id && p.UserId == userId),
-                    FileCount = _context.FileResources.Count(f => f.WorkspaceId == w.Id && f.UserId == userId)
-                })
                 .ToListAsync();
 
             return View(workspaces);

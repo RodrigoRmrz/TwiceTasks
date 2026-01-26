@@ -218,6 +218,129 @@ body.dark-mode .table a {
     color: #7fa2ff;
 }
 
+/* ===== DARK THEME (html.dark) =====
+   El layout actual alterna la clase en el elemento <html>.
+   Estos estilos duplican los de body.dark-mode para que el modo oscuro
+   funcione correctamente en todo el sitio (incluido el calendario). */
+
+html.dark .navbar {
+    background-color: #14161c !important;
+    border-bottom: 1px solid #222;
+}
+
+html.dark .nav-link,
+html.dark .navbar-brand {
+    color: #e6e6e6 !important;
+}
+
+html.dark .table {
+    color: #e6e6e6;
+    background-color: transparent;
+}
+
+html.dark .table thead {
+    border-bottom: 1px solid #333;
+}
+
+html.dark .table-striped tbody tr {
+    background-color: #14161c;
+}
+
+html.dark .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #101218;
+}
+
+html.dark .btn-primary {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+html.dark .btn-secondary {
+    background-color: #2a2f3a;
+    border-color: #2a2f3a;
+    color: #e6e6e6;
+}
+
+html.dark .btn-outline-primary {
+    color: #88a4ff;
+    border-color: #88a4ff;
+}
+
+html.dark .btn-outline-primary:hover {
+    background-color: #88a4ff;
+    color: #000;
+}
+
+html.dark .form-control,
+html.dark input,
+html.dark textarea,
+html.dark select {
+    background-color: #14161c;
+    color: #e6e6e6;
+    border: 1px solid #333;
+}
+
+html.dark .form-control::placeholder {
+    color: #888;
+}
+
+html.dark input[type="file"] {
+    background-color: #14161c;
+    color: #e6e6e6;
+}
+
+html.dark a {
+    color: #7fa2ff;
+}
+
+html.dark a:hover {
+    color: #a5b8ff;
+}
+
+html.dark .codex-editor__redactor {
+    background-color: transparent;
+    color: #e6e6e6;
+}
+
+html.dark .ce-paragraph {
+    color: #e6e6e6;
+}
+
+html.dark .cdx-input {
+    background-color: #14161c;
+    color: #e6e6e6;
+}
+
+html.dark .list-group-item,
+html.dark .attachment-item {
+    background-color: #14161c;
+    border: 1px solid #222;
+    color: #e6e6e6;
+}
+
+html.dark .list-group-item:hover,
+html.dark .attachment-item:hover {
+    background-color: #1b1f2a;
+}
+
+html.dark hr {
+    border-color: #222;
+}
+
+html.dark .table td,
+html.dark .table th {
+    color: #e6e6e6 !important;
+}
+
+html.dark .table a {
+    color: #7fa2ff;
+}
+
+/* Bootstrap close button (modales) */
+html.dark .btn-close {
+    filter: invert(1) grayscale(100%);
+}
+
 body.dark-mode .table a:hover {
     color: #a5b8ff;
 }
@@ -261,7 +384,17 @@ body.dark-mode .file-picker {
     color: #e6e6e6;
 }
 
+html.dark .file-picker {
+    background-color: #14161c;
+    border-color: #333;
+    color: #e6e6e6;
+}
+
 body.dark-mode .file-picker:hover {
+    background-color: #1b1f2a;
+}
+
+html.dark .file-picker:hover {
     background-color: #1b1f2a;
 }
 /* ===== TAGS ===== */
@@ -317,11 +450,30 @@ body.dark-mode .tag-chip {
     color: #e6e6e6;
 }
 
+html.dark .tag-chip {
+    background-color: #1b1f2a;
+    color: #e6e6e6;
+}
+
 body.dark-mode .tag-chip button {
     color: #aaa;
 }
 
+html.dark .tag-chip button {
+    color: #aaa;
+}
+
 body.dark-mode .tag-input {
+    background-color: transparent;
+    color: #e6e6e6;
+}
+
+html.dark .tag-input {
+    background-color: transparent;
+    color: #e6e6e6;
+}
+
+html.dark .tag-input {
     background-color: transparent;
     color: #e6e6e6;
 }
@@ -351,13 +503,313 @@ body.dark-mode .tag-input {
     font-size: 0.85rem;
 }
 
-/* Dark mode */
-body.dark-mode .calendar-day {
-    background-color: #1b1f2a;
+/* Dark mode (legacy class) */
+body.dark-mode .calendar-day { background-color: #1b1f2a; }
+body.dark-mode .calendar-event { background-color: #375aee; }
+
+/* Dark mode (nuevo toggle: html.dark) */
+html.dark .calendar-day { background-color: #1b1f2a; }
+html.dark .calendar-event { background-color: #375aee; }
+
+/* ==============================
+   Calendar (new UI - uses CSS vars from html.light / html.dark)
+   ============================== */
+
+.cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 18px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 16px;
 }
 
-body.dark-mode .calendar-event {
-    background-color: #375aee;
+.cal-icon {
+    font-size: 1.6rem;
+}
+
+.cal-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.cal-sub {
+    opacity: .75;
+    font-size: .95rem;
+}
+
+.cal-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cal-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.cal-picker .form-select {
+    min-width: 140px;
+    background-color: var(--card);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.cal-month {
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 0 6px;
+}
+
+.cal-new {
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.cal-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    opacity: .85;
+    font-size: .9rem;
+}
+
+.cal-weekdays > div {
+    text-align: center;
+    padding: 8px 0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(0,0,0,0.02);
+}
+
+html.dark .cal-weekdays > div {
+    background: rgba(255,255,255,0.04);
+}
+
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.cal-cell {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-height: 110px;
+    padding: 10px;
+    background: rgba(0,0,0,0.02);
+    text-align: left;
+    color: inherit;
+}
+
+html.dark .cal-cell {
+    background: rgba(255,255,255,0.04);
+}
+
+.cal-empty {
+    background: transparent;
+    border-style: dashed;
+    opacity: .4;
+}
+
+.cal-day {
+    cursor: pointer;
+    transition: transform .08s ease, box-shadow .08s ease;
+}
+
+.cal-day:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+html.dark .cal-day:hover {
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+}
+
+.cal-daynum {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.is-today {
+    outline: 2px solid rgba(13,110,253,0.55);
+    outline-offset: -2px;
+}
+
+.cal-badges {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cal-pill {
+    background: rgba(13,110,253,0.12);
+    border: 1px solid rgba(13,110,253,0.22);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: .82rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+html.dark .cal-pill {
+    background: rgba(77,168,255,0.14);
+    border-color: rgba(77,168,255,0.26);
+}
+
+.cal-more {
+    font-size: .82rem;
+    opacity: .75;
+}
+
+.cal-side-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.cal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cal-event-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(0,0,0,0.02);
+}
+
+html.dark .cal-event-row {
+    background: rgba(255,255,255,0.04);
+}
+
+.cal-event-date {
+    width: 56px;
+    min-width: 56px;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 8px 6px;
+}
+
+.cal-event-day {
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.cal-event-mon {
+    font-size: .82rem;
+    opacity: .75;
+}
+
+.cal-event-title {
+    font-weight: 700;
+}
+
+.cal-event-sub {
+    font-size: .86rem;
+    opacity: .75;
+}
+
+.cal-empty-state {
+    text-align: center;
+    padding: 24px 10px;
+    opacity: .9;
+}
+
+.cal-empty-state i {
+    font-size: 1.6rem;
+    opacity: .85;
+}
+
+/* Modal colors in dark */
+.cal-modal {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+html.dark .modal-backdrop.show {
+    opacity: .72;
+}
+
+/* ===============================
+   FullCalendar styling (light/dark)
+   =============================== */
+
+#twiceCalendar {
+    min-height: 520px;
+}
+
+#twiceCalendar .fc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px;
+}
+
+/* Toolbar */
+#twiceCalendar .fc .fc-toolbar-title {
+    color: var(--text);
+}
+
+#twiceCalendar .fc .fc-button {
+    border-color: var(--border);
+}
+
+html.dark #twiceCalendar .fc .fc-button {
+    color: var(--text);
+}
+
+/* Grid + borders */
+#twiceCalendar .fc .fc-scrollgrid,
+#twiceCalendar .fc .fc-scrollgrid td,
+#twiceCalendar .fc .fc-scrollgrid th {
+    border-color: var(--border);
+}
+
+html.dark #twiceCalendar .fc .fc-col-header-cell-cushion,
+html.dark #twiceCalendar .fc .fc-daygrid-day-number,
+html.dark #twiceCalendar .fc .fc-list-day-cushion,
+html.dark #twiceCalendar .fc .fc-list-event-title {
+    color: var(--text);
+}
+
+/* List view */
+html.dark #twiceCalendar .fc .fc-list {
+    background: var(--card);
+}
+
+html.dark #twiceCalendar .fc .fc-list-day-cushion,
+html.dark #twiceCalendar .fc .fc-list-table {
+    border-color: var(--border);
+}
+
+/* "Today" highlight */
+html.dark #twiceCalendar .fc .fc-day-today {
+    background: rgba(255,255,255,0.04);
 }
 
 

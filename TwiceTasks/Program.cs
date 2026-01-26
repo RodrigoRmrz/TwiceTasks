@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TwiceTasks.Data;
 using TwiceTasks.Models;
@@ -59,6 +58,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 
 // 🔐 AUTH
 app.UseAuthentication();
@@ -67,9 +68,6 @@ app.UseAuthorization();
 // =============================
 // ROUTING
 // =============================
-// Notas viven en /Notes (NotesController)
-// y las operaciones CRUD siguen en PagesController.
-
 
 app.MapControllerRoute(
     name: "default",
