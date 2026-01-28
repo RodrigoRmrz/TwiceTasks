@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TwiceTasks")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d40b939b0cb9599cf47a0bce18550cd33c856cb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9958fb71180f1e4d339a6e0dfcb234ae7a281f4b")]
 [assembly: System.Reflection.AssemblyProductAttribute("TwiceTasks")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TwiceTasks")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
