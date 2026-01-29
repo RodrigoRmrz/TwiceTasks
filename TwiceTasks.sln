@@ -1,9 +1,8 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36717.8 d17.14
+VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwiceTasks", "TwiceTasks\TwiceTasks.csproj", "{7AAA923B-8474-4EED-BCD6-E5A6848A294F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwiceTasks", "TwiceTasks.csproj", "{8AA6B50A-D9AF-9DC6-E904-80F42649D2A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +10,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7AAA923B-8474-4EED-BCD6-E5A6848A294F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AAA923B-8474-4EED-BCD6-E5A6848A294F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AAA923B-8474-4EED-BCD6-E5A6848A294F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AAA923B-8474-4EED-BCD6-E5A6848A294F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AA6B50A-D9AF-9DC6-E904-80F42649D2A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA6B50A-D9AF-9DC6-E904-80F42649D2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA6B50A-D9AF-9DC6-E904-80F42649D2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA6B50A-D9AF-9DC6-E904-80F42649D2A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {58D95F5E-EF1D-4072-85CB-656B09CA2A6A}
+		SolutionGuid = {EE363C31-92F1-4A81-92BE-489AF88E5940}
 	EndGlobalSection
 EndGlobal
