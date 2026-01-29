@@ -241,6 +241,12 @@ namespace TwiceTasks.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+
+                    b.Property<bool>("AllDay")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("End")
+                        .HasColumnType("datetime2");
                     b.Property<int?>("PageId")
                         .HasColumnType("int");
 

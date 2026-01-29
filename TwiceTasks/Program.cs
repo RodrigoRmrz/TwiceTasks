@@ -58,8 +58,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
 
 // 🔐 AUTH
 app.UseAuthentication();

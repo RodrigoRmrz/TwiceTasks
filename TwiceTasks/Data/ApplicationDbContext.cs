@@ -60,6 +60,11 @@ namespace TwiceTasks.Data
                 .WithMany(t => t.PageTags)
                 .HasForeignKey(pt => pt.TagId);
 
+            // CalendarEvent defaults
+            builder.Entity<CalendarEvent>()
+                .Property(e => e.AllDay)
+                .HasDefaultValue(true);
+
         }
     }
 }

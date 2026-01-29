@@ -14,7 +14,8 @@
             <i class="bi bi-calendar3 cal-icon"></i>
             <div>
                 <div class="cal-title">Calendario</div>
-                <div class="cal-sub">Vista mensual, semanal y diaria. Arrastra y edita eventos.</div>
+                    <div class="mt-1"><span class="badge text-bg-info">FullCalendar PRO v2</span></div>
+                <div class="cal-sub">Mes / Semana / Día / Lista — arrastra, redimensiona y edita eventos.</div>
             </div>
         </div>
 
@@ -23,7 +24,7 @@
                 <i class="bi bi-plus-lg"></i> Nuevo evento
             </button>
 
-            @* Token antiforgery para llamadas AJAX *@
+            <!-- Token antiforgery para llamadas AJAX -->
             <div style="display:none">@Html.AntiForgeryToken()</div>
         </div>
     </div>
@@ -99,10 +100,21 @@
                 </div>
 
                 <div id="allDayFields">
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="date" id="evtStartDate" />
-                        <label for="evtStartDate">Fecha</label>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="form-floating">
+                                <input class="form-control" type="date" id="evtStartDate" />
+                                <label for="evtStartDate">Inicio</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating">
+                                <input class="form-control" type="date" id="evtEndDate" />
+                                <label for="evtEndDate">Fin (opcional)</label>
+                            </div>
+                        </div>
                     </div>
+                    <div class="form-text mt-2">Tip: si pones Fin, se interpreta como <strong>fecha exclusiva</strong> (como Google Calendar).</div>
                 </div>
 
                 <div id="timeFields" style="display:none">
@@ -150,6 +162,7 @@
             const fTitle = document.getElementById('evtTitle');
             const fAllDay = document.getElementById('evtAllDay');
             const fStartDate = document.getElementById('evtStartDate');
+            const fEndDate = document.getElementById('evtEndDate');
             const fStartDT = document.getElementById('evtStartDateTime');
             const fEndDT = document.getElementById('evtEndDateTime');
             const allDayFields = document.getElementById('allDayFields');
@@ -173,15 +186,17 @@
 
             fAllDay.addEventListener('change', () => setAllDayUI(fAllDay.checked));
 
-            function openModalForNew(startDate) {
+            function openModalForNew(startDate, endDate, allDay = true) {
                 document.getElementById('modalTitle').innerHTML = '<i class="bi bi-plus-circle"></i> Nuevo evento';
                 fId.value = '';
                 fTitle.value = '';
-                fAllDay.checked = true;
-                setAllDayUI(true);
+                fAllDay.checked = !!allDay;
+                setAllDayUI(fAllDay.checked);
 
                 const d = startDate || new Date();
                 fStartDate.value = toDateInputValue(d);
+                fEndDate.value = endDate ? toDateInputValue(endDate) : '';
+
                 fStartDT.value = toDateTimeLocalValue(d);
                 fEndDT.value = '';
                 btnDelete.style.display = 'none';
@@ -200,6 +215,8 @@
                 const end = fcEvent.end ? new Date(fcEvent.end) : null;
 
                 fStartDate.value = toDateInputValue(start);
+                fEndDate.value = end ? toDateInputValue(end) : '';
+
                 fStartDT.value = toDateTimeLocalValue(start);
                 fEndDT.value = end ? toDateTimeLocalValue(end) : '';
 
@@ -221,7 +238,6 @@
                     const txt = await res.text();
                     throw new Error(txt || 'Error en la petición');
                 }
-                // Puede venir vacío en Ok()
                 const ct = res.headers.get('content-type') || '';
                 return ct.includes('application/json') ? res.json() : null;
             }
@@ -276,6 +292,7 @@
 
             // FullCalendar init
             const calendar = new FullCalendar.Calendar(calendarEl, {
+                themeSystem: 'bootstrap5',
                 initialView: 'dayGridMonth',
                 initialDate: '@initialDate',
                 locale: 'es',
@@ -286,12 +303,21 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
                 },
+                buttonText: {
+                    today: 'Hoy',
+                    month: 'Mes',
+                    week: 'Semana',
+                    day: 'Día',
+                    list: 'Lista'
+                },
+                dayMaxEvents: true,
                 selectable: true,
                 selectMirror: true,
                 navLinks: true,
                 nowIndicator: true,
                 editable: true,
                 eventDurationEditable: true,
+                eventTimeFormat: { hour: '2-digit', minute: '2-digit', hour12: false },
                 eventSources: [
                     {
                         url: '@Url.Action("EventsFeed", "Calendar")',
@@ -299,11 +325,11 @@
                     }
                 ],
                 dateClick: function (info) {
-                    openModalForNew(info.date);
+                    openModalForNew(info.date, null, true);
                 },
                 select: function (info) {
-                    openModalForNew(info.start);
-                    // si el usuario ha seleccionado rango, lo usamos como fin (solo si no es allDay)
+                    // Si el usuario selecciona un rango, lo usamos (allDay o con hora)
+                    openModalForNew(info.start, info.end, info.allDay);
                 },
                 eventClick: function (info) {
                     openModalForEdit(info.event);
@@ -341,7 +367,7 @@
             calendar.render();
 
             // Nuevo evento
-            btnNew.addEventListener('click', () => openModalForNew(new Date()));
+            btnNew.addEventListener('click', () => openModalForNew(new Date(), null, true));
 
             // Guardar (create/update)
             btnSave.addEventListener('click', async () => {
@@ -357,11 +383,11 @@
 
                 if (allDay) {
                     if (!fStartDate.value) {
-                        alert('Selecciona una fecha.');
+                        alert('Selecciona una fecha de inicio.');
                         return;
                     }
                     start = new Date(fStartDate.value + 'T00:00:00');
-                    // all-day: dejamos end null, el servidor/cliente lo interpreta
+                    if (fEndDate.value) end = new Date(fEndDate.value + 'T00:00:00');
                 } else {
                     if (!fStartDT.value) {
                         alert('Selecciona una fecha/hora de inicio.');
@@ -369,6 +395,10 @@
                     }
                     start = new Date(fStartDT.value);
                     if (fEndDT.value) end = new Date(fEndDT.value);
+                    if (!end) {
+                        // por defecto 1h
+                        end = new Date(start.getTime() + 60 * 60 * 1000);
+                    }
                 }
 
                 try {

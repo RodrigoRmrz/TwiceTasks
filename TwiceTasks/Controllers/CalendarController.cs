@@ -12,9 +12,7 @@ public class CalendarController : Controller
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public CalendarController(
-        ApplicationDbContext context,
-        UserManager<ApplicationUser> userManager)
+    public CalendarController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
     {
         _context = context;
         _userManager = userManager;
@@ -22,28 +20,19 @@ public class CalendarController : Controller
 
     public async Task<IActionResult> Index(int? year, int? month)
     {
-        var now = DateTime.Today;
-        var y = year ?? now.Year;
-        var m = month ?? now.Month;
-
-        // clamp just in case
+        var today = DateTime.Today;
+        var y = year ?? today.Year;
+        var m = month ?? today.Month;
         if (m < 1) m = 1;
         if (m > 12) m = 12;
 
         var userId = _userManager.GetUserId(User);
-        var start = new DateTime(y, m, 1);
-        var end = start.AddMonths(1);
+        if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
-        // Para el calendario (FullCalendar) cargaremos por AJAX, pero mantenemos estos datos
-        // por si quieres usarlos en UI/server-side.
-        var events = await _context.CalendarEvents
-            .Where(e => e.UserId == userId && e.Date >= start && e.Date < end)
-            .OrderBy(e => e.Date)
-            .ToListAsync();
-
-        // Próximos eventos (no limitado al mes actual)
+        // Próximos eventos (sidebar)
+        var upcomingFrom = DateTime.Today;
         var upcoming = await _context.CalendarEvents
-            .Where(e => e.UserId == userId && e.Date.Date >= now)
+            .Where(e => e.UserId == userId && (e.End ?? e.Date) >= upcomingFrom)
             .OrderBy(e => e.Date)
             .Take(15)
             .ToListAsync();
@@ -52,159 +41,176 @@ public class CalendarController : Controller
         {
             Year = y,
             Month = m,
-            Events = events,
             UpcomingEvents = upcoming
         };
 
         return View(vm);
     }
 
-    /// <summary>
-    /// Feed JSON para FullCalendar (rango visible).
-    /// FullCalendar envía start/end en querystring.
-    /// </summary>
+    // Feed para FullCalendar (JSON)
     [HttpGet]
     public async Task<IActionResult> EventsFeed(DateTime start, DateTime end)
     {
         var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
 
-        // Traemos eventos que intersecten el rango.
-        // (Si End es null, asumimos que dura al menos hasta Date.)
-        var evts = await _context.CalendarEvents
-            .Where(e => e.UserId == userId)
-            .Where(e => e.Date < end && (e.End ?? e.Date) >= start)
+        // Incluimos eventos que se solapen con el rango
+        var events = await _context.CalendarEvents
+            .Where(e => e.UserId == userId && e.Date < end && (e.End ?? e.Date) >= start)
             .OrderBy(e => e.Date)
             .ToListAsync();
 
-        var data = evts.Select(e => new
+        var payload = events.Select(e => new
         {
             id = e.Id,
             title = e.Title,
             start = e.Date,
-            end = e.AllDay
-                ? (e.End ?? e.Date.Date.AddDays(1))
-                : (e.End ?? e.Date.AddHours(1)),
+            end = e.End,
             allDay = e.AllDay
         });
 
-        return Json(data);
+        return Json(payload);
     }
 
-    /// <summary>
-    /// Próximos eventos (para refrescar sidebar sin recargar página).
-    /// </summary>
-    [HttpGet]
-    public async Task<IActionResult> Upcoming(int take = 15)
-    {
-        var userId = _userManager.GetUserId(User);
-        var now = DateTime.Now;
+    public record UpsertDto(int? Id, string Title, DateTime Start, DateTime? End, bool AllDay);
+    public record MoveDto(int Id, DateTime Start, DateTime? End, bool AllDay);
 
-        var upcoming = await _context.CalendarEvents
-            .Where(e => e.UserId == userId && (e.End ?? e.Date) >= now)
-            .OrderBy(e => e.Date)
-            .Take(Math.Clamp(take, 1, 50))
-            .Select(e => new
-            {
-                id = e.Id,
-                title = e.Title,
-                start = e.Date,
-                end = e.End,
-                allDay = e.AllDay
-            })
-            .ToListAsync();
-
-        return Json(upcoming);
-    }
-
+    // Crear/editar (AJAX)
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Upsert([FromBody] CalendarUpsertDto dto)
+    public async Task<IActionResult> Upsert([FromBody] UpsertDto dto)
     {
-        if (dto == null || string.IsNullOrWhiteSpace(dto.Title))
-            return BadRequest(new { error = "Título requerido" });
+        if (dto is null) return BadRequest();
+        if (string.IsNullOrWhiteSpace(dto.Title)) return BadRequest("El título es obligatorio.");
 
         var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
 
-        if (dto.Id == null || dto.Id <= 0)
+        CalendarEvent entity;
+
+        if (dto.Id.HasValue)
         {
-            var evt = new CalendarEvent
-            {
-                Title = dto.Title.Trim(),
-                Date = dto.AllDay ? dto.Start.Date : dto.Start,
-                End = dto.End,
-                AllDay = dto.AllDay,
-                UserId = userId
-            };
-
-            _context.CalendarEvents.Add(evt);
-            await _context.SaveChangesAsync();
-            return Ok(new { id = evt.Id });
+            entity = await _context.CalendarEvents
+                .FirstOrDefaultAsync(e => e.Id == dto.Id.Value && e.UserId == userId);
+            if (entity is null) return NotFound();
         }
         else
         {
-            var evt = await _context.CalendarEvents.FirstOrDefaultAsync(e => e.Id == dto.Id && e.UserId == userId);
-            if (evt == null) return NotFound();
-
-            evt.Title = dto.Title.Trim();
-            evt.AllDay = dto.AllDay;
-            evt.Date = dto.AllDay ? dto.Start.Date : dto.Start;
-            evt.End = dto.End;
-
-            await _context.SaveChangesAsync();
-            return Ok(new { id = evt.Id });
+            entity = new CalendarEvent { UserId = userId };
+            _context.CalendarEvents.Add(entity);
         }
+
+        entity.Title = dto.Title.Trim();
+        entity.AllDay = dto.AllDay;
+
+        if (dto.AllDay)
+        {
+            entity.Date = dto.Start.Date;
+            entity.End = dto.End?.Date; // (all-day) end es opcional. Si se usa, es fecha exclusiva (FullCalendar)
+        }
+        else
+        {
+            entity.Date = dto.Start;
+            entity.End = dto.End;
+        }
+
+        await _context.SaveChangesAsync();
+        return Ok(new { id = entity.Id });
     }
 
+    // Arrastrar / resize (AJAX)
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Move([FromBody] CalendarMoveDto dto)
+    public async Task<IActionResult> Move([FromBody] MoveDto dto)
     {
         var userId = _userManager.GetUserId(User);
-        var evt = await _context.CalendarEvents.FirstOrDefaultAsync(e => e.Id == dto.Id && e.UserId == userId);
-        if (evt == null) return NotFound();
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
 
-        evt.AllDay = dto.AllDay;
-        evt.Date = dto.AllDay ? dto.Start.Date : dto.Start;
-        evt.End = dto.End;
+        var entity = await _context.CalendarEvents
+            .FirstOrDefaultAsync(e => e.Id == dto.Id && e.UserId == userId);
+        if (entity is null) return NotFound();
+
+        entity.AllDay = dto.AllDay;
+        if (dto.AllDay)
+        {
+            entity.Date = dto.Start.Date;
+            entity.End = dto.End?.Date;
+        }
+        else
+        {
+            entity.Date = dto.Start;
+            entity.End = dto.End;
+        }
 
         await _context.SaveChangesAsync();
         return Ok();
     }
 
+    // Borrar (AJAX)
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteAjax([FromBody] int id)
     {
         var userId = _userManager.GetUserId(User);
-        var evt = await _context.CalendarEvents.FirstOrDefaultAsync(e => e.Id == id && e.UserId == userId);
-        if (evt == null) return NotFound();
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
 
-        _context.CalendarEvents.Remove(evt);
+        var entity = await _context.CalendarEvents
+            .FirstOrDefaultAsync(e => e.Id == id && e.UserId == userId);
+        if (entity is null) return NotFound();
+
+        _context.CalendarEvents.Remove(entity);
         await _context.SaveChangesAsync();
         return Ok();
     }
 
+    // Sidebar refresh
+    [HttpGet]
+    public async Task<IActionResult> Upcoming()
+    {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
+
+        var upcomingFrom = DateTime.Today;
+        var upcoming = await _context.CalendarEvents
+            .Where(e => e.UserId == userId && (e.End ?? e.Date) >= upcomingFrom)
+            .OrderBy(e => e.Date)
+            .Take(15)
+            .ToListAsync();
+
+        var payload = upcoming.Select(e => new
+        {
+            id = e.Id,
+            title = e.Title,
+            start = e.Date,
+            end = e.End,
+            allDay = e.AllDay
+        });
+
+        return Json(payload);
+    }
+
+    // Fallback (forms antiguos)
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(string title, DateTime date, int? year, int? month)
     {
         if (string.IsNullOrWhiteSpace(title))
-        {
-            // back to calendar
             return RedirectToAction(nameof(Index), new { year, month });
-        }
+
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
 
         var evt = new CalendarEvent
         {
-            Title = title,
-            Date = date,
-            UserId = _userManager.GetUserId(User)
+            Title = title.Trim(),
+            Date = date.Date,
+            AllDay = true,
+            UserId = userId
         };
 
         _context.CalendarEvents.Add(evt);
         await _context.SaveChangesAsync();
 
-        // keep current month view
         return RedirectToAction(nameof(Index), new { year = year ?? date.Year, month = month ?? date.Month });
     }
 
@@ -213,6 +219,8 @@ public class CalendarController : Controller
     public async Task<IActionResult> Delete(int id, int? year, int? month)
     {
         var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
+
         var evt = await _context.CalendarEvents.FirstOrDefaultAsync(e => e.Id == id && e.UserId == userId);
         if (evt != null)
         {
