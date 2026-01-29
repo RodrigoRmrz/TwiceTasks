@@ -17,12 +17,12 @@
 
     <div class="collection-filter-wrapper">
         <div class="pro-dropdown">
-            <button class="pro-dropbtn" onclick="toggleFilesDropdown()">
+            <button type="button" class="pro-dropbtn" onclick="toggleFilesDropdown()">
                 <div class="pro-drop-content">
                     <i class="bi bi-folder2-open"></i>
                     <span class="pro-label">Filtrar por:</span>
                     <span class="pro-selected-name">
-                        @(Model.Collections.FirstOrDefault(c => c.Id == Model.SelectedCollectionId)?.Name ?? "Sin Coleccion")
+                        @(Model.Collections.FirstOrDefault(c => c.Id == Model.SelectedCollectionId)?.Name ?? "Sin Colección")
                     </span>
                 </div>
                 <i class="bi bi-chevron-down pro-chevron"></i>
@@ -37,7 +37,7 @@
                 <div class="menu-items">
                     <a asp-action="Index" asp-controller="Files" asp-route-collectionId="0"
                        class="menu-item @(Model.SelectedCollectionId == 0 ? "active" : "")">
-                        <i class="bi bi-grid-fill"></i> Sin Coleccion
+                        <i class="bi bi-grid-fill"></i> Sin Colección
                     </a>
 
                     <div class="menu-divider">Tus Colecciones</div>
@@ -54,12 +54,23 @@
         </div>
     </div>
 
+    <!-- ✅ Upload limpio (igual estilo que antes) -->
     <div class="upload-box">
         <form method="post" enctype="multipart/form-data" asp-action="Upload" class="upload-form">
             <input type="hidden" name="collectionId" value="@Model.SelectedCollectionId" />
             <label class="upload-area">
-                <i class="bi bi-cloud-arrow-up"></i>
-                <span>Arrastra o haz clic para subir a <strong>@(Model.Collections.FirstOrDefault(c => c.Id == Model.SelectedCollectionId)?.Name ?? "General")</strong></span>
+                <div class="upload-icon">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                </div>
+
+                <div class="upload-text">
+                    <div class="upload-title">Arrastra o haz clic para subir</div>
+                    <div class="upload-subtitle">
+                        Se subirá a
+                        <strong>@(Model.Collections.FirstOrDefault(c => c.Id == Model.SelectedCollectionId)?.Name ?? "Sin Colección")</strong>
+                    </div>
+                </div>
+
                 <input type="file" name="file" hidden onchange="this.form.submit()" />
             </label>
         </form>
@@ -78,21 +89,44 @@
             foreach (var file in Model.Files)
             {
                 <div class="file-card">
-                    <div class="file-icon">
-                        <i class="bi bi-file-earmark-text"></i>
+                    <div class="file-top">
+                        <div class="file-icon">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+
+                        <div class="file-actions">
+                            <a href="@file.FilePath" target="_blank" class="icon-btn view-btn" title="Ver">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@file.Id" class="icon-btn delete-btn" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
                     </div>
+
                     <div class="file-info">
-                        <span class="file-name">@file.FileName</span>
+                        <span class="file-name" title="@file.FileName">@file.FileName</span>
                         <span class="file-size">@((file.FileSize / 1024)) KB</span>
                     </div>
-                    <div class="file-actions">
-                        <a href="@file.FilePath" target="_blank" class="view-btn">
-                            <i class="bi bi-eye"></i>
-                        </a>
-                        <a asp-action="Delete" asp-route-id="@file.Id" class="delete-btn">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </div>
+
+                    <!-- ✅ Mover a colección (compacto y ordenado) -->
+                    <form asp-action="MoveToCollection" method="post" class="move-form">
+                        <input type="hidden" name="fileId" value="@file.Id" />
+                        <input type="hidden" name="currentCollectionId" value="@Model.SelectedCollectionId" />
+
+                        <div class="move-row">
+                            <span class="move-label"><i class="bi bi-folder-symlink"></i> Mover a</span>
+                            <select name="collectionId" onchange="this.form.submit()" class="move-select" aria-label="Mover a colección">
+                                <option value="0" selected="@(file.CollectionId == null)">Sin colección</option>
+                                @foreach (var col in Model.Collections)
+                                {
+                                    <option value="@col.Id" selected="@(file.CollectionId == col.Id)">
+                                        @col.Name
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    </form>
                 </div>
             }
         }
@@ -102,30 +136,63 @@
 <style>
     :root {
         --pro-blue: #2383e2;
-        --pro-hover: rgba(35, 131, 226, 0.05);
-        --pro-border: rgba(0,0,0,0.1);
+        --pro-hover: rgba(35, 131, 226, 0.06);
+        --pro-border: rgba(0,0,0,0.12);
+        --pro-soft: rgba(0,0,0,0.04);
+        --pro-text: #1f2937;
+        --pro-muted: #6b7280;
+    }
+
+    /* Layout general */
+    .files-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 10px 8px 30px;
     }
 
     .files-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
+        gap: 16px;
+    }
+
+    .header-left h1 {
+        margin: 0;
+        font-size: 2.2rem;
+        color: var(--pro-text);
+        letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+        margin: 6px 0 0;
+        color: var(--pro-muted);
     }
 
     .new-collection-btn {
         background: var(--pro-blue);
         color: white !important;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: 600;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 650;
         text-decoration: none;
-        transition: 0.2s;
+        transition: 0.15s ease;
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+        box-shadow: 0 10px 22px rgba(35, 131, 226, 0.18);
+        white-space: nowrap;
     }
 
-    /* ESTILOS DEL SELECTOR PRO */
+        .new-collection-btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(0.98);
+        }
+
+    /* Selector PRO */
     .collection-filter-wrapper {
-        margin-bottom: 25px;
+        margin: 6px 0 18px;
     }
 
     .pro-dropdown {
@@ -136,20 +203,21 @@
     .pro-dropbtn {
         background: white;
         border: 1px solid var(--pro-border);
-        padding: 10px 16px;
-        border-radius: 8px;
+        padding: 10px 14px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: 14px;
         cursor: pointer;
-        min-width: 250px;
+        min-width: 280px;
         justify-content: space-between;
-        transition: 0.2s;
+        transition: 0.15s ease;
     }
 
         .pro-dropbtn:hover {
             border-color: var(--pro-blue);
-            background: #fcfcfc;
+            background: #fcfcff;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.06);
         }
 
     .pro-drop-content {
@@ -157,44 +225,47 @@
         align-items: center;
         gap: 10px;
         font-size: 14px;
+        color: var(--pro-text);
     }
 
     .pro-label {
-        color: #888;
+        color: var(--pro-muted);
     }
 
     .pro-selected-name {
-        font-weight: 700;
-        color: #333;
+        font-weight: 750;
+        color: var(--pro-text);
     }
 
     .pro-chevron {
         font-size: 12px;
-        color: #aaa;
+        color: #9ca3af;
     }
 
     .pro-dropdown-menu {
         display: none;
         position: absolute;
-        top: 110%;
+        top: 112%;
         left: 0;
         background: white;
-        min-width: 280px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        border-radius: 10px;
+        min-width: 320px;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+        border-radius: 12px;
         border: 1px solid var(--pro-border);
         z-index: 1000;
-        padding: 8px;
+        padding: 10px;
+        overflow: hidden;
     }
 
     .menu-search {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 12px;
-        background: #f5f5f5;
-        border-radius: 6px;
-        margin-bottom: 8px;
+        padding: 10px 12px;
+        background: #f6f7f9;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(0,0,0,0.06);
     }
 
         .menu-search input {
@@ -206,19 +277,20 @@
         }
 
     .menu-items {
-        max-height: 250px;
+        max-height: 260px;
         overflow-y: auto;
+        padding-right: 2px;
     }
 
     .menu-item {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 10px;
+        padding: 10px 10px;
         text-decoration: none;
-        color: #444;
+        color: #374151;
         font-size: 14px;
-        border-radius: 6px;
+        border-radius: 10px;
         transition: 0.1s;
     }
 
@@ -228,28 +300,28 @@
         }
 
         .menu-item.active {
-            background: rgba(35, 131, 226, 0.1);
+            background: rgba(35, 131, 226, 0.12);
             color: var(--pro-blue);
-            font-weight: 600;
+            font-weight: 650;
         }
 
     .menu-divider {
         font-size: 11px;
-        color: #999;
+        color: #9ca3af;
         text-transform: uppercase;
-        padding: 15px 10px 5px;
-        font-weight: 700;
+        padding: 14px 10px 6px;
+        font-weight: 750;
     }
 
     .show-menu {
         display: block !important;
-        animation: fadeIn 0.2s ease;
+        animation: fadeIn 0.18s ease;
     }
 
     @@keyframes fadeIn {
         from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-8px);
         }
 
         to {
@@ -258,81 +330,233 @@
         }
     }
 
-    /* RESTO DE LA GRID */
+    /* Upload */
+    .upload-box {
+        margin: 10px 0 26px;
+    }
+
+    .upload-form {
+        display: flex;
+        justify-content: center;
+    }
+
     .upload-area {
         width: 100%;
-        max-width: 500px;
-        padding: 30px;
-        border: 2px dashed var(--pro-border);
-        border-radius: 12px;
-        text-align: center;
+        max-width: 720px;
+        padding: 26px 22px;
+        border: 2px dashed rgba(0,0,0,0.14);
+        border-radius: 16px;
+        text-align: left;
         cursor: pointer;
-        display: block;
-        margin: 0 auto 30px;
-        transition: 0.2s;
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,248,255,0.86));
+        transition: 0.18s ease;
+        box-shadow: 0 10px 26px rgba(0,0,0,0.04);
     }
 
         .upload-area:hover {
             border-color: var(--pro-blue);
-            background: var(--pro-hover);
+            background: linear-gradient(180deg, rgba(255,255,255,1), rgba(236,244,255,0.95));
+            transform: translateY(-1px);
+            box-shadow: 0 18px 40px rgba(35,131,226,0.12);
         }
 
+    .upload-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: rgba(35, 131, 226, 0.10);
+        color: var(--pro-blue);
+        font-size: 1.4rem;
+        flex: 0 0 auto;
+    }
+
+    .upload-title {
+        font-weight: 800;
+        color: var(--pro-text);
+        font-size: 15px;
+        margin-bottom: 3px;
+    }
+
+    .upload-subtitle {
+        color: var(--pro-muted);
+        font-size: 13px;
+    }
+
+    /* Grid de archivos */
     .files-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 18px;
     }
+
+    .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 45px 15px;
+        border: 1px dashed rgba(0,0,0,0.12);
+        border-radius: 14px;
+        background: #fafafa;
+        color: var(--pro-muted);
+    }
+
+        .empty-state i {
+            font-size: 2.2rem;
+            color: rgba(0,0,0,0.35);
+            display: block;
+            margin-bottom: 10px;
+        }
 
     .file-card {
         background: white;
-        border: 1px solid var(--pro-border);
-        padding: 15px;
-        border-radius: 12px;
-        transition: 0.2s;
+        border: 1px solid rgba(0,0,0,0.10);
+        padding: 14px 14px 12px;
+        border-radius: 14px;
+        transition: 0.18s ease;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.03);
     }
 
         .file-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.06);
+            border-color: rgba(35,131,226,0.22);
         }
 
+    .file-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
     .file-icon {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         color: var(--pro-blue);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+    }
+
+    .file-info {
+        margin-top: 4px;
     }
 
     .file-name {
         display: block;
-        font-weight: 600;
+        font-weight: 750;
         font-size: 14px;
+        color: var(--pro-text);
         margin-bottom: 4px;
+        /* Para que no rompa el layout con nombres largos */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
     }
 
     .file-size {
         font-size: 12px;
-        color: #888;
+        color: var(--pro-muted);
     }
 
     .file-actions {
         display: flex;
-        justify-content: flex-end;
-        gap: 15px;
-        margin-top: 15px;
-        padding-top: 10px;
-        border-top: 1px solid #f5f5f5;
+        gap: 8px;
+        align-items: center;
     }
 
+    .icon-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(0,0,0,0.08);
+        background: #fff;
+        text-decoration: none;
+        transition: 0.12s ease;
+    }
+
+        .icon-btn:hover {
+            background: rgba(0,0,0,0.03);
+            transform: translateY(-1px);
+        }
+
     .view-btn {
-        color: #666;
+        color: #4b5563;
     }
 
     .delete-btn {
-        color: #ff4d4d;
+        color: #ef4444;
     }
 
-    .show-menu {
-        display: block !important;
+    /* Mover a colección (compacto) */
+    .move-form {
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .move-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .move-label {
+        font-size: 12px;
+        color: #6b7280;
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    .move-select {
+        width: 100%;
+        max-width: 170px;
+        padding: 7px 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(0,0,0,0.12);
+        background: #fff;
+        font-size: 13px;
+        color: var(--pro-text);
+        outline: none;
+        cursor: pointer;
+        transition: 0.12s ease;
+    }
+
+        .move-select:hover {
+            border-color: rgba(35,131,226,0.45);
+            background: rgba(35,131,226,0.04);
+        }
+
+        .move-select:focus {
+            border-color: var(--pro-blue);
+            box-shadow: 0 0 0 3px rgba(35,131,226,0.12);
+        }
+
+    /* Responsive */
+    @@media (max-width: 640px) {
+        .files-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .pro-dropbtn {
+            min-width: 100%;
+        }
+
+        .upload-area {
+            text-align: left;
+        }
+
+        .move-select {
+            max-width: 100%;
+        }
     }
 </style>
 
@@ -355,7 +579,6 @@
 
         for (var i = 0; i < items.length; i++) {
             var text = items[i].innerText.toLowerCase();
-            // Mantener el item de "Todas las carpetas" siempre visible o filtrable
             items[i].style.display = text.includes(input) ? "flex" : "none";
         }
     }

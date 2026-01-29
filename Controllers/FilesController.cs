@@ -38,7 +38,13 @@ namespace TwiceTasks.Controllers
                 .Where(f => f.UserId == userId);
 
             if (collectionId.HasValue && collectionId.Value != 0)
+            {
                 filesQuery = filesQuery.Where(f => f.CollectionId == collectionId.Value);
+            }
+            else
+            {
+                filesQuery = filesQuery.Where(f => f.CollectionId == null);
+            }
 
             var model = new FilesIndexViewModel
             {
@@ -49,12 +55,13 @@ namespace TwiceTasks.Controllers
 
             return View(model);
         }
-        
+
+
         [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file)
+        public async Task<IActionResult> Upload(IFormFile file, int? collectionId)
         {
             if (file == null || file.Length == 0)
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { collectionId });
 
             var userId = _userManager.GetUserId(User);
 
@@ -73,14 +80,16 @@ namespace TwiceTasks.Controllers
                 FileName = file.FileName,
                 FilePath = $"/uploads/{userId}/{file.FileName}",
                 FileSize = file.Length,
-                UserId = userId
+                UserId = userId,
+                CollectionId = (collectionId == 0 ? null : collectionId) 
             };
 
             _context.FileResources.Add(dbFile);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { collectionId });
         }
+
 
         public async Task<IActionResult> Delete(int id)
         {
@@ -137,7 +146,8 @@ namespace TwiceTasks.Controllers
             return RedirectToAction("Edit", "Pages", new { id = pageId });
         }
         [HttpPost]
-        public async Task<IActionResult> MoveToCollection(int fileId, int? collectionId)
+        [HttpPost]
+        public async Task<IActionResult> MoveToCollection(int fileId, int? collectionId, int currentCollectionId = 0)
         {
             var userId = _userManager.GetUserId(User);
 
@@ -148,13 +158,13 @@ namespace TwiceTasks.Controllers
             if (file == null)
                 return Unauthorized();
 
-            // Cambiar colección
-            file.CollectionId = collectionId;
+            file.CollectionId = (collectionId == 0 ? null : collectionId);
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { collectionId = currentCollectionId });
         }
+
 
 
     }
