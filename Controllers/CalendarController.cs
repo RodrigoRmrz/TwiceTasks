@@ -34,7 +34,7 @@ public class CalendarController : Controller
         var upcoming = await _context.CalendarEvents
             .Where(e => e.UserId == userId && (e.End ?? e.Date) >= upcomingFrom)
             .OrderBy(e => e.Date)
-            .Take(15)
+            .Take(3)
             .ToListAsync();
 
         var vm = new CalendarIndexViewModel
@@ -90,9 +90,10 @@ public class CalendarController : Controller
 
         if (dto.Id.HasValue)
         {
-            entity = await _context.CalendarEvents
+            var existing = await _context.CalendarEvents
                 .FirstOrDefaultAsync(e => e.Id == dto.Id.Value && e.UserId == userId);
-            if (entity is null) return NotFound();
+            if (existing is null) return NotFound();
+            entity = existing;
         }
         else
         {
@@ -174,7 +175,7 @@ public class CalendarController : Controller
         var upcoming = await _context.CalendarEvents
             .Where(e => e.UserId == userId && (e.End ?? e.Date) >= upcomingFrom)
             .OrderBy(e => e.Date)
-            .Take(15)
+            .Take(3)
             .ToListAsync();
 
         var payload = upcoming.Select(e => new

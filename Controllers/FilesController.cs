@@ -28,6 +28,7 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> Index(int? collectionId)
         {
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
             var collections = await _context.Collections
                 .Where(c => c.UserId == userId)
@@ -64,6 +65,7 @@ namespace TwiceTasks.Controllers
                 return RedirectToAction(nameof(Index), new { collectionId });
 
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
             var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", userId);
             Directory.CreateDirectory(uploadsFolder);
@@ -94,7 +96,9 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var file = await _context.FileResources.FindAsync(id);
-            if (file == null || file.UserId != _userManager.GetUserId(User))
+            var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
+            if (file == null || file.UserId != userId)
                 return Unauthorized();
 
             var fullPath = Path.Combine(_env.WebRootPath, file.FilePath.TrimStart('/'));
@@ -120,6 +124,7 @@ namespace TwiceTasks.Controllers
                 return Unauthorized();
 
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
             var folder = Path.Combine(_env.WebRootPath, "uploads", userId, "pages", pageId.ToString());
             Directory.CreateDirectory(folder);
@@ -150,6 +155,7 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> MoveToCollection(int fileId, int? collectionId, int currentCollectionId = 0)
         {
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
             var file = await _context.FileResources
                 .Where(f => f.UserId == userId && f.Id == fileId)

@@ -8,8 +8,14 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow:
+    0 0 0 0.1rem white,
+    0 0 0 0.25rem #258cfb;
 }
 
 html {
@@ -20,408 +26,546 @@ html {
 body {
   margin-bottom: 60px;
 }
-textarea:focus, input:focus {
-    box-shadow: none !important;
-    outline: none !important;
+textarea:focus,
+input:focus {
+  box-shadow: none !important;
+  outline: none !important;
 }
 /* CONTENEDOR GENERAL */
 .page-editor-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 /* TÍTULO TIPO NOTION */
 .page-title-input {
-    font-size: 2.4rem;
-    font-weight: 700;
-    border: none;
-    outline: none;
-    width: 100%;
-    margin-bottom: 2rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  border: none;
+  outline: none;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
 .page-title-input::placeholder {
-    color: #b0b0b0;
+  color: #b0b0b0;
 }
 
 /* PANEL DE ADJUNTOS */
 .attachments-panel {
-    border-top: 1px solid #e5e5e5;
-    padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
 }
 
 .attachments-title {
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #444;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text);
 }
 
 /* LISTA DE ARCHIVOS */
 .attachments-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .attachment-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0.75rem;
-    border-radius: 6px;
-    background: #f8f9fa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
 }
 
 .attachment-item a {
-    text-decoration: none;
-    color: #007bff;
+  text-decoration: none;
+  color: var(--link);
 }
 
 .attachment-item:hover {
-    background: #eef2f6;
+  background: var(--surface-hover);
 }
 
 .delete-attachment {
-    color: #dc3545;
-    text-decoration: none;
-    font-size: 0.9rem;
+  color: #dc3545;
+  text-decoration: none;
+  font-size: 0.9rem;
 }
 /* ===== BASE ===== */
 
 html.dark {
-    background-color: #0f1115;
-    color: #e6e6e6;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
-/* ===== NAVBAR ===== */
-html.dark .navbar {
-    background-color: #14161c !important;
-    border-bottom: 1px solid #222;
+html.light {
+  background-color: var(--bg);
+  color: var(--text);
 }
 
-html.dark .nav-link,
-html.dark .navbar-brand {
-    color: #e6e6e6 !important;
+/* ===== TEMA UNIFICADO (light/dark por variables) ===== */
+
+a {
+  color: var(--link);
+}
+a:hover {
+  color: var(--link-hover);
 }
 
-/* ===== TABLES ===== */
-html.dark .table {
-    color: #e6e6e6;
-    background-color: transparent;
+.table {
+  color: var(--text);
+}
+.table thead {
+  border-bottom: 1px solid var(--border);
+}
+.table td,
+.table th {
+  color: var(--text);
 }
 
-html.dark .table thead {
-    border-bottom: 1px solid #333;
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: var(--table-stripe);
 }
 
-html.dark .table-striped tbody tr {
-    background-color: #14161c;
+.form-control,
+input,
+textarea,
+select {
+  background-color: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
-html.dark .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #101218;
+/* Bootstrap form elements (may override tag selectors) */
+.form-control,
+.form-select {
+  background-color: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
 }
 
-/* ===== BUTTONS ===== */
-html.dark .btn-primary {
-    background-color: #2563eb;
-    border-color: #2563eb;
+html.dark .form-select option {
+  background-color: var(--card);
+  color: var(--text);
 }
 
-html.dark .btn-secondary {
-    background-color: #2a2f3a;
-    border-color: #2a2f3a;
-    color: #e6e6e6;
+.form-control::placeholder {
+  color: var(--text-placeholder);
 }
 
-html.dark .btn-outline-primary {
-    color: #88a4ff;
-    border-color: #88a4ff;
+.list-group-item {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
 }
 
-html.dark .btn-outline-primary:hover {
-    background-color: #88a4ff;
-    color: #000;
+.list-group-item:hover {
+  background-color: var(--surface-hover);
 }
 
-/* ===== FORMS ===== */
-html.dark .form-control,
-html.dark input,
-html.dark textarea,
-html.dark select {
-    background-color: #14161c;
-    color: #e6e6e6;
-    border: 1px solid #333;
+hr {
+  border-color: var(--border);
 }
 
-html.dark .form-control::placeholder {
-    color: #888;
+/* Componentes Bootstrap que suelen verse raros en dark */
+.modal-content,
+.offcanvas,
+.dropdown-menu {
+  background-color: var(--card);
+  color: var(--text);
+  border-color: var(--border);
 }
 
-/* File input */
-html.dark input[type="file"] {
-    background-color: #14161c;
-    color: #e6e6e6;
+.dropdown-item {
+  color: var(--text);
+}
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: var(--surface-hover);
+  color: var(--text);
 }
 
-/* ===== LINKS ===== */
-html.dark a {
-    color: #7fa2ff;
+html.dark .btn-close {
+  filter: invert(1) grayscale(100%);
 }
 
-html.dark a:hover {
-    color: #a5b8ff;
+.btn-outline-secondary {
+  color: var(--text);
+  border-color: var(--border);
 }
 
-/* ===== EDITOR.JS ===== */
-html.dark .codex-editor__redactor {
-    background-color: transparent;
-    color: #e6e6e6;
+.btn-outline-secondary:hover {
+  background-color: var(--surface-hover);
+  color: var(--text);
 }
 
-html.dark .ce-paragraph {
-    color: #e6e6e6;
+/* Buttons */
+.btn-primary {
+  background-color: var(--link) !important;
+  border-color: var(--link) !important;
 }
 
-html.dark .cdx-input {
-    background-color: #14161c;
-    color: #e6e6e6;
+.btn-primary:hover {
+  background-color: var(--link-hover) !important;
+  border-color: var(--link-hover) !important;
 }
 
-/* ===== CARDS / LISTAS ===== */
-html.dark .list-group-item,
-html.dark .attachment-item {
-    background-color: #14161c;
-    border: 1px solid #222;
-    color: #e6e6e6;
+.btn-secondary {
+  background-color: var(--surface-hover-strong) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
 }
 
-html.dark .list-group-item:hover,
-html.dark .attachment-item:hover {
-    background-color: #1b1f2a;
+.btn-secondary:hover {
+  background-color: var(--surface-hover) !important;
+  border-color: var(--border) !important;
 }
 
-/* ===== HR ===== */
-html.dark hr {
-    border-color: #222;
+/* Cards (Notas/Workspaces/etc.) */
+.card {
+  background-color: var(--card) !important;
+  color: var(--text);
+  border-color: var(--border) !important;
+}
+
+.card-header,
+.card-footer {
+  background-color: var(--card) !important;
+  border-color: var(--border) !important;
+  color: var(--text);
+}
+
+/* ===== CALENDARIO (FullCalendar) ===== */
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cal-title {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 1.35rem;
+}
+
+.cal-sub {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.cal-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 10px 26px var(--shadow);
+  padding: 14px;
+}
+
+.cal-side-title {
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.cal-empty-state {
+  padding: 22px 10px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.cal-event-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.cal-event-row + .cal-event-row {
+  margin-top: 10px;
+}
+
+.cal-event-date {
+  width: 56px;
+  min-width: 56px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-hover);
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.cal-event-day {
+  font-weight: 900;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.cal-event-mon {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.cal-event-title {
+  font-weight: 700;
+}
+.cal-event-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.cal-modal {
+  background: var(--card);
+}
+
+/* FullCalendar: forzar superficies/bordes a variables */
+#twiceCalendar .fc,
+#twiceCalendar .fc * {
+  border-color: var(--border);
+}
+
+#twiceCalendar .fc-theme-bootstrap5 .fc-scrollgrid,
+#twiceCalendar .fc-theme-bootstrap5 .fc-scrollgrid-section > td,
+#twiceCalendar .fc-theme-bootstrap5 .fc-scrollgrid-section > th {
+  background: var(--card);
+}
+
+#twiceCalendar .fc .fc-toolbar-title,
+#twiceCalendar .fc .fc-col-header-cell-cushion,
+#twiceCalendar .fc .fc-daygrid-day-number,
+#twiceCalendar .fc .fc-list-day-cushion,
+#twiceCalendar .fc .fc-list-event-title,
+#twiceCalendar .fc .fc-list-event-time {
+  color: var(--text);
+}
+
+#twiceCalendar .fc .fc-daygrid-day.fc-day-today,
+#twiceCalendar .fc .fc-timegrid-col.fc-day-today {
+  background: var(--today-bg) !important;
+}
+
+#twiceCalendar .fc .fc-popover {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 /* ===== FIX TEXTO EN TABLAS (DARK MODE) ===== */
 
 html.dark .table td,
 html.dark .table th {
-    color: #e6e6e6 !important;
+  color: var(--text) !important;
 }
 
 /* Links dentro de tablas */
 html.dark .table a {
-    color: #7fa2ff;
+  color: var(--link);
 }
 
 html.dark .table a:hover {
-    color: #a5b8ff;
+  color: var(--link-hover);
 }
 
 /* Quitar posibles fondos heredados */
 html.dark .table td {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 /* ===== FILE UPLOAD MODERNO ===== */
 
 .attachment-upload-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
 }
 
 /* Botón/label tipo Notion */
 .file-picker {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.45rem 0.75rem;
-    border-radius: 6px;
-    background-color: #f1f3f5;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #333;
-    border: 1px solid #ddd;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  background-color: var(--card);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
 .file-picker:hover {
-    background-color: #e9ecef;
+  background-color: var(--surface-hover);
 }
 
 /* Dark mode */
 html.dark .file-picker {
-    background-color: #14161c;
-    border-color: #333;
-    color: #e6e6e6;
+  background-color: #14161c;
+  border-color: #333;
+  color: #e6e6e6;
 }
 
 html.dark .file-picker:hover {
-    background-color: #1b1f2a;
+  background-color: #1b1f2a;
 }
 /* ===== TAGS ===== */
 
 .tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .tag-chip {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    background-color: #e9ecef;
-    border-radius: 999px;
-    padding: 0.2rem 0.55rem;
-    font-size: 0.85rem;
-    border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #e9ecef;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.85rem;
+  border: none;
 }
 
 .tag-chip span {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .tag-chip button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 0.8rem;
-    color: #666;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #666;
 }
 
 .tag-chip button:hover {
-    color: #dc3545;
+  color: #dc3545;
 }
 
 .tag-input-form {
-    display: inline-block;
+  display: inline-block;
 }
 
 .tag-input {
-    border: none;
-    outline: none;
-    font-size: 0.85rem;
-    padding: 0.2rem;
-    min-width: 60px;
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  padding: 0.2rem;
+  min-width: 60px;
 }
 
 /* Dark mode */
 html.dark .tag-chip {
-    background-color: #1b1f2a;
-    color: #e6e6e6;
+  background-color: #1b1f2a;
+  color: #e6e6e6;
 }
 
 html.dark .tag-chip button {
-    color: #aaa;
+  color: #aaa;
 }
 
 html.dark .tag-input {
-    background-color: transparent;
-    color: #e6e6e6;
+  background-color: transparent;
+  color: #e6e6e6;
 }
 #editorjs {
-    min-height: 300px;
-    cursor: text;
+  min-height: 300px;
+  cursor: text;
 }
 .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem;
 }
 
 .calendar-day {
-    min-height: 140px;
-    background-color: #f8f9fa;
-    padding: 0.75rem;
-    border-radius: 0.75rem;
+  min-height: 140px;
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
 }
 
 .calendar-event {
-    background-color: #0d6efd;
-    color: white;
-    padding: 0.25rem 0.5rem;
-    border-radius: 6px;
-    margin-top: 0.3rem;
-    font-size: 0.85rem;
+  background-color: #0d6efd;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
 }
 
 /* Dark mode */
 html.dark .calendar-day {
-    background-color: #1b1f2a;
+  background-color: #1b1f2a;
 }
 
 html.dark .calendar-event {
-    background-color: #375aee;
+  background-color: #375aee;
 }
-
-
-
-
-
-
 
 /* ===============================
    FullCalendar styling (light/dark)
    =============================== */
 
 #twiceCalendar {
-    min-height: 520px;
+  min-height: 520px;
 }
 
 #twiceCalendar .fc {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 10px;
 }
 
 #twiceCalendar .fc .fc-toolbar-title {
-    color: var(--text);
-    font-weight: 800;
+  color: var(--text);
+  font-weight: 800;
 }
 
 #twiceCalendar .fc .fc-button {
-    border-color: var(--border);
+  border-color: var(--border);
 }
 
 html.dark #twiceCalendar .fc .fc-button {
-    color: var(--text);
+  color: var(--text);
 }
 
 #twiceCalendar .fc .fc-scrollgrid,
 #twiceCalendar .fc .fc-scrollgrid td,
 #twiceCalendar .fc .fc-scrollgrid th {
-    border-color: var(--border);
+  border-color: var(--border);
 }
 
 html.dark #twiceCalendar .fc .fc-col-header-cell-cushion,
 html.dark #twiceCalendar .fc .fc-daygrid-day-number,
 html.dark #twiceCalendar .fc .fc-list-day-cushion,
 html.dark #twiceCalendar .fc .fc-list-event-title {
-    color: var(--text);
+  color: var(--text);
 }
 
 html.dark #twiceCalendar .fc .fc-list {
-    background: var(--card);
+  background: var(--card);
 }
 
 html.dark #twiceCalendar .fc .fc-list-day-cushion,
 html.dark #twiceCalendar .fc .fc-list-table {
-    border-color: var(--border);
+  border-color: var(--border);
 }
 
 html.dark #twiceCalendar .fc .fc-day-today {
-    background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
 }
-
 
 /* Modal close button in dark */
 html.dark .btn-close {
-    filter: invert(1) grayscale(100%);
+  filter: invert(1) grayscale(100%);
 }

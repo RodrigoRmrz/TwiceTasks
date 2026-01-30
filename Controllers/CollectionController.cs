@@ -23,6 +23,7 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
             var collections = await _context.Collections
                 .Where(c => c.UserId == userId)
@@ -46,7 +47,10 @@ namespace TwiceTasks.Controllers
 
             if (!ModelState.IsValid) return View(model);
 
-            model.UserId = _userManager.GetUserId(User);
+            var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
+
+            model.UserId = userId;
             model.CreatedAt = DateTime.UtcNow;
 
             _context.Collections.Add(model);
@@ -61,6 +65,7 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
             var collection = await _context.Collections.FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
 
             if (collection == null) return NotFound();
@@ -76,6 +81,7 @@ namespace TwiceTasks.Controllers
             if (!ModelState.IsValid) return View(updated);
 
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
             var original = await _context.Collections.FirstOrDefaultAsync(c =>
                 c.Id == updated.Id && c.UserId == userId);
 
@@ -95,6 +101,7 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
             var collection = await _context.Collections
                 .Include(c => c.Files)
@@ -111,6 +118,7 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
             var collection = await _context.Collections
                 .Include(c => c.Files)

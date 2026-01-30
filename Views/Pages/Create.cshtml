@@ -16,7 +16,7 @@
                 @Html.AntiForgeryToken()
 
                 <div class="mb-3">
-                    <label class="form-label">Título</label>
+                    <label class="form-label">TÃ­tulo</label>
                     <input asp-for="Title" class="form-control" />
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
@@ -24,7 +24,7 @@
                 <div class="mb-3">
                     <label class="form-label">Workspace (opcional)</label>
                     <select asp-for="WorkspaceId" class="form-select">
-                        <option value="">— Sin workspace —</option>
+                        <option value="">â€” Sin workspace â€”</option>
                         @foreach (var ws in workspaces)
                         {
                             <option value="@ws.Id">@ws.Name</option>

@@ -305,7 +305,6 @@ C:\Users\rodri\Documents\GitHub\TwiceTasks\obj\Debug\net8.0\staticwebassets.buil
 C:\Users\rodri\Documents\GitHub\TwiceTasks\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\rodri\Documents\GitHub\TwiceTasks\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\rodri\Documents\GitHub\TwiceTasks\obj\Debug\net8.0\swae.build.ex.cache
-C:\Users\rodri\Documents\GitHub\TwiceTasks\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\rodri\Documents\GitHub\TwiceTasks\obj\Debug\net8.0\TwiceTasks.csproj.Up2Date
 C:\Users\rodri\Documents\GitHub\TwiceTasks\obj\Debug\net8.0\TwiceTasks.dll
 C:\Users\rodri\Documents\GitHub\TwiceTasks\obj\Debug\net8.0\refint\TwiceTasks.dll

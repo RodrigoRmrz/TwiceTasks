@@ -24,6 +24,7 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
             var workspaces = await _context.Workspaces
                 .Where(w => w.UserId == userId)
@@ -45,6 +46,8 @@ namespace TwiceTasks.Controllers
         public async Task<IActionResult> Create(Workspace workspace)
         {
             var userId = _userManager.GetUserId(User);
+
+            if (string.IsNullOrWhiteSpace(userId)) return Challenge();
 
             workspace.UserId = userId;
             workspace.CreatedAt = DateTime.UtcNow;
@@ -138,6 +141,7 @@ namespace TwiceTasks.Controllers
         private bool IsOwner(Workspace ws)
         {
             var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return false;
             return ws.UserId == userId;
         }
     }
