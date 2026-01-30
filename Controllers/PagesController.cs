@@ -72,6 +72,29 @@ namespace TwiceTasks.Controllers
             return View(pages);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> FavoritesLookup([FromBody] int[] ids)
+        {
+            var userId = _userManager.GetUserId(User);
+
+            if (ids == null || ids.Length == 0)
+                return Json(new object[] { });
+
+            var pages = await _context.Pages
+                .Where(p => p.UserId == userId && ids.Contains(p.Id))
+                .OrderByDescending(p => p.UpdatedAt)
+                .Select(p => new
+                {
+                    id = p.Id,
+                    title = p.Title,
+                    url = Url.Action("Edit", "Pages", new { id = p.Id }),
+                    updatedAt = p.UpdatedAt
+                })
+                .ToListAsync();
+
+            return Json(pages);
+        }
+
 
         // CREATE GET (workspace opcional)
         public async Task<IActionResult> Create(int? workspaceId)

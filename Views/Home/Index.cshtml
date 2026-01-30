@@ -7,7 +7,6 @@
     <!-- ========================= -->
     <!-- LANDING PAGE NO LOGUEADOS -->
     <!-- ========================= -->
-
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
@@ -38,7 +37,8 @@
             min-height: 72vh;
         }
 
-        .hero-left {}
+        .hero-left {
+        }
 
         .hero-title {
             font-size: clamp(2.2rem, 4.4vw, 3.8rem);
@@ -60,11 +60,11 @@
             flex-wrap: wrap;
         }
 
-        .hero-actions .btn {
-            padding: 12px 22px;
-            border-radius: 10px;
-            font-weight: 600;
-        }
+            .hero-actions .btn {
+                padding: 12px 22px;
+                border-radius: 10px;
+                font-weight: 600;
+            }
 
         /* ===== HERO MEDIA ===== */
 
@@ -80,13 +80,11 @@
             max-width: 520px;
             height: 340px;
             border-radius: var(--radius);
-            /* Deja el overflow visible para que el panel/mockup (demo) pueda “salir” del marco */
             overflow: visible;
             position: relative;
             box-shadow: 0 12px 30px rgba(0,0,0,0.12);
         }
 
-        /* Marco interno: aquí sí recortamos el vídeo y el gradiente */
         .hero-media-frame {
             position: absolute;
             inset: 0;
@@ -96,20 +94,17 @@
             z-index: 1;
         }
 
-        /* === VIDEO === */
-
         .hero-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 14px;
         }
 
-        /* fallback gradient debajo del vídeo */
         .moving-grad {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 10% 20%, rgba(77,168,255,0.18), transparent 18%),
-                        radial-gradient(circle at 80% 80%, rgba(111,66,193,0.12), transparent 18%);
+            background: radial-gradient(circle at 10% 20%, rgba(77,168,255,0.18), transparent 18%), radial-gradient(circle at 80% 80%, rgba(111,66,193,0.12), transparent 18%);
             filter: blur(34px);
             transform: translateZ(0);
             animation: gradMove 12s linear infinite;
@@ -117,51 +112,17 @@
         }
 
         @@keyframes gradMove {
-            0% { transform: translate(-6%, -2%) scale(1.05); }
-            50% { transform: translate(6%, 2%) scale(1.08); }
-            100% { transform: translate(-6%, -2%) scale(1.05); }
-        }
+            0% {
+                transform: translate(-6%, -2%) scale(1.05);
+            }
 
-        /* MOCKUP PANEL */
+            50% {
+                transform: translate(6%, 2%) scale(1.08);
+            }
 
-        .mockup {
-            position: absolute;
-            right: -10%;
-            bottom: -6%;
-            width: 420px;
-            transform: translateX(120%);
-            opacity: 0;
-            transition: .7s cubic-bezier(.2,.9,.2,1);
-            z-index: 2;
-        }
-
-        .mockup.open {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .mockup-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.18);
-        }
-
-        .mockup-toggle {
-            position: absolute;
-            right: -42px;
-            top: 40%;
-            transform: translateY(-50%);
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            100% {
+                transform: translate(-6%, -2%) scale(1.05);
+            }
         }
 
         /* FEATURES */
@@ -187,12 +148,10 @@
             box-shadow: 0 6px 18px rgba(0,0,0,0.06);
         }
 
-        .feature-card.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* CTA */
+            .feature-card.revealed {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
         .cta-strip {
             margin-top: 36px;
@@ -209,18 +168,9 @@
             .hero {
                 grid-template-columns: 1fr;
             }
+
             .hero-right {
                 order: -1;
-            }
-            .mockup {
-                position: relative;
-                right: 0;
-                bottom: 0;
-                transform: none;
-                opacity: 1;
-            }
-            .mockup-toggle {
-                display: none;
             }
         }
     </style>
@@ -240,57 +190,48 @@
                     <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Crear cuenta</a>
                     <a class="btn btn-outline-secondary" asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
 
-	                    <!-- Demo rápida: abre un modal con vídeo (y fallback si no existe el archivo) -->
-	                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#quickDemoModal">
-	                        Ver demo rápida
-	                    </button>
+                    <!-- ✅ BOTÓN VER DEMO -->
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#quickDemoModal">
+                        Ver demo
+                    </button>
                 </div>
             </div>
 
             <div class="hero-right">
-
-	                <div class="hero-media">
-	                    <!-- Marco interno (recorta vídeo + gradiente) -->
-	                    <div class="hero-media-frame">
-	                        <!-- VIDEO HERO -->
-	                        <video class="hero-video" autoplay muted loop playsinline>
-	                            <source src="/videos/VideoImagen.mp4" type="video/mp4" />
-	                        </video>
-
-	                        <div class="moving-grad"></div>
-	                    </div>
-
-				    <!-- (Se eliminó el mockup decorativo que aparecía como “Marketing”) -->
+                <div class="hero-media">
+                    <div class="hero-media-frame">
+                        <!-- Preview en el hero -->
+                        <video class="hero-video" autoplay muted loop playsinline>
+                            <source src="/videos/VideDEmo.mp4" type="video/mp4" />
+                        </video>
+                        <div class="moving-grad"></div>
+                    </div>
                 </div>
-
             </div>
 
         </div>
 
-	        <!-- Modal: Demo rápida (vídeo) -->
-	        <div class="modal fade" id="quickDemoModal" tabindex="-1" aria-labelledby="quickDemoModalLabel" aria-hidden="true">
-	            <div class="modal-dialog modal-lg modal-dialog-centered">
-	                <div class="modal-content">
-	                    <div class="modal-header">
-	                        <h5 class="modal-title" id="quickDemoModalLabel">Demo rápida de TwiceTasks</h5>
-	                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-	                    </div>
-	                    <div class="modal-body">
-	                        <div class="ratio ratio-16x9">
-	                            <video id="quickDemoVideo" controls playsinline>
-	                                <source src="/videos/VideoImagen.mp4" type="video/mp4" />
-	                                Tu navegador no soporta vídeo HTML5.
-	                            </video>
-	                        </div>
-	                        <small class="text-muted d-block mt-2">
-	                            Si no se reproduce, añade tu archivo en <code>wwwroot/videos/VideoImagen.mp4</code>.
-	                        </small>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
+        <!-- ✅ MODAL DEMO (vídeo completo) -->
+        <div class="modal fade" id="quickDemoModal" tabindex="-1" aria-labelledby="quickDemoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="quickDemoModalLabel">Demo de TwiceTasks</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="ratio ratio-16x9">
+                            <video id="quickDemoVideo" controls playsinline>
+                                <!-- ✅ TU VIDEO EN /videos -->
+                                <source src="/videos/VideDEmo.mp4" type="video/mp4" />
+                                Tu navegador no soporta vídeo HTML5.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <!-- FEATURES -->
         <section class="features">
             <div class="features-grid" id="features-grid">
                 <article class="feature-card" data-reveal>
@@ -322,43 +263,98 @@
 
     </div>
 
-	    @section Scripts {
-	        <script>
-	            // Reveal
-	            const obs = new IntersectionObserver((e) => {
-	                e.forEach(a => {
-	                    if (a.isIntersecting) {
-	                        a.target.classList.add('revealed');
-	                        obs.unobserve(a.target);
-	                    }
-	                });
-	            }, { threshold: .12 });
+    @section Scripts {
+        <script>
+            // Reveal
+            const obs = new IntersectionObserver((e) => {
+                e.forEach(a => {
+                    if (a.isIntersecting) {
+                        a.target.classList.add('revealed');
+                        obs.unobserve(a.target);
+                    }
+                });
+            }, { threshold: .12 });
 
-	            document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+            document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
 
-	            // Pausa y resetea el vídeo al cerrar el modal
-	            const demoModal = document.getElementById('quickDemoModal');
-	            const demoVideo = document.getElementById('quickDemoVideo');
-	            if (demoModal && demoVideo) {
-	                demoModal.addEventListener('hidden.bs.modal', () => {
-	                    try {
-	                        demoVideo.pause();
-	                        demoVideo.currentTime = 0;
-	                    } catch { /* noop */ }
-	                });
-	            }
-	        </script>
-	    }
+            // ✅ Auto play al abrir modal + reset al cerrar
+            const demoModal = document.getElementById('quickDemoModal');
+            const demoVideo = document.getElementById('quickDemoVideo');
+
+            if (demoModal && demoVideo) {
+                demoModal.addEventListener('shown.bs.modal', () => {
+                    try { demoVideo.play(); } catch { /* noop */ }
+                });
+
+                demoModal.addEventListener('hidden.bs.modal', () => {
+                    try {
+                        demoVideo.pause();
+                        demoVideo.currentTime = 0;
+                    } catch { /* noop */ }
+                });
+            }
+        </script>
+    }
 }
 else
 {
-    <!-- Fuente Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    @using System.Security.Claims
+
+<!-- Fuente Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         body, h1, h2, h3, h4, p {
             font-family: "Inter", sans-serif;
             color: var(--text);
+        }
+
+        /* ✅ Favoritos: que parezca clicable */
+        .fav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.03);
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+            margin-bottom: 10px;
+        }
+
+            .fav-link:hover {
+                transform: translateY(-2px);
+                background: rgba(255,255,255,.06);
+                border-color: rgba(255,255,255,.14);
+                box-shadow: 0 10px 26px var(--shadow);
+                color: var(--text);
+            }
+
+        .fav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .fav-title {
+            font-weight: 650;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .fav-go {
+            opacity: .75;
+            flex: 0 0 auto;
+        }
+
+        .fav-link:hover .fav-go {
+            opacity: 1;
         }
 
         .dashboard-home {
@@ -375,7 +371,6 @@ else
             }
         }
 
-        /* PANEL DE BIENVENIDA */
         .welcome-box {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -397,7 +392,6 @@ else
             color: var(--text-muted);
         }
 
-        /* QUICK ACTIONS */
         .quick-actions {
             margin-top: 28px;
             display: flex;
@@ -423,16 +417,15 @@ else
             .qa-btn:hover {
                 transform: translateY(-5px);
                 box-shadow: 0 8px 20px var(--shadow);
-                background: var(--card-bg); 
+                background: var(--card-bg);
                 color: var(--text);
-                opacity: 1; 
+                opacity: 1;
             }
 
             .qa-btn:visited {
                 color: var(--text);
             }
 
-        /* FAVORITOS */
         .favorites-box {
             margin-top: 32px;
             background: var(--card-bg);
@@ -463,7 +456,6 @@ else
                 border-bottom: none;
             }
 
-        /* PRÓXIMOS EVENTOS */
         .upcoming-box {
             margin-top: 18px;
             background: var(--card-bg);
@@ -503,7 +495,6 @@ else
             opacity: .9;
         }
 
-        /* GRID */
         .grid-notion {
             margin-top: 36px;
             display: grid;
@@ -544,11 +535,10 @@ else
             }
     </style>
 
-
     <div class="dashboard-home">
 
         <div class="welcome-box">
-            <h1>¡Hola @User.Identity.Name! 👋</h1>
+            <h1>¡Hola @User.Identity.Name!</h1>
             <p class="welcome-sub">Tu panel personal con acciones rápidas.</p>
         </div>
 
@@ -571,25 +561,21 @@ else
         </div>
 
         <div class="favorites-box">
-            <h3>⭐ Favoritos</h3>
+            <h3>
+                <i class="bi bi-star-fill"></i>
+                Favoritos
+            </h3>
 
-            @if (ViewBag.Favorites != null && ViewBag.Favorites.Count > 0)
-            {
-                foreach (var fav in ViewBag.Favorites)
-                {
-                    <div class="fav-item" onclick="location.href='@fav.Url'">@fav.Title</div>
-                }
-            }
-            else
-            {
-                <p class="welcome-sub">No tienes favoritos aún.</p>
-            }
+            <div style="display:none">@Html.AntiForgeryToken()</div>
+
+            <div id="favNotesList"></div>
+            <p id="favEmpty" class="welcome-sub">No tienes favoritos aún.</p>
         </div>
 
         <div class="upcoming-box">
-            <h3>📅 Próximos eventos</h3>
+            <h3> <i class="bi bi-calendar-event"></i> Próximos eventos</h3>
 
-            @{
+        @{
                 var upcoming = ViewBag.UpcomingEvents as List<TwiceTasks.Models.CalendarEvent>;
             }
 
@@ -641,4 +627,90 @@ else
 
     </div>
 
+    <script>
+        (function () {
+            const TT_USER = '@(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "anon")';
+            const FAV_KEY = `tt:favPages:${TT_USER}`;
+
+            const tokenEl = document.querySelector('input[name="__RequestVerificationToken"]');
+            const token = tokenEl ? tokenEl.value : '';
+
+            const favList = document.getElementById('favNotesList');
+            const favEmpty = document.getElementById('favEmpty');
+
+            function getFavIds() {
+                try {
+                    return (JSON.parse(localStorage.getItem(FAV_KEY) || '[]') || []).map(x => parseInt(x));
+                } catch {
+                    return [];
+                }
+            }
+
+            async function fetchFavNotes(ids) {
+                if (!token || ids.length === 0) return [];
+
+                const res = await fetch('/Pages/FavoritesLookup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify(ids)
+                });
+
+                if (!res.ok) return [];
+                return await res.json();
+            }
+
+            function renderFavNotes(items) {
+                if (!favList || !favEmpty) return;
+
+                favList.innerHTML = '';
+
+                if (!items || items.length === 0) {
+                    favEmpty.style.display = '';
+                    return;
+                }
+
+                favEmpty.style.display = 'none';
+
+                items.forEach(it => {
+                    const a = document.createElement('a');
+                    a.className = 'fav-item fav-link';
+                    a.href = it.url;
+
+                    a.innerHTML = `
+                      <div class="fav-left">
+                        <span class="fav-star">⭐</span>
+                        <span class="fav-title">${it.title}</span>
+                      </div>
+                      <span class="fav-go"><i class="bi bi-chevron-right"></i></span>
+                    `;
+
+                    favList.appendChild(a);
+                });
+            }
+
+            async function loadFavorites() {
+                const ids = getFavIds();
+                if (ids.length === 0) {
+                    renderFavNotes([]);
+                    return;
+                }
+
+                const items = await fetchFavNotes(ids);
+                renderFavNotes(items);
+            }
+
+            loadFavorites();
+
+            // Si cambias favoritos en Pages/Index
+            window.addEventListener('favPagesChanged', loadFavorites);
+
+            // Si cambias en otra pestaña
+            window.addEventListener('storage', (e) => {
+                if (e.key === FAV_KEY) loadFavorites();
+            });
+        })();
+    </script>
 }

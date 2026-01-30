@@ -4,22 +4,159 @@
     ViewData["Title"] = "Editar Workspace";
 }
 
-<h2>Editar Workspace</h2>
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Id" />
+<style>
+    .wsf-wrap {
+        max-width: 920px;
+    }
 
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+    .wsf-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 10px 26px var(--shadow);
+        overflow: hidden;
+    }
+
+    .wsf-head {
+        padding: 18px 18px;
+        border-bottom: 1px solid rgba(255,255,255,.06);
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    .wsf-title {
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .wsf-sub {
+        margin: 6px 0 0 0;
+        color: var(--text-muted);
+        opacity: .85;
+    }
+
+    .wsf-body {
+        padding: 18px 18px;
+    }
+
+    .wsf-label {
+        font-weight: 650;
+        letter-spacing: -0.01em;
+        margin-bottom: 6px;
+        color: var(--text);
+    }
+
+    .wsf-input, .wsf-textarea {
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+        padding: 12px 12px;
+        outline: none;
+        transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+        .wsf-input:focus, .wsf-textarea:focus {
+            border-color: color-mix(in srgb, var(--link) 65%, transparent);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--link) 20%, transparent);
+            background: rgba(255,255,255,.06);
+        }
+
+    .wsf-textarea {
+        min-height: 110px;
+        resize: vertical;
+    }
+
+    .wsf-foot {
+        padding: 16px 18px;
+        border-top: 1px solid rgba(255,255,255,.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .btn-primary-soft {
+        background: var(--link) !important;
+        border: 1px solid color-mix(in srgb, var(--link) 65%, transparent) !important;
+        color: #fff !important;
+        border-radius: 12px;
+        padding: 10px 16px;
+        font-weight: 650;
+        box-shadow: 0 10px 22px rgba(0,0,0,.16);
+    }
+
+        .btn-primary-soft:hover {
+            background: color-mix(in srgb, var(--link) 85%, #000) !important;
+        }
+
+    .btn-ghost {
+        border-radius: 12px;
+        padding: 10px 16px;
+    }
+</style>
+
+<div class="container py-4 wsf-wrap">
+
+    <div class="wsf-card">
+        <div class="wsf-head">
+            <div>
+                <h1 class="wsf-title"><i class="bi bi-pencil-square"></i>Editar Workspace</h1>
+                <p class="wsf-sub">Actualiza el nombre o la descripción cuando quieras.</p>
+            </div>
+
+            <a asp-action="Index" class="btn btn-outline-secondary btn-ghost">
+                <i class="bi bi-arrow-left me-2"></i>Volver
+            </a>
+        </div>
+
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div class="wsf-body">
+
+                <div class="mb-3">
+                    <div class="wsf-label">Nombre</div>
+                    <input asp-for="Name" class="wsf-input" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-2">
+                    <div class="wsf-label">Descripción</div>
+                    <textarea asp-for="Description" class="wsf-textarea"></textarea>
+                </div>
+
+            </div>
+
+            <div class="wsf-foot">
+                <small style="color:var(--text-muted);opacity:.85">
+                    <i class="bi bi-info-circle me-1"></i>Los cambios se guardan al pulsar “Guardar”.
+                </small>
+
+                <div class="d-flex gap-2">
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-ghost">Cancelar</a>
+                    <button type="submit" class="btn btn-primary-soft">
+                        <i class="bi bi-check2-circle me-2"></i>Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-    </div>
+</div>
 
-    <button type="submit" class="btn btn-success mt-3">Guardar</button>
-    <a asp-action="Index" class="btn btn-secondary mt-3">Volver</a>
-</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

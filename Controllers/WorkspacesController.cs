@@ -69,7 +69,6 @@ namespace TwiceTasks.Controllers
             var workspace = await _context.Workspaces.FindAsync(id);
             if (workspace == null) return NotFound();
 
-            // Seguridad: solo el dueño puede editar
             if (!IsOwner(workspace)) return Unauthorized();
 
             return View(workspace);
@@ -80,27 +79,28 @@ namespace TwiceTasks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Workspace workspace)
         {
-            if (id != workspace.Id) return NotFound();
+            var userId = _userManager.GetUserId(User);
 
-            if (!IsOwner(workspace)) return Unauthorized();
+            if (id != workspace.Id)
+                return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    workspace.UpdatedAt = DateTime.UtcNow;
-                    _context.Update(workspace);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!WorkspaceExists(workspace.Id)) return NotFound();
-                    throw;
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(workspace);
+            var existing = await _context.Workspaces
+                .FirstOrDefaultAsync(w => w.Id == id && w.UserId == userId);
+
+            if (existing == null)
+                return Unauthorized();
+
+            if (!ModelState.IsValid)
+                return View(workspace);
+
+            existing.Name = workspace.Name;
+            existing.Description = workspace.Description;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
+
 
         // GET: Workspaces/Delete/5
         public async Task<IActionResult> Delete(int? id)

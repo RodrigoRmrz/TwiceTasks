@@ -1,121 +1,276 @@
 @model IEnumerable<TwiceTasks.Models.Workspace>
+
 @{
     ViewData["Title"] = "Mis Workspaces";
+    var list = Model?.ToList() ?? new List<TwiceTasks.Models.Workspace>();
 }
-<style>
-    body {
-        font-family: 'Inter', sans-serif;
-    }
-
-    /* ============================================
-                             CAROUSEL
-            ============================================ */
-    .welcome-carousel {
-        width: 100%;
-        height: 260px;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 4px 10px var(--shadow);
-        margin-bottom: 30px;
-        background: var(--card);
-        position: relative;
-    }
-
-        .welcome-carousel img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            filter: brightness(0.75);
-        }
-
-    .carousel-caption-custom {
-        position: absolute;
-        bottom: 20px;
-        left: 40px;
-        color: var(--text);
-    }
-
-        .carousel-caption-custom h2 {
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-    /* ============================================
-                         WORKSPACE GRID
-            ============================================ */
-    .workspace-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 15px;
-    }
-
-    .workspace-card {
-        background: var(--card);
-        border-radius: 12px;
-        padding: 18px;
-        box-shadow: 0 4px 10px var(--shadow);
-        transition: 0.25s;
-    }
-
-        .workspace-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 18px var(--shadow-hover);
-        }
-
-    .workspace-actions a {
-        font-size: 0.85rem;
-        padding: 6px 10px;
-        border-radius: 6px;
-        margin-right: 5px;
-    }
-
-    .btn-create {
-        margin-bottom: 20px;
-        background: var(--link) !important;
-        border: 2px solid var(--link) !important;
-        color: white !important;
-        border-radius: 8px;
-        transition: 0.25s;
-    }
-
-        .btn-create:hover {
-            background: color-mix(in srgb, var(--link) 86%, #000) !important;
-        }
-</style>
-
-<!-- ======================================================
-                        LISTA DE WORKSPACES
-====================================================== -->
-<h2>Mis Workspaces</h2>
-
-<a class="btn btn-create" asp-action="Create">
-    <i class="bi bi-plus-circle"></i> Crear Workspace
-</a>
-
-<div class="workspace-grid">
-    @foreach (var item in Model)
-    {
-        <div class="workspace-card">
-            <h5>@item.Name</h5>
-            <p>@item.Description</p>
-            <small>Creado: @item.CreatedAt.ToLocalTime().ToShortDateString()</small>
-            <div class="workspace-actions">
-                <a class="btn btn-sm btn-outline-primary"
-                   asp-controller="Pages"
-                   asp-action="Index"
-                   asp-route-workspaceId="@item.Id">Ver páginas</a>
-
-                <a class="btn btn-sm btn-outline-secondary"
-                   asp-action="Edit"
-                   asp-route-id="@item.Id">Editar</a>
-
-                <a class="btn btn-sm btn-outline-danger"
-                   asp-action="Delete"
-                   asp-route-id="@item.Id">Eliminar</a>
-            </div>
-        </div>
-    }
-</div>
 
 <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+    .ws-wrap {
+        max-width: 1120px;
+    }
+
+    .ws-hero {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 18px 18px;
+        box-shadow: 0 10px 26px var(--shadow);
+    }
+
+    .ws-title {
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .ws-sub {
+        margin: 6px 0 0 0;
+        color: var(--text-muted);
+        opacity: .85;
+    }
+
+    .ws-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .ws-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+        font-size: .9rem;
+        opacity: .95;
+        white-space: nowrap;
+    }
+
+    .ws-grid {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px;
+    }
+
+    .ws-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 10px 26px var(--shadow);
+        transition: transform .16s ease, box-shadow .16s ease;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 190px;
+    }
+
+        .ws-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 36px var(--shadow);
+        }
+
+    .ws-card-head {
+        padding: 16px 16px 10px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .ws-ic {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        font-size: 1.25rem;
+    }
+
+    .ws-name {
+        margin: 0;
+        font-weight: 750;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+        font-size: 1.05rem;
+        color: var(--text);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .ws-desc {
+        margin: 6px 0 0 0;
+        color: var(--text-muted);
+        opacity: .85;
+        font-size: .95rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 2.6em;
+    }
+
+    .ws-meta {
+        padding: 0 16px 12px;
+        color: var(--text-muted);
+        opacity: .85;
+        font-size: .88rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .ws-foot {
+        margin-top: auto;
+        padding: 12px 16px 16px;
+        border-top: 1px solid rgba(255,255,255,.06);
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .ws-btns {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+        .ws-btns .btn {
+            border-radius: 10px;
+        }
+
+    .btn-primary-soft {
+        background: var(--link) !important;
+        border: 1px solid color-mix(in srgb, var(--link) 65%, transparent) !important;
+        color: #fff !important;
+        box-shadow: 0 10px 22px rgba(0,0,0,.16);
+    }
+
+        .btn-primary-soft:hover {
+            background: color-mix(in srgb, var(--link) 85%, #000) !important;
+        }
+
+    .ws-empty {
+        margin-top: 16px;
+        background: var(--card-bg);
+        border: 1px dashed var(--border);
+        border-radius: 16px;
+        padding: 18px;
+        color: var(--text-muted);
+        opacity: .9;
+        box-shadow: 0 10px 26px var(--shadow);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+        .ws-empty i {
+            font-size: 1.25rem;
+            opacity: .9;
+        }
+</style>
+
+<div class="container py-4 ws-wrap">
+
+    <!-- Header / Hero -->
+    <div class="ws-hero mb-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+            <div>
+                <h1 class="ws-title">
+                    <i class="bi bi-kanban"></i>
+                    Mis Workspaces
+                </h1>
+                <p class="ws-sub">Organiza tus notas por proyectos, asignaturas o áreas.</p>
+            </div>
+
+            <div class="ws-actions">
+                <span class="ws-pill">
+                    <i class="bi bi-hash"></i> @list.Count
+                </span>
+
+                <a class="btn btn-primary btn-primary-soft" asp-action="Create">
+                    <i class="bi bi-plus-circle me-2"></i>Crear Workspace
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @if (!list.Any())
+    {
+        <div class="ws-empty">
+            <i class="bi bi-info-circle"></i>
+            <div>
+                <div style="font-weight:650;color:var(--text);opacity:.95">Aún no tienes workspaces</div>
+                <div>Empieza creando uno para agrupar tus notas.</div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="ws-grid">
+            @foreach (var item in list)
+            {
+                var created = item.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy");
+
+                <div class="ws-card">
+                    <div class="ws-card-head">
+                        <div class="ws-ic"><i class="bi bi-folder2-open"></i></div>
+                        <div style="min-width:0;flex:1">
+                            <p class="ws-name" title="@item.Name">@item.Name</p>
+                            <p class="ws-desc">@item.Description</p>
+                        </div>
+                    </div>
+
+                    <div class="ws-meta">
+                        <span class="ws-pill">
+                            <i class="bi bi-calendar3"></i>
+                            Creado: @created
+                        </span>
+                    </div>
+
+                    <div class="ws-foot">
+                        <div class="ws-btns">
+                            <a class="btn btn-sm btn-outline-primary"
+                               asp-controller="Pages"
+                               asp-action="Index"
+                               asp-route-workspaceId="@item.Id">
+                                <i class="bi bi-journal-text me-1"></i>Ver páginas
+                            </a>
+
+                            <a class="btn btn-sm btn-outline-secondary"
+                               asp-action="Edit"
+                               asp-route-id="@item.Id">
+                                <i class="bi bi-pencil-square me-1"></i>Editar
+                            </a>
+                        </div>
+
+                        <a class="btn btn-sm btn-outline-danger"
+                           asp-action="Delete"
+                           asp-route-id="@item.Id">
+                            <i class="bi bi-trash me-1"></i>Eliminar
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+</div>

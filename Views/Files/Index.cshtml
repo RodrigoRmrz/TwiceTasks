@@ -3,7 +3,7 @@
 <div class="files-container">
     <div class="files-header">
         <div class="header-left">
-            <h1>📁 Mis Archivos</h1>
+            <h1> <i class="bi bi-file-earmark"></i> Mis Archivos</h1>
             <p class="subtitle">Organiza tus documentos en colecciones personalizadas.</p>
         </div>
 
@@ -54,7 +54,6 @@
         </div>
     </div>
 
-    <!-- ✅ Upload limpio (igual estilo que antes) -->
     <div class="upload-box">
         <form method="post" enctype="multipart/form-data" asp-action="Upload" class="upload-form">
             <input type="hidden" name="collectionId" value="@Model.SelectedCollectionId" />
@@ -109,7 +108,6 @@
                         <span class="file-size">@((file.FileSize / 1024)) KB</span>
                     </div>
 
-                    <!-- ✅ Mover a colección (compacto y ordenado) -->
                     <form asp-action="MoveToCollection" method="post" class="move-form">
                         <input type="hidden" name="fileId" value="@file.Id" />
                         <input type="hidden" name="currentCollectionId" value="@Model.SelectedCollectionId" />

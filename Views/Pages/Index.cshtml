@@ -1,3 +1,4 @@
+@using System.Security.Claims
 @model IEnumerable<TwiceTasks.Models.Page>
 
 @{
@@ -8,7 +9,7 @@
     ViewData["Title"] = workspace != null ? $"Notas - {workspace.Name}" : "Notas";
     int? returnWsId = workspace?.Id;
 
-    // Recientes en home: usa las notas sueltas (si quieres globales reales, lo hacemos en controller)
+    // Recientes en home: usa las notas sueltas
     var recentPages = (workspace == null ? unassigned : (Model ?? Enumerable.Empty<TwiceTasks.Models.Page>()))
         .OrderByDescending(p => p.UpdatedAt)
         .Take(6)
@@ -134,6 +135,18 @@
                 width: 100%;
                 min-width: 0;
             }
+    }
+
+    /* Favoritos */
+    .fav-absolute {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 5;
+    }
+
+    .fav-toggle i.bi-star-fill {
+        color: #f5c542;
     }
 
     /* Offcanvas workspace list */
@@ -281,9 +294,20 @@
                             <div class="card-body d-flex flex-column">
                                 <div class="d-flex justify-content-between align-items-start gap-2">
                                     <h5 class="note-title text-truncate" title="@p.Title">@p.Title</h5>
-                                    <a class="btn btn-sm btn-outline-secondary icon-btn" asp-action="Edit" asp-route-id="@p.Id" title="Editar">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
+
+                                    <!-- ✅ Favorito + Edit (son NOTAS, aunque estén en un workspace) -->
+                                    <div class="d-flex gap-2">
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-secondary icon-btn fav-toggle"
+                                                data-page-id="@p.Id"
+                                                title="Favorito">
+                                            <i class="bi bi-star"></i>
+                                        </button>
+
+                                        <a class="btn btn-sm btn-outline-secondary icon-btn" asp-action="Edit" asp-route-id="@p.Id" title="Editar">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                    </div>
                                 </div>
 
                                 <div class="note-meta">
@@ -347,7 +371,15 @@
                         var when = p.UpdatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
                         <div class="col-12 col-md-6 col-lg-4">
-                            <a class="nt-card card h-100 text-decoration-none" asp-action="Edit" asp-route-id="@p.Id">
+                            <a class="nt-card card h-100 text-decoration-none position-relative" asp-action="Edit" asp-route-id="@p.Id">
+                                <!-- ⭐ Favorito (sin navegar) -->
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary icon-btn fav-toggle fav-absolute"
+                                        data-page-id="@p.Id"
+                                        title="Favorito">
+                                    <i class="bi bi-star"></i>
+                                </button>
+
                                 <div class="card-body">
                                     <h5 class="note-title text-truncate" title="@p.Title">@p.Title</h5>
                                     <div class="note-meta">
@@ -398,9 +430,19 @@
                                 <div class="card-body d-flex flex-column">
                                     <div class="d-flex justify-content-between align-items-start gap-2">
                                         <h5 class="note-title text-truncate" title="@p.Title">@p.Title</h5>
-                                        <a class="btn btn-sm btn-outline-secondary icon-btn" asp-action="Edit" asp-route-id="@p.Id" title="Editar">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
+
+                                        <div class="d-flex gap-2">
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-secondary icon-btn fav-toggle"
+                                                    data-page-id="@p.Id"
+                                                    title="Favorito">
+                                                <i class="bi bi-star"></i>
+                                            </button>
+
+                                            <a class="btn btn-sm btn-outline-secondary icon-btn" asp-action="Edit" asp-route-id="@p.Id" title="Editar">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                        </div>
                                     </div>
 
                                     <div class="note-meta">
@@ -447,10 +489,9 @@
             }
         </div>
     }
-
 </div>
 
-<!-- OFFCANVAS WORKSPACES (lista vertical con scroll, NO grid) -->
+<!-- OFFCANVAS WORKSPACES -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="wsCanvas" aria-labelledby="wsCanvasLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="wsCanvasLabel">
@@ -516,5 +557,66 @@
                 });
             });
         }
+    </script>
+
+    <script>
+        // ===== Favoritos (SOLO NOTAS) en localStorage =====
+        const TT_USER = '@(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "anon")';
+        const FAV_KEY = `tt:favPages:${TT_USER}`;
+
+        function getFavSet() {
+            try {
+                const arr = JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+                return new Set(arr.map(x => parseInt(x)));
+            } catch {
+                return new Set();
+            }
+        }
+
+        function saveFavSet(set) {
+            localStorage.setItem(FAV_KEY, JSON.stringify(Array.from(set)));
+            window.dispatchEvent(new CustomEvent('favPagesChanged'));
+        }
+
+        function updateFavIcons() {
+            const favs = getFavSet();
+            document.querySelectorAll('.fav-toggle').forEach(btn => {
+                const id = parseInt(btn.dataset.pageId);
+                const icon = btn.querySelector('i');
+                const isFav = favs.has(id);
+
+                if (icon) {
+                    icon.classList.toggle('bi-star', !isFav);
+                    icon.classList.toggle('bi-star-fill', isFav);
+                }
+
+                btn.classList.toggle('btn-outline-secondary', !isFav);
+                btn.classList.toggle('btn-outline-warning', isFav);
+            });
+        }
+
+        // Click ⭐ (captura para no navegar cuando está dentro de un <a>)
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.fav-toggle');
+            if (!btn) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const id = parseInt(btn.dataset.pageId);
+            const favs = getFavSet();
+
+            if (favs.has(id)) favs.delete(id);
+            else favs.add(id);
+
+            saveFavSet(favs);
+            updateFavIcons();
+        }, true);
+
+        updateFavIcons();
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === FAV_KEY) updateFavIcons();
+        });
     </script>
 }
