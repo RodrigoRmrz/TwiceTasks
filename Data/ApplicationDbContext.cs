@@ -18,6 +18,7 @@ namespace TwiceTasks.Data
         public DbSet<PageTag> PageTags { get; set; }
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
         public DbSet<Collection> Collections { get; set; }
+        public DbSet<CodeSnippet> CodeSnippets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -64,6 +65,13 @@ namespace TwiceTasks.Data
             builder.Entity<CalendarEvent>()
                 .Property(e => e.AllDay)
                 .ValueGeneratedNever();
+
+            // CodeSnippet (Desarrollo)
+            builder.Entity<CodeSnippet>()
+                .HasOne(s => s.User)
+                .WithMany()
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

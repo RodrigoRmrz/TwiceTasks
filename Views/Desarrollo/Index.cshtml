@@ -1,0 +1,224 @@
+@model TwiceTasks.ViewModels.DesarrolloIndexViewModel
+@{
+    ViewData["Title"] = "Desarrollo";
+}
+
+<style>
+    .dev-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px 12px;
+    }
+
+    .dev-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+    }
+
+    .dev-title {
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin: 0;
+    }
+
+    .dev-sub {
+        color: var(--text-muted);
+        opacity: .85;
+        margin: 4px 0 0;
+    }
+
+    .code-box {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        white-space: pre;
+        overflow: auto;
+        max-height: 240px;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.03);
+        color: var(--text);
+    }
+
+    .snippet-card {
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: 14px;
+        box-shadow: 0 6px 20px var(--shadow);
+    }
+
+    .snippet-meta {
+        color: var(--text-muted);
+        opacity: .8;
+        font-size: .85rem;
+    }
+</style>
+
+<div class="dev-wrap">
+    <div class="dev-head">
+        <div>
+            <h1 class="dev-title"><i class="bi bi-code-slash me-2"></i>Desarrollo</h1>
+            <div class="dev-sub">Pega snippets de código como notas y cópialos cuando los necesites.</div>
+        </div>
+    </div>
+
+    <div class="card snippet-card mb-4">
+        <div class="card-body">
+            <form asp-action="Save" method="post" id="snippetForm">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" id="SnippetId" />
+
+                <div class="row g-2 align-items-end">
+                    <div class="col-12 col-md-8">
+                        <label class="form-label">Título (opcional)</label>
+                        <input class="form-control" asp-for="Title" id="SnippetTitle" placeholder="Ej: Query SQL, función helper, regex..." maxlength="200" />
+                        <span class="text-danger" asp-validation-for="Title"></span>
+                    </div>
+                    <div class="col-12 col-md-4 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary flex-grow-1">
+                            <i class="bi bi-save me-1"></i>Guardar
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" id="btnClear">
+                            <i class="bi bi-x-circle me-1"></i>Limpiar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <label class="form-label">Código</label>
+                    <textarea class="form-control font-monospace" asp-for="Content" id="SnippetContent" rows="10" placeholder="Pega tu código aquí..."></textarea>
+                    <span class="text-danger" asp-validation-for="Content"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+        <h5 class="m-0"><i class="bi bi-collection me-2"></i>Mis snippets</h5>
+        <span class="badge text-bg-secondary">@Model.Snippets.Count</span>
+    </div>
+
+    @if (!Model.Snippets.Any())
+    {
+        <div class="alert alert-light border">
+            <i class="bi bi-info-circle me-2"></i>Aún no has guardado snippets.
+        </div>
+    }
+    else
+    {
+        <div class="row g-3">
+            @foreach (var s in Model.Snippets)
+            {
+                var title = string.IsNullOrWhiteSpace(s.Title) ? "(Sin título)" : s.Title;
+                var updatedLocal = s.UpdatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+
+                <div class="col-12 col-lg-6">
+                    <div class="card snippet-card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start gap-2">
+                                <div style="min-width:0">
+                                    <div class="fw-semibold text-truncate" title="@title">@title</div>
+                                    <div class="snippet-meta">Actualizado: @updatedLocal</div>
+                                </div>
+                                <div class="d-flex gap-2 flex-shrink-0">
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-secondary js-edit"
+                                            data-id="@s.Id"
+                                            data-title="@s.Title"
+                                            data-content="@s.Content"
+                                            title="Editar">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-primary js-copy"
+                                            data-content="@s.Content"
+                                            title="Copiar">
+                                        <i class="bi bi-clipboard"></i>
+                                    </button>
+                                    <form asp-action="Delete" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@s.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar"
+                                                onclick="return confirm('¿Eliminar este snippet?');">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 code-box" data-snippet-id="@s.Id">@s.Content</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        (function () {
+            const form = document.getElementById('snippetForm');
+            const idEl = document.getElementById('SnippetId');
+            const titleEl = document.getElementById('SnippetTitle');
+            const contentEl = document.getElementById('SnippetContent');
+            const btnClear = document.getElementById('btnClear');
+
+            function clearForm() {
+                if (idEl) idEl.value = '';
+                if (titleEl) titleEl.value = '';
+                if (contentEl) contentEl.value = '';
+                if (titleEl) titleEl.focus();
+            }
+
+            if (btnClear) btnClear.addEventListener('click', clearForm);
+
+            async function copyText(text, btn) {
+                const value = text || '';
+                try {
+                    await navigator.clipboard.writeText(value);
+                    if (btn) {
+                        const old = btn.innerHTML;
+                        btn.innerHTML = '<i class="bi bi-check2"></i>';
+                        setTimeout(() => btn.innerHTML = old, 900);
+                    }
+                } catch {
+                    // Fallback
+                    const ta = document.createElement('textarea');
+                    ta.value = value;
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try { document.execCommand('copy'); } catch { }
+                    document.body.removeChild(ta);
+                }
+            }
+
+            document.addEventListener('click', (e) => {
+                const copyBtn = e.target.closest('.js-copy');
+                if (copyBtn) {
+                    e.preventDefault();
+                    copyText(copyBtn.dataset.content, copyBtn);
+                    return;
+                }
+
+                const editBtn = e.target.closest('.js-edit');
+                if (editBtn) {
+                    e.preventDefault();
+                    if (idEl) idEl.value = editBtn.dataset.id || '';
+                    if (titleEl) titleEl.value = editBtn.dataset.title || '';
+                    if (contentEl) contentEl.value = editBtn.dataset.content || '';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setTimeout(() => contentEl && contentEl.focus(), 250);
+                }
+            });
+        })();
+    </script>
+}

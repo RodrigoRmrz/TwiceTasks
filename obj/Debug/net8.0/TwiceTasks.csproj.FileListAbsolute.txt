@@ -467,3 +467,5 @@ C:\Users\34608\OneDrive - Tajamar (1)\Documentos\GitHub\TwiceTasks\obj\Debug\net
 C:\Users\34608\OneDrive - Tajamar (1)\Documentos\GitHub\TwiceTasks\obj\Debug\net8.0\TwiceTasks.pdb
 C:\Users\34608\OneDrive - Tajamar (1)\Documentos\GitHub\TwiceTasks\obj\Debug\net8.0\TwiceTasks.genruntimeconfig.cache
 C:\Users\34608\OneDrive - Tajamar (1)\Documentos\GitHub\TwiceTasks\obj\Debug\net8.0\ref\TwiceTasks.dll
+C:\Users\rodri\Documents\GitHub\TwiceTasks\bin\Debug\net8.0\dotnet-tools.json
+C:\Users\rodri\Documents\GitHub\TwiceTasks\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
