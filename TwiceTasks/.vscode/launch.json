@@ -1,0 +1,33 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Iniciar .NET + Brave",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Debug/net8.0/TwiceTasks.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                // Captura la URL que Kestrel imprime al iniciar (http/https)
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+                "action": "startDebugging",
+                "name": "Abrir en Brave"
+            }
+        },
+        {
+            "name": "Abrir en Brave",
+            "type": "chrome",
+            "request": "launch",
+            // Tomará la URL detectada por serverReadyAction
+            "url": "${serverReadyUrl}",
+            "webRoot": "${workspaceFolder}",
+            // Ruta estándar de Brave en macOS
+            "runtimeExecutable": "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+        }
+    ]
+}
