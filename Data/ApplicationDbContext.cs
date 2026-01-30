@@ -63,8 +63,7 @@ namespace TwiceTasks.Data
             // CalendarEvent defaults
             builder.Entity<CalendarEvent>()
                 .Property(e => e.AllDay)
-                .HasDefaultValue(true);
-
+                .ValueGeneratedNever();
         }
     }
 }
