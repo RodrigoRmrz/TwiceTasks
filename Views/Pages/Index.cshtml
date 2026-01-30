@@ -149,6 +149,22 @@
         color: #f5c542;
     }
 
+    /* Evita que Bootstrap pinte el botón completo en amarillo al hacer hover */
+    .fav-toggle.btn-outline-warning {
+        color: #f5c542;
+        border-color: rgba(245, 197, 66, .75);
+        background-color: transparent;
+    }
+
+    .fav-toggle.btn-outline-warning:hover,
+    .fav-toggle.btn-outline-warning:active,
+    .fav-toggle.btn-outline-warning:focus {
+        color: #f5c542 !important;
+        border-color: rgba(245, 197, 66, .9) !important;
+        background-color: transparent !important;
+        box-shadow: 0 0 0 .2rem rgba(245, 197, 66, .18);
+    }
+
     /* Offcanvas workspace list */
     .ws-list {
         display: flex;
